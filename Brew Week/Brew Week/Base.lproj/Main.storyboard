@@ -29,7 +29,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="78" id="m0d-ak-lc9">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BeerCell" rowHeight="78" id="m0d-ak-lc9" customClass="BeerTableViewCell" customModule="Brew_Week" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0d-ak-lc9" id="d3P-M7-ByW">
@@ -44,6 +44,9 @@
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="33c-Yw-fjT">
                                             <rect key="frame" x="48" y="36" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="tastedChanged:" destination="6Cn-md-YlS" eventType="valueChanged" id="hxi-yb-51K"/>
+                                            </connections>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorite" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRh-os-DSH">
                                             <rect key="frame" x="440" y="42" width="62" height="20.5"/>
@@ -59,6 +62,9 @@
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="y3L-XI-1cM">
                                             <rect key="frame" x="510" y="36" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="favoritedChanged:" destination="6Cn-md-YlS" eventType="valueChanged" id="bVy-kx-nxE"/>
+                                            </connections>
                                         </switch>
                                     </subviews>
                                     <constraints>
@@ -76,7 +82,10 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="AeO-Pp-t7M" kind="show" id="7e6-8r-W1f"/>
+                                    <outlet property="favoritedSwitch" destination="y3L-XI-1cM" id="rVn-85-9ZE"/>
+                                    <outlet property="nameLabel" destination="Nb4-7V-5oU" id="Wn1-FR-Hez"/>
+                                    <outlet property="tastedSwitch" destination="33c-Yw-fjT" id="PyW-9x-ME4"/>
+                                    <segue destination="AeO-Pp-t7M" kind="show" identifier="showDetail" id="7e6-8r-W1f"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -110,44 +119,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQ3-oG-eNu">
-                                <rect key="frame" x="63" y="92" width="45.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZWX-55-uMt">
-                                <rect key="frame" x="63" y="142" width="51" height="31"/>
+                                <rect key="frame" x="16" y="142" width="51" height="31"/>
                                 <connections>
                                     <action selector="tastedChanged:" destination="AeO-Pp-t7M" eventType="valueChanged" id="EXy-FZ-JW1"/>
                                 </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5ge-cF-42I">
-                                <rect key="frame" x="63" y="188" width="51" height="31"/>
+                                <rect key="frame" x="16" y="188" width="51" height="31"/>
                                 <connections>
                                     <action selector="favoritedChanged:" destination="AeO-Pp-t7M" eventType="valueChanged" id="CSi-HI-HDA"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorite" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6a-Sp-aMj">
-                                <rect key="frame" x="120" y="193" width="62" height="20.5"/>
+                                <rect key="frame" x="73" y="193" width="62" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tasted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m0E-a9-tge">
-                                <rect key="frame" x="120" y="148" width="50.5" height="20.5"/>
+                                <rect key="frame" x="73" y="148" width="50.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tasted Count" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQc-Ol-kMp">
-                                <rect key="frame" x="414" y="147" width="102" height="21"/>
+                                <rect key="frame" x="482" y="148" width="102" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorited Count" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIO-6P-lfn">
-                                <rect key="frame" x="392" y="193" width="123.5" height="20.5"/>
+                                <rect key="frame" x="460" y="193" width="123.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQ3-oG-eNu">
+                                <rect key="frame" x="278" y="92" width="45.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -157,19 +166,25 @@
                         <constraints>
                             <constraint firstItem="5ge-cF-42I" firstAttribute="top" secondItem="ZWX-55-uMt" secondAttribute="bottom" constant="15" id="1c1-rR-rch"/>
                             <constraint firstItem="lQ3-oG-eNu" firstAttribute="top" secondItem="9xx-Iq-ybo" secondAttribute="bottom" constant="28" id="89o-Xi-Kh1"/>
+                            <constraint firstAttribute="centerX" secondItem="lQ3-oG-eNu" secondAttribute="centerX" id="EJ2-Dd-vZ4"/>
                             <constraint firstItem="ZWX-55-uMt" firstAttribute="leading" secondItem="5ge-cF-42I" secondAttribute="leading" id="HnA-T1-zrn"/>
                             <constraint firstItem="ZWX-55-uMt" firstAttribute="centerY" secondItem="m0E-a9-tge" secondAttribute="centerY" id="M6O-yW-HAC"/>
                             <constraint firstItem="ZWX-55-uMt" firstAttribute="top" secondItem="lQ3-oG-eNu" secondAttribute="bottom" constant="30" id="TIF-AH-RQW"/>
+                            <constraint firstItem="ZWX-55-uMt" firstAttribute="leading" secondItem="L5t-PO-LqV" secondAttribute="leadingMargin" id="WDR-Jo-zsa"/>
                             <constraint firstItem="m0E-a9-tge" firstAttribute="leading" secondItem="ZWX-55-uMt" secondAttribute="trailing" constant="8" id="Waf-z9-PYu"/>
                             <constraint firstItem="l6a-Sp-aMj" firstAttribute="centerY" secondItem="5ge-cF-42I" secondAttribute="centerY" id="cIx-c3-pBW"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="nQc-Ol-kMp" secondAttribute="trailing" constant="68" id="e1h-wC-qxa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nQc-Ol-kMp" secondAttribute="trailing" id="e1h-wC-qxa"/>
                             <constraint firstItem="nQc-Ol-kMp" firstAttribute="trailing" secondItem="AIO-6P-lfn" secondAttribute="trailing" id="nOS-cG-ksI"/>
-                            <constraint firstItem="lQ3-oG-eNu" firstAttribute="leading" secondItem="L5t-PO-LqV" secondAttribute="leadingMargin" constant="47" id="rJM-jv-KKr"/>
+                            <constraint firstItem="lQ3-oG-eNu" firstAttribute="leading" secondItem="L5t-PO-LqV" secondAttribute="leadingMargin" id="rJM-jv-KKr"/>
                             <constraint firstItem="l6a-Sp-aMj" firstAttribute="centerY" secondItem="AIO-6P-lfn" secondAttribute="centerY" constant="0.25" id="rtY-4w-P2h"/>
-                            <constraint firstItem="lQ3-oG-eNu" firstAttribute="leading" secondItem="ZWX-55-uMt" secondAttribute="leading" id="sMQ-6z-eTb"/>
                             <constraint firstItem="nQc-Ol-kMp" firstAttribute="centerY" secondItem="m0E-a9-tge" secondAttribute="centerY" id="twE-Wl-wba"/>
                             <constraint firstItem="l6a-Sp-aMj" firstAttribute="leading" secondItem="5ge-cF-42I" secondAttribute="trailing" constant="8" id="vMZ-0f-Ypt"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="rJM-jv-KKr"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Beer Name" id="aNQ-fY-Vvi"/>
                     <connections>

@@ -14,7 +14,8 @@ class Beer: NSManagedObject {
     @NSManaged var name: String
     @NSManaged var limitedRelease: Bool
     @NSManaged var rateBeerID: String
-    @NSManaged var abv: NSDecimalNumber
+	@NSManaged var notes: String
+    @NSManaged var abv: Double
     @NSManaged var ibu: Int32
     @NSManaged var favoriteCount: Int32
     @NSManaged var tasteCount: Int32

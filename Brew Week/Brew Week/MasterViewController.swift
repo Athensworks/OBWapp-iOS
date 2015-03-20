@@ -22,14 +22,26 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		self.navigationItem.leftBarButtonItem = self.editButtonItem()
-
-//		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-//		self.navigationItem.rightBarButtonItem = addButton
 	}
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
+	}
+
+	//MARK: insertNewObject
+	@IBAction func tastedChanged(sender: UISwitch) {
+		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
+			let 🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as Beer
+			🍺.tasted = sender.on
+		}
+	}
+
+	@IBAction func favoritedChanged(sender: UISwitch) {
+		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
+			let 🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as Beer
+			🍺.favorited = sender.on
+		}
 	}
 
 	@IBAction func insertNewObject(sender: AnyObject) {
@@ -43,7 +55,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 		🍺.beerDescription = "Super hoppy so that hipsters will like it."
 		🍺.favorited = false
 		🍺.tasted = false
-
 
 
 		// Save the context.
@@ -79,7 +90,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 	}
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath) as UITableViewCell
 		self.configureCell(cell, atIndexPath: indexPath)
 		return cell
 	}
@@ -105,8 +116,11 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 	}
 
 	func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-		let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
-		cell.textLabel!.text = object.valueForKey("timeStamp")!.description
+		let 🍺 = self.fetchedResultsController.objectAtIndexPath(indexPath) as Beer
+		let beerCell = cell as BeerTableViewCell
+		beerCell.nameLabel!.text = 🍺.name
+		beerCell.favoritedSwitch.on = 🍺.favorited
+		beerCell.tastedSwitch.on = 🍺.tasted
 	}
 
 	// MARK: - Fetched results controller
@@ -118,14 +132,14 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 	    
 	    let fetchRequest = NSFetchRequest()
 	    // Edit the entity name as appropriate.
-	    let entity = NSEntityDescription.entityForName("Event", inManagedObjectContext: self.managedObjectContext!)
+	    let entity = NSEntityDescription.entityForName("Beer", inManagedObjectContext: self.managedObjectContext!)
 	    fetchRequest.entity = entity
 	    
 	    // Set the batch size to a suitable number.
 	    fetchRequest.fetchBatchSize = 20
 	    
 	    // Edit the sort key as appropriate.
-	    let sortDescriptor = NSSortDescriptor(key: "timeStamp", ascending: false)
+	    let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
 	    let sortDescriptors = [sortDescriptor]
 	    
 	    fetchRequest.sortDescriptors = [sortDescriptor]

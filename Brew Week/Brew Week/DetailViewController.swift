@@ -25,6 +25,11 @@ class DetailViewController: UIViewController {
 
 	func configureView() {
 		// Update the user interface for the detail item.
+
+		if isViewLoaded() == false {
+			return
+		}
+
 		if let beer: Beer = self.beer {
 			nameLabel.text = beer.name
 			tastedSwitch.on = beer.tasted;
@@ -46,9 +51,11 @@ class DetailViewController: UIViewController {
 	// MARK: Actions
 
 	@IBAction func tastedChanged(sender: UISwitch) {
+		beer?.tasted = sender.on
 	}
 
 	@IBAction func favoritedChanged(sender: UISwitch) {
+		beer?.favorited = sender.on
 	}
 
 }
