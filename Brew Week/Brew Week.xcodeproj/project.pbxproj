@@ -15,6 +15,7 @@
 		B5D1CCAE1ABBAC6900DEA7EE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D1CCAD1ABBAC6900DEA7EE /* Images.xcassets */; };
 		B5D1CCB11ABBAC6900DEA7EE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D1CCAF1ABBAC6900DEA7EE /* LaunchScreen.xib */; };
 		B5D1CCBD1ABBAC6900DEA7EE /* Brew_WeekTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CCBC1ABBAC6900DEA7EE /* Brew_WeekTests.swift */; };
+		B5D1CCC71ABBADEB00DEA7EE /* update_build_number.sh in Resources */ = {isa = PBXBuildFile; fileRef = B5D1CCC61ABBADEB00DEA7EE /* update_build_number.sh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		B5D1CCB61ABBAC6900DEA7EE /* Brew WeekTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Brew WeekTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5D1CCBB1ABBAC6900DEA7EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5D1CCBC1ABBAC6900DEA7EE /* Brew_WeekTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brew_WeekTests.swift; sourceTree = "<group>"; };
+		B5D1CCC61ABBADEB00DEA7EE /* update_build_number.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = update_build_number.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		B5D1CC931ABBAC6900DEA7EE = {
 			isa = PBXGroup;
 			children = (
+				B5D1CCC61ABBADEB00DEA7EE /* update_build_number.sh */,
 				B5D1CC9E1ABBAC6900DEA7EE /* Brew Week */,
 				B5D1CCB91ABBAC6900DEA7EE /* Brew WeekTests */,
 				B5D1CC9D1ABBAC6900DEA7EE /* Products */,
@@ -85,8 +88,8 @@
 				B5D1CCA61ABBAC6900DEA7EE /* MasterViewController.swift */,
 				B5D1CCA81ABBAC6900DEA7EE /* DetailViewController.swift */,
 				B5D1CCAA1ABBAC6900DEA7EE /* Main.storyboard */,
-				B5D1CCAD1ABBAC6900DEA7EE /* Images.xcassets */,
 				B5D1CCAF1ABBAC6900DEA7EE /* LaunchScreen.xib */,
+				B5D1CCAD1ABBAC6900DEA7EE /* Images.xcassets */,
 				B5D1CCA31ABBAC6900DEA7EE /* Brew_Week.xcdatamodeld */,
 				B5D1CC9F1ABBAC6900DEA7EE /* Supporting Files */,
 			);
@@ -128,6 +131,7 @@
 				B5D1CC981ABBAC6900DEA7EE /* Sources */,
 				B5D1CC991ABBAC6900DEA7EE /* Frameworks */,
 				B5D1CC9A1ABBAC6900DEA7EE /* Resources */,
+				B5D1CCC81ABBAE0C00DEA7EE /* Update Build Number. */,
 			);
 			buildRules = (
 			);
@@ -199,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5D1CCAC1ABBAC6900DEA7EE /* Main.storyboard in Resources */,
+				B5D1CCC71ABBADEB00DEA7EE /* update_build_number.sh in Resources */,
 				B5D1CCB11ABBAC6900DEA7EE /* LaunchScreen.xib in Resources */,
 				B5D1CCAE1ABBAC6900DEA7EE /* Images.xcassets in Resources */,
 			);
@@ -212,6 +217,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B5D1CCC81ABBAE0C00DEA7EE /* Update Build Number. */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Update Build Number.";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/update_build_number.sh\" develop\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B5D1CC981ABBAC6900DEA7EE /* Sources */ = {
