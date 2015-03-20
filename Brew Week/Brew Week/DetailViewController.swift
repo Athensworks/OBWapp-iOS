@@ -12,8 +12,11 @@ class DetailViewController: UIViewController {
 
 	@IBOutlet weak var detailDescriptionLabel: UILabel!
 
+	@IBOutlet weak var nameLabel: UILabel!
+	@IBOutlet weak var tastedSwitch: UISwitch!
+	@IBOutlet weak var favoritedSwitch: UISwitch!
 
-	var detailItem: AnyObject? {
+	var beer: Beer? {
 		didSet {
 		    // Update the view.
 		    self.configureView()
@@ -22,10 +25,10 @@ class DetailViewController: UIViewController {
 
 	func configureView() {
 		// Update the user interface for the detail item.
-		if let detail: AnyObject = self.detailItem {
-		    if let label = self.detailDescriptionLabel {
-		        label.text = detail.valueForKey("timeStamp")!.description
-		    }
+		if let beer: Beer = self.beer {
+			nameLabel.text = beer.name
+			tastedSwitch.on = beer.tasted;
+			favoritedSwitch.on = beer.favorited;
 		}
 	}
 
@@ -40,6 +43,13 @@ class DetailViewController: UIViewController {
 		// Dispose of any resources that can be recreated.
 	}
 
+	// MARK: Actions
+
+	@IBAction func tastedChanged(sender: UISwitch) {
+	}
+
+	@IBAction func favoritedChanged(sender: UISwitch) {
+	}
 
 }
 

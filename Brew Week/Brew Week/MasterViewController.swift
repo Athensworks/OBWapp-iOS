@@ -23,8 +23,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 		// Do any additional setup after loading the view, typically from a nib.
 		self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
-		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-		self.navigationItem.rightBarButtonItem = addButton
+//		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
+//		self.navigationItem.rightBarButtonItem = addButton
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -32,15 +32,20 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 		// Dispose of any resources that can be recreated.
 	}
 
-	func insertNewObject(sender: AnyObject) {
+	@IBAction func insertNewObject(sender: AnyObject) {
 		let context = self.fetchedResultsController.managedObjectContext
 		let entity = self.fetchedResultsController.fetchRequest.entity!
-		let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context) as NSManagedObject
+		let 🍺 = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context) as Beer
 		     
 		// If appropriate, configure the new managed object.
 		// Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-		newManagedObject.setValue(NSDate(), forKey: "timeStamp")
-		     
+		🍺.name = "Test Beer that is Good?"
+		🍺.beerDescription = "Super hoppy so that hipsters will like it."
+		🍺.favorited = false
+		🍺.tasted = false
+
+
+
 		// Save the context.
 		var error: NSError? = nil
 		if !context.save(&error) {
@@ -56,8 +61,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showDetail" {
 		    if let indexPath = self.tableView.indexPathForSelectedRow() {
-		    let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
-		    (segue.destinationViewController as DetailViewController).detailItem = object
+				let selectedBeer = self.fetchedResultsController.objectAtIndexPath(indexPath) as Beer
+				(segue.destinationViewController as DetailViewController).beer = selectedBeer
 		    }
 		}
 	}
