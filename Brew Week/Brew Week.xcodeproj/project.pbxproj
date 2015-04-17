@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		73FB8C7EC6DF1CB74F4CA79F /* Pods_Brew_Week.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31423DDF02BEA4C1A367D90A /* Pods_Brew_Week.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B506A6111AE08E1A00EB0E59 /* test_beers.json in Resources */ = {isa = PBXBuildFile; fileRef = B506A6101AE08E1A00EB0E59 /* test_beers.json */; };
+		B506A6131AE0A3F100EB0E59 /* BeerStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B506A6121AE0A3F100EB0E59 /* BeerStatus.swift */; };
+		B506A6151AE0A7B400EB0E59 /* test_establishments.json in Resources */ = {isa = PBXBuildFile; fileRef = B506A6141AE0A7B400EB0E59 /* test_establishments.json */; };
 		B5D1CCA21ABBAC6900DEA7EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CCA11ABBAC6900DEA7EE /* AppDelegate.swift */; };
 		B5D1CCA51ABBAC6900DEA7EE /* Brew_Week.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CCA31ABBAC6900DEA7EE /* Brew_Week.xcdatamodeld */; };
 		B5D1CCA71ABBAC6900DEA7EE /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CCA61ABBAC6900DEA7EE /* MasterViewController.swift */; };
@@ -39,6 +41,8 @@
 		58041273B0FA6F9B6A046F62 /* Pods-Brew Week.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Brew Week.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Brew Week/Pods-Brew Week.debug.xcconfig"; sourceTree = "<group>"; };
 		79C48FA7117593C67387B210 /* Pods-Brew Week.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Brew Week.release.xcconfig"; path = "Pods/Target Support Files/Pods-Brew Week/Pods-Brew Week.release.xcconfig"; sourceTree = "<group>"; };
 		B506A6101AE08E1A00EB0E59 /* test_beers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test_beers.json; path = ../test_beers.json; sourceTree = "<group>"; };
+		B506A6121AE0A3F100EB0E59 /* BeerStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeerStatus.swift; path = "Brew Week/Model Classes/BeerStatus.swift"; sourceTree = "<group>"; };
+		B506A6141AE0A7B400EB0E59 /* test_establishments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test_establishments.json; path = ../test_establishments.json; sourceTree = "<group>"; };
 		B5D1CC9C1ABBAC6900DEA7EE /* Brew Week.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Brew Week.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5D1CCA01ABBAC6900DEA7EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5D1CCA11ABBAC6900DEA7EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				B506A6101AE08E1A00EB0E59 /* test_beers.json */,
+				B506A6141AE0A7B400EB0E59 /* test_establishments.json */,
 				B5D1CCC61ABBADEB00DEA7EE /* update_build_number.sh */,
 				B5D1CC9E1ABBAC6900DEA7EE /* Brew Week */,
 				B5D1CCB91ABBAC6900DEA7EE /* Brew WeekTests */,
@@ -156,6 +161,7 @@
 				B5D1CCD41ABBC21300DEA7EE /* Drinker.swift */,
 				B5D1CCD21ABBC21300DEA7EE /* Beer.swift */,
 				B5D1CCD01ABBC21200DEA7EE /* Establishment.swift */,
+				B506A6121AE0A3F100EB0E59 /* BeerStatus.swift */,
 			);
 			name = Model;
 			path = ..;
@@ -254,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5D1CCAC1ABBAC6900DEA7EE /* Main.storyboard in Resources */,
+				B506A6151AE0A7B400EB0E59 /* test_establishments.json in Resources */,
 				B506A6111AE08E1A00EB0E59 /* test_beers.json in Resources */,
 				B5D1CCC71ABBADEB00DEA7EE /* update_build_number.sh in Resources */,
 				B5D1CCB11ABBAC6900DEA7EE /* LaunchScreen.xib in Resources */,
@@ -342,6 +349,7 @@
 				B5D1CCA21ABBAC6900DEA7EE /* AppDelegate.swift in Sources */,
 				B5D1CCD81ABBCF3200DEA7EE /* BeerTableViewCell.swift in Sources */,
 				B5D1CCA51ABBAC6900DEA7EE /* Brew_Week.xcdatamodeld in Sources */,
+				B506A6131AE0A3F100EB0E59 /* BeerStatus.swift in Sources */,
 				B5D1CCA71ABBAC6900DEA7EE /* MasterViewController.swift in Sources */,
 				B5D1CCD61ABBC77100DEA7EE /* Beer.swift in Sources */,
 				B5D1CCA91ABBAC6900DEA7EE /* DetailViewController.swift in Sources */,
