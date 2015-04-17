@@ -6,6 +6,7 @@ use_frameworks!
 target 'Brew Week' do
 
 pod 'SwiftyJSON', '~> 2.2'
+pod 'AlamoFire', '~> 1.2'
 
 end
 
