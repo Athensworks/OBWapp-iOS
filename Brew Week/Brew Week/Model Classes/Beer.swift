@@ -25,4 +25,7 @@ class Beer: NSManagedObject {
     @NSManaged var establishment: NSSet
     @NSManaged var drinker: Drinker
 
+	
 }
+
+
