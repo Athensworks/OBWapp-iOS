@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14D105g" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D131" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Beer" representedClassName="Brew_Week.Beer" syncable="YES">
         <attribute name="abv" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="beerDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="brewery" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="favoriteCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="favorited" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="ibu" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="limitedRelease" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="rateBeerID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rateBeerID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="tasteCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="tasted" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="drinker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Drinker" inverseName="beers" inverseEntity="Drinker" syncable="YES"/>
@@ -30,7 +32,7 @@
     <fetchRequest name="favoritesFetch" entity="Beer" predicateString="favorited == 1"/>
     <fetchRequest name="tastedFetch" entity="Beer" predicateString="tasted == 1"/>
     <elements>
-        <element name="Beer" positionX="288" positionY="225" width="128" height="238"/>
+        <element name="Beer" positionX="288" positionY="225" width="128" height="270"/>
         <element name="Drinker" positionX="261" positionY="189" width="128" height="88"/>
         <element name="Establishment" positionX="261" positionY="207" width="128" height="103"/>
     </elements>

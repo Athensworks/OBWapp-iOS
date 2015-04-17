@@ -22,6 +22,11 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		self.navigationItem.leftBarButtonItem = self.editButtonItem()
+
+		if let data = NSData(contentsOfFile: NSBundle.mainBundle().pathForResource("test_beers", ofType: "json")!) {
+			Beer.beersFromJSON(data)
+		}
+
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -149,6 +154,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 	    let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: "Master")
 	    aFetchedResultsController.delegate = self
 	    _fetchedResultsController = aFetchedResultsController
+
+		NSFetchedResultsController.deleteCacheWithName("Master")
 	    
 		var error: NSError? = nil
 		if !_fetchedResultsController!.performFetch(&error) {
