@@ -40,24 +40,25 @@ extension Beer {
 
 		if let context = appDelegate.managedObjectContext {
 			for (index: String, beerJSON: JSON) in jsonBeersArray {
-				let 🍺 = NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: context) as! Beer
 
-				// If appropriate, configure the new managed object.
-				// Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+				var beer = beerForIdentifier(beerJSON["id"].int32Value, inContext: context)
 
-				🍺.name = beerJSON["name"].stringValue
-				🍺.identifier = beerJSON["id"].int32Value
-				🍺.brewery = beerJSON["brewery"].stringValue
-				🍺.abv = beerJSON["abv"].doubleValue
-				🍺.ibu = beerJSON["ibu"].int32Value
-				🍺.favoriteCount = beerJSON["favorite_count"].int32Value
-				🍺.tasteCount = beerJSON["taste_count"].int32Value
-				🍺.limitedRelease = beerJSON["limited_release"].boolValue
-				🍺.rateBeerID = beerJSON["rate_beer_id"].int32Value
-				🍺.beerDescription = beerJSON["beer_description"].stringValue
+				if beer == nil {
+					beer = NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: context) as? Beer
+				}
 
-				🍺.favorited = false
-				🍺.tasted = false
+				if let 🍺 = beer {
+					🍺.name = beerJSON["name"].stringValue
+					🍺.identifier = beerJSON["id"].int32Value
+					🍺.brewery = beerJSON["brewery"].stringValue
+					🍺.abv = beerJSON["abv"].doubleValue
+					🍺.ibu = beerJSON["ibu"].int32Value
+					🍺.favoriteCount = beerJSON["favorite_count"].int32Value
+					🍺.tasteCount = beerJSON["taste_count"].int32Value
+					🍺.limitedRelease = beerJSON["limited_release"].boolValue
+					🍺.rateBeerID = beerJSON["rate_beer_id"].int32Value
+					🍺.beerDescription = beerJSON["beer_description"].stringValue
+				}
 			}
 
 
@@ -70,6 +71,21 @@ extension Beer {
 				abort()
 			}
 		}
+	}
+
+	class func beerForIdentifier(identifier: Int32, inContext context: NSManagedObjectContext) -> Beer? {
+		let request = NSFetchRequest(entityName: "Beer")
+
+		request.predicate = NSPredicate(format: "identifier == %d", identifier)
+		request.fetchLimit = 1
+
+		if let result = context.executeFetchRequest(request, error: nil) {
+			if result.count > 0 {
+				return result[0] as? Beer
+			}
+		}
+
+		return nil
 	}
 }
 

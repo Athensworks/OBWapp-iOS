@@ -30,6 +30,7 @@
     </entity>
     <entity name="Establishment" representedClassName="Brew_Week.Establishment" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -40,7 +41,7 @@
     <elements>
         <element name="Beer" positionX="538" positionY="189" width="128" height="268"/>
         <element name="Drinker" positionX="540" positionY="54" width="128" height="88"/>
-        <element name="Establishment" positionX="297" positionY="234" width="128" height="120"/>
+        <element name="Establishment" positionX="340" positionY="234" width="128" height="133"/>
         <element name="BeerStatus" positionX="540" positionY="513" width="128" height="90"/>
     </elements>
 </model>

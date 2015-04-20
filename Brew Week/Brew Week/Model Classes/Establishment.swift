@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class Establishment: NSManagedObject {
 
-	@NSManaged var beersStatuses: NSSet
+	@NSManaged var beerStatuses: NSSet
 
 	@NSManaged var name: String
 	@NSManaged var identifier: Int32
@@ -31,33 +31,69 @@ extension Establishment {
 
 		if let context = appDelegate.managedObjectContext {
 			for (index: String, establishmentJSON: JSON) in jsonEstablishmentsArray {
-				let establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: context) as! Establishment
+				var establishment = establishmentForIdentifier(establishmentJSON["id"].int32Value, inContext: context)
 
-				for (statusIndex: String, statusJSON: JSON) in establishmentJSON["beer_statuses"] {
-					// id, status
-					let status = NSEntityDescription.insertNewObjectForEntityForName("BeerStatus", inManagedObjectContext: context) as! BeerStatus
-
-					status.establishment = establishment
-
-					let request = NSFetchRequest(entityName: "Beer")
-
-					request.predicate = NSPredicate(format: "identifier = %@", statusJSON["id"].int32Value)
-					request.fetchLimit = 1
-
-					if let result = context.executeFetchRequest(request, error: nil) {
-						if result.count > 0 && result[0] is Beer {
-							status.beer = result[0] as! Beer
-						}
-					}
+				if establishment == nil {
+					establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: context) as? Establishment
 				}
 
-				establishment.identifier = establishmentJSON["id"].int32Value
-				establishment.address = establishmentJSON["address"].stringValue
-				establishment.name = establishmentJSON["name"].stringValue
-				establishment.lat = establishmentJSON["lat"].floatValue
-				establishment.lon = establishmentJSON["lon"].floatValue
+				for (index: String, statusJSON: JSON) in establishmentJSON["beer_statuses"] {
+					establishment?.updateOrCreateStatusFromJSON(statusJSON)
+				}
 
-//				establishment.beers =
+				establishment?.identifier = establishmentJSON["id"].int32Value
+				establishment?.address = establishmentJSON["address"].stringValue
+				establishment?.name = establishmentJSON["name"].stringValue
+				establishment?.lat = establishmentJSON["lat"].floatValue
+				establishment?.lon = establishmentJSON["lon"].floatValue
+			}
+		}
+	}
+
+	class func establishmentForIdentifier(identifier: Int32, inContext context: NSManagedObjectContext) -> Establishment? {
+		let request = NSFetchRequest(entityName: "Establishment")
+
+		request.predicate = NSPredicate(format: "identifier == %d", identifier)
+		request.fetchLimit = 1
+
+		if let result = context.executeFetchRequest(request, error: nil) as? [Establishment] {
+			if result.count > 0 {
+				return result[0]
+			}
+		}
+
+		return nil
+	}
+
+	func updateOrCreateStatusFromJSON(statusJSON: JSON) {
+		let beerIdentifier = statusJSON["id"].int32Value
+
+		if let 🍺 = Beer.beerForIdentifier(beerIdentifier, inContext: managedObjectContext!) {
+			for item in beerStatuses {
+				if let beerStatus = item as? BeerStatus {
+					if beerStatus.beer == 🍺 {
+						beerStatus.status = statusJSON["status"].stringValue
+					}
+				}
+			}
+		}
+	}
+
+	func createStatus(beerIdentifier: Int32, statusString: String) {
+		// id, status
+		let status = NSEntityDescription.insertNewObjectForEntityForName("BeerStatus", inManagedObjectContext: managedObjectContext!) as! BeerStatus
+
+		status.establishment = self
+		status.status = statusString
+
+		let request = NSFetchRequest(entityName: "Beer")
+
+		request.predicate = NSPredicate(format: "identifier == %d", beerIdentifier)
+		request.fetchLimit = 1
+
+		if let result = managedObjectContext?.executeFetchRequest(request, error: nil) {
+			if result.count > 0 && result[0] is Beer {
+				status.beer = result[0] as! Beer
 			}
 		}
 	}
