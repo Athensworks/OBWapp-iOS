@@ -5,10 +5,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Master-->
+        <!--Navigation Controller-->
         <scene sceneID="cUi-kZ-frf">
             <objects>
-                <navigationController title="Master" id="rS3-R9-Ivy" sceneMemberID="viewController">
+                <navigationController id="rS3-R9-Ivy" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -114,10 +114,10 @@
             </objects>
             <point key="canvasLocation" x="-150" y="780"/>
         </scene>
-        <!--Establishment View Controller-->
+        <!--Establishments-->
         <scene sceneID="iho-ZI-ajN">
             <objects>
-                <tableViewController id="Ob4-Pn-QZv" customClass="EstablishmentViewController" customModule="Brew_Week" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Establishments" id="Ob4-Pn-QZv" customClass="EstablishmentViewController" customModule="Brew_Week" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="qHr-uf-w8A">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -161,10 +161,10 @@
             </objects>
             <point key="canvasLocation" x="564" y="64"/>
         </scene>
-        <!--Beers-->
+        <!--Beer List-->
         <scene sceneID="VgW-fR-Quf">
             <objects>
-                <tableViewController title="Beers" id="pGg-6v-bdr" customClass="BeersTableViewController" customModule="Brew_Week" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Beers" id="pGg-6v-bdr" userLabel="Beer List" customClass="BeersTableViewController" customModule="Brew_Week" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="78" sectionHeaderHeight="22" sectionFooterHeight="22" id="mLL-gJ-YKr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -248,10 +248,10 @@
             </objects>
             <point key="canvasLocation" x="1267" y="64"/>
         </scene>
-        <!--Beer-->
+        <!--Beer Details-->
         <scene sceneID="VQK-Ne-8qo">
             <objects>
-                <viewController title="Beer" id="AeO-Pp-t7M" customClass="BeerDetailViewController" customModule="Brew_Week" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Beer Details" id="AeO-Pp-t7M" customClass="BeerDetailViewController" customModule="Brew_Week" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9xx-Iq-ybo"/>
                         <viewControllerLayoutGuide type="bottom" id="3fe-gx-1P8"/>
