@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  BeerDetailViewController.swift
 //  Brew Week
 //
 //  Created by Ben Lachman on 3/19/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class BeerDetailViewController: UIViewController {
 
 	@IBOutlet weak var detailDescriptionLabel: UILabel!
 
