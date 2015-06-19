@@ -37,9 +37,18 @@ extension Establishment {
 					establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: context) as? Establishment
 				}
 
+				var fakedStatus = false
+
 				for (index: String, statusJSON: JSON) in establishmentJSON["beer_statuses"] {
 					establishment?.updateOrCreateStatusFromJSON(statusJSON)
+
+					if fakedStatus == false {
+						establishment?.updateOrCreateStatusFromJSON(JSON(["id": 0, "status":"tapped"]))
+						fakedStatus = true
+					}
 				}
+
+
 
 				establishment?.identifier = establishmentJSON["id"].int32Value
 				establishment?.address = establishmentJSON["address"].stringValue
@@ -69,12 +78,26 @@ extension Establishment {
 		let beerIdentifier = statusJSON["id"].int32Value
 
 		if let 🍺 = Beer.beerForIdentifier(beerIdentifier, inContext: managedObjectContext!) {
+			var statusExists = false
+
 			for item in beerStatuses {
 				if let beerStatus = item as? BeerStatus {
 					if beerStatus.beer == 🍺 {
+						statusExists = true
+
 						beerStatus.status = statusJSON["status"].stringValue
+
 					}
 				}
+			}
+
+			if statusExists == false {
+				if let newStatus = NSEntityDescription.insertNewObjectForEntityForName("BeerStatus", inManagedObjectContext: managedObjectContext!) as? BeerStatus {
+					newStatus.beer = 🍺
+					newStatus.establishment = self
+					newStatus.status = statusJSON["status"].stringValue
+				}
+
 			}
 		}
 	}

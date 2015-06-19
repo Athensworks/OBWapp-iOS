@@ -89,8 +89,9 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showDetail" {
 		    if let indexPath = self.tableView.indexPathForSelectedRow() {
-				let selectedBeer = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
-				(segue.destinationViewController as! BeerDetailViewController).beer = selectedBeer
+				let status = self.fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus
+
+				(segue.destinationViewController as! BeerDetailViewController).beer = status.beer
 		    }
 		}
 	}
@@ -133,7 +134,9 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 
 	func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-		let 🍺 = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
+		let status = self.fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus
+		let 🍺 = status.beer
+
 		let beerCell = cell as! BeerTableViewCell
 		beerCell.nameLabel!.text = 🍺.name
 		beerCell.favoritedSwitch.on = 🍺.favorited
