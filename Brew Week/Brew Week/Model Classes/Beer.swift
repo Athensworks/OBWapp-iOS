@@ -126,11 +126,14 @@ extension Beer {
 	}
 
 	private func reportTasted() {
+		let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
 
-		if let drinker = (UIApplication.sharedApplication().delegate as? AppDelegate)?.drinker {
+		if let drinker = appDelegate?.drinker {
 			let ageInYears = Int(drinker.age / (60 * 60 * 24 * 365))
 			let beerID = Int(identifier)
 			let guid = UIDevice.currentDevice().identifierForVendor.UUIDString
+			let location = appDelegate?.locationManager?.location
+
 
 			//			{
 			//				"beer_id": 123,
@@ -139,7 +142,12 @@ extension Beer {
 			//				"lat": "Y",
 			//				"lon": "X",
 			//			}
-			let params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":ageInYears]
+			var params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":ageInYears]
+
+			if let location = location {
+				params["lat"] = location.coordinate.latitude
+				params["lon"] = location.coordinate.longitude
+			}
 
 			Alamofire.request(.POST, "http://173.230.142.215:3000/taste", parameters: params, encoding: .JSON).response { (request, response, responseObject, error) in
 				println(responseObject)

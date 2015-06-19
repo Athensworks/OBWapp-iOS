@@ -27,8 +27,32 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 				if data is NSData {
 					Beer.beersFromJSON(data as! NSData)
 
-					Alamofire.request(.GET, "http://173.230.142.215:3000/establishments").response { (request, response, establishmentData, error) in
-						//parameters: <#[String : AnyObject]?#>, encoding: <#ParameterEncoding#>)
+					var params = [String: AnyObject]()
+					let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+
+					//			{
+					//				"beer_id": 123,
+					//				"device_guid": "GUID",
+					//				"age":  35,
+					//				"lat": "Y",
+					//				"lon": "X",
+					//			}
+
+					if let drinker = appDelegate?.drinker {
+						let ageInYears = Int(drinker.age / (60 * 60 * 24 * 365))
+
+						params["age"] = ageInYears
+					}
+
+					params["device_guid"] = UIDevice.currentDevice().identifierForVendor.UUIDString
+
+					if let location = appDelegate?.locationManager?.location {
+						params["lat"] = location.coordinate.latitude
+						params["lon"] = location.coordinate.longitude
+					}
+
+					Alamofire.request(.GET, "http://173.230.142.215:3000/establishments", parameters: params, encoding: .JSON).response { (request, response, establishmentData, error) in
+
 						if establishmentData is NSData {
 							Establishment.establishmentsFromJSON(establishmentData as! NSData)
 						}

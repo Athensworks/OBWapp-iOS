@@ -8,9 +8,10 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
 	var window: UIWindow?
 	lazy var drinker: Drinker? = {
@@ -33,11 +34,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return nil
 	}()
 
+	lazy var locationManager: CLLocationManager? = {
+		let manager = CLLocationManager()
+
+		manager.delegate = self
+		manager.desiredAccuracy = kCLLocationAccuracyBest
+
+		return manager
+	}()
+
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		let navigationController = self.window!.rootViewController as! UINavigationController
 		let controller = navigationController.topViewController as! EstablishmentViewController
 		controller.managedObjectContext = self.managedObjectContext
+
+		let authorization = CLLocationManager.authorizationStatus()
+
+		if authorization == .Denied || authorization == .Restricted {
+			println("Unabled to access location")
+		} else {
+			if let locationManager = locationManager {
+				if authorization == .NotDetermined {
+					locationManager.requestWhenInUseAuthorization()
+				}
+
+				if CLLocationManager.locationServicesEnabled() == true {
+					locationManager.startUpdatingLocation()
+				}
+			}
+		}
 
 		return true
 	}
@@ -64,6 +90,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 		// Saves changes in the application's managed object context before the application terminates.
 		self.saveContext()
+	}
+
+	// MARK: - CLLocationManagerDelegate
+
+//	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+//		manager.l
+//	}
+
+	func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+		if status == .AuthorizedWhenInUse {
+			manager.startUpdatingLocation()
+		}
+	}
+
+	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+		println(error.localizedDescription)
 	}
 
 	// MARK: - Core Data stack
