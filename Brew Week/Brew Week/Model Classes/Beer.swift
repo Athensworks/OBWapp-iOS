@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import SwiftyJSON
+import Alamofire
 
 class Beer: NSManagedObject {
 
@@ -23,8 +24,44 @@ class Beer: NSManagedObject {
 	@NSManaged var favoriteCount: Int32
 	@NSManaged var tasteCount: Int32
 	@NSManaged var beerDescription: String
-	@NSManaged var favorited: Bool
-	@NSManaged var tasted: Bool
+	var favorited: Bool {
+			set {
+				self.willChangeValueForKey("favorited")
+				self.setPrimitiveValue(newValue, forKey: "favorited")
+				self.didChangeValueForKey("favorited")
+
+				if newValue == true {
+					reportFavorited()
+				}
+			}
+			get {
+				self.willAccessValueForKey("favorited")
+				let value = self.primitiveValueForKey("favorited") as? Bool
+				self.didAccessValueForKey("favorited")
+
+				return value ?? false
+			}
+	}
+
+	var tasted: Bool {
+		set {
+			self.willChangeValueForKey("tasted")
+			self.setPrimitiveValue(newValue, forKey: "tasted")
+			self.didChangeValueForKey("tasted")
+
+			if newValue == true {
+				reportTasted()
+			}
+		}
+		get {
+			self.willAccessValueForKey("tasted")
+			let value = self.primitiveValueForKey("tasted") as? Bool
+			self.didAccessValueForKey("tasted")
+
+			return value ?? false
+		}
+	}
+
 	@NSManaged var establishment: NSSet
 	@NSManaged var drinker: Drinker
 }
@@ -86,6 +123,50 @@ extension Beer {
 		}
 
 		return nil
+	}
+
+	private func reportTasted() {
+
+		if let drinker = (UIApplication.sharedApplication().delegate as? AppDelegate)?.drinker {
+			let ageInYears = Int(drinker.age / (60 * 60 * 24 * 365))
+			let beerID = Int(identifier)
+			let guid = UIDevice.currentDevice().identifierForVendor.UUIDString
+
+			//			{
+			//				"beer_id": 123,
+			//				"device_guid": "GUID",
+			//				"age":  35,
+			//				"lat": "Y",
+			//				"lon": "X",
+			//			}
+			let params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":ageInYears]
+
+			Alamofire.request(.POST, "http://173.230.142.215:3000/taste", parameters: params, encoding: .JSON).response { (request, response, responseObject, error) in
+				println(responseObject)
+			}
+		}
+	}
+
+	private func reportFavorited() {
+
+		if let drinker = (UIApplication.sharedApplication().delegate as? AppDelegate)?.drinker {
+			let ageInYears = Int(drinker.age / (60 * 60 * 24 * 365))
+			let beerID = Int(identifier)
+			let guid = UIDevice.currentDevice().identifierForVendor.UUIDString
+
+			//			{
+			//				"beer_id": 123,
+			//				"device_guid": "GUID",
+			//				"age":  35,
+			//				"lat": "Y",
+			//				"lon": "X",
+			//			}
+			let params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":ageInYears]
+
+			Alamofire.request(.POST, "http://173.230.142.215:3000/favorite", parameters: params, encoding: .JSON).response { (request, response, responseObject, error) in
+				println(responseObject)
+			}
+		}
 	}
 }
 

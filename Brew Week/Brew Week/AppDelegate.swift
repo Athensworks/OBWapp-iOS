@@ -13,8 +13,25 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-	var drinker: Drinker?
+	lazy var drinker: Drinker? = {
+		let fetch = NSFetchRequest(entityName: "Drinker")
+		fetch.fetchLimit = 1
 
+		var fetchError: NSError? = nil
+
+		var resultArray = self.managedObjectContext?.executeFetchRequest(fetch, error: &fetchError)
+
+		if let fetchError = fetchError {
+			println(fetchError.localizedDescription)
+			return nil
+		}
+
+		if resultArray != nil && resultArray!.count > 0 {
+			return resultArray?[0] as? Drinker
+		}
+
+		return nil
+	}()
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
