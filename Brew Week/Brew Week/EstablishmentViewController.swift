@@ -22,7 +22,6 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 		override func viewDidLoad() {
 			super.viewDidLoad()
 			// Do any additional setup after loading the view, typically from a nib.
-			self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
 			Alamofire.request(.GET, "http://173.230.142.215:3000/beers").response { (request, response, data, error) in
 				if data is NSData {

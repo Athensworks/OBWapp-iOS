@@ -37,17 +37,11 @@ extension Establishment {
 					establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: context) as? Establishment
 				}
 
-				var fakedStatus = false
 
 				for (index: String, statusJSON: JSON) in establishmentJSON["beer_statuses"] {
 					establishment?.updateOrCreateStatusFromJSON(statusJSON)
 
-					if fakedStatus == false {
-						establishment?.updateOrCreateStatusFromJSON(JSON(["id": 0, "status":"tapped"]))
-						fakedStatus = true
-					}
 				}
-
 
 
 				establishment?.identifier = establishmentJSON["id"].int32Value

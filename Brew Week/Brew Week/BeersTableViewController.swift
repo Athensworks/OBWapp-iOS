@@ -23,7 +23,6 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
-		self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
 		//					if let data = NSData(contentsOfFile: NSBundle.mainBundle().pathForResource("test_beers", ofType: "json")!) {
 
@@ -49,14 +48,14 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	//MARK: insertNewObject
 	@IBAction func tastedChanged(sender: UISwitch) {
 		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
-			let 🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
+			let 🍺 = (fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus).beer
 			🍺.tasted = sender.on
 		}
 	}
 
 	@IBAction func favoritedChanged(sender: UISwitch) {
 		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
-			let 🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
+			let 🍺 = (fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus).beer
 			🍺.favorited = sender.on
 		}
 	}
