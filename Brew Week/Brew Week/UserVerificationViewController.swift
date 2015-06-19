@@ -60,10 +60,11 @@ class UserVerificationViewController : UIViewController, UITextFieldDelegate {
 			drinker.age = fabs(datePicker.date.timeIntervalSinceNow)
 			drinker.zip = zipField.text
 
-			(UIApplication.sharedApplication().delegate as? AppDelegate)?.drinker = drinker
-		}
+			let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+			appDelegate?.drinker = drinker
 
-		NSUserDefaults.standardUserDefaults().setBool(true, forKey: "AgeVerified")
+			appDelegate?.saveContext()
+		}
 
 		presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
 	}

@@ -62,7 +62,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 		}
 
 		override func viewDidAppear(animated: Bool) {
-			if NSUserDefaults.standardUserDefaults().boolForKey("AgeVerified") == false {
+			if (UIApplication.sharedApplication().delegate as? AppDelegate)?.drinker == nil {
 				let modal = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("UserVerificationViewController") as! UserVerificationViewController
 
 				modal.modalTransitionStyle = .CoverVertical
