@@ -24,6 +24,9 @@ class Beer: NSManagedObject {
 	@NSManaged var favoriteCount: Int32
 	@NSManaged var tasteCount: Int32
 	@NSManaged var beerDescription: String
+	@NSManaged var establishment: NSSet
+	@NSManaged var drinker: Drinker
+
 	var favorited: Bool {
 			set {
 				self.willChangeValueForKey("favorited")
@@ -33,6 +36,8 @@ class Beer: NSManagedObject {
 				if newValue == true {
 					reportFavorited()
 				}
+
+				(UIApplication.sharedApplication().delegate as? AppDelegate)?.saveContext()
 			}
 			get {
 				self.willAccessValueForKey("favorited")
@@ -52,6 +57,8 @@ class Beer: NSManagedObject {
 			if newValue == true {
 				reportTasted()
 			}
+
+			(UIApplication.sharedApplication().delegate as? AppDelegate)?.saveContext()
 		}
 		get {
 			self.willAccessValueForKey("tasted")
@@ -62,8 +69,6 @@ class Beer: NSManagedObject {
 		}
 	}
 
-	@NSManaged var establishment: NSSet
-	@NSManaged var drinker: Drinker
 }
 
 extension Beer {
