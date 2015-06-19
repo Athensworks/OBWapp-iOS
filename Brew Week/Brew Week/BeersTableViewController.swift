@@ -162,7 +162,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	    fetchRequest.fetchBatchSize = 20
 	    
 	    // Edit the sort key as appropriate.
-	    let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
+	    let sortDescriptor = NSSortDescriptor(key: "beer.name", ascending: true)
 	    let sortDescriptors = [sortDescriptor]
 	    
 	    fetchRequest.sortDescriptors = [sortDescriptor]
