@@ -22,22 +22,6 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
-
-		//					if let data = NSData(contentsOfFile: NSBundle.mainBundle().pathForResource("test_beers", ofType: "json")!) {
-
-//		Alamofire.request(.GET, "http://173.230.142.215:3000/beers").response { (request, response, data, error) in
-//			if data is NSData {
-//				Beer.beersFromJSON(data as! NSData)
-
-//				Alamofire.request(.GET, "http://173.230.142.215:3000/establishments").response { (request, response, establishmentData, error) in
-//					//parameters: <#[String : AnyObject]?#>, encoding: <#ParameterEncoding#>)
-//					if data is NSData {
-//						Establishment.establishmentsFromJSON(establishmentData as! NSData)
-//					}
-//				}
-//			}
-//		}
 	}
 
 	override func didReceiveMemoryWarning() {

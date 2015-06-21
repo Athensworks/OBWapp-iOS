@@ -23,7 +23,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 			super.viewDidLoad()
 			// Do any additional setup after loading the view, typically from a nib.
 
-			Alamofire.request(.GET, "http://173.230.142.215:3000/beers").response { (request, response, data, error) in
+			Alamofire.request(.GET, Endpoint(path: "beers")).response { (request, response, data, error) in
 				if data is NSData {
 					Beer.beersFromJSON(data as! NSData)
 
@@ -49,7 +49,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 						params["lon"] = location.coordinate.longitude
 					}
 
-					Alamofire.request(.GET, "http://173.230.142.215:3000/establishments", parameters: params, encoding: .JSON).response { (request, response, establishmentData, error) in
+					Alamofire.request(.GET, Endpoint(path: "establishments"), parameters: params, encoding: .JSON).response { (request, response, establishmentData, error) in
 
 						if establishmentData is NSData {
 							Establishment.establishmentsFromJSON(establishmentData as! NSData)

@@ -153,7 +153,7 @@ extension Beer {
 				params["lon"] = location.coordinate.longitude
 			}
 
-			Alamofire.request(.POST, "http://173.230.142.215:3000/taste", parameters: params, encoding: .JSON).response { (request, response, responseObject, error) in
+			Alamofire.request(.POST, Endpoint(path: "taste"), parameters: params, encoding: .JSON).response { (request, response, responseObject, error) in
 				println(responseObject)
 			}
 		}
@@ -174,7 +174,7 @@ extension Beer {
 			//			}
 			let params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":drinker.ageInYears]
 
-			Alamofire.request(.POST, "http://173.230.142.215:3000/favorite", parameters: params, encoding: .JSON).response { (request, response, responseObject, error) in
+			Alamofire.request(.POST, Endpoint(path: "favorite"), parameters: params, encoding: .JSON).response { (request, response, responseObject, error) in
 				println(responseObject)
 			}
 		}
