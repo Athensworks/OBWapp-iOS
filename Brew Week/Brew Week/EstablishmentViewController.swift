@@ -39,9 +39,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 					//			}
 
 					if let drinker = appDelegate?.drinker {
-						let ageInYears = Int(drinker.age / (60 * 60 * 24 * 365))
-
-						params["age"] = ageInYears
+						params["age"] = drinker.ageInYears
 					}
 
 					params["device_guid"] = UIDevice.currentDevice().identifierForVendor.UUIDString

@@ -134,7 +134,6 @@ extension Beer {
 		let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
 
 		if let drinker = appDelegate?.drinker {
-			let ageInYears = Int(drinker.age / (60 * 60 * 24 * 365))
 			let beerID = Int(identifier)
 			let guid = UIDevice.currentDevice().identifierForVendor.UUIDString
 			let location = appDelegate?.locationManager?.location
@@ -147,7 +146,7 @@ extension Beer {
 			//				"lat": "Y",
 			//				"lon": "X",
 			//			}
-			var params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":ageInYears]
+			var params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":drinker.ageInYears]
 
 			if let location = location {
 				params["lat"] = location.coordinate.latitude
@@ -163,7 +162,6 @@ extension Beer {
 	private func reportFavorited() {
 
 		if let drinker = (UIApplication.sharedApplication().delegate as? AppDelegate)?.drinker {
-			let ageInYears = Int(drinker.age / (60 * 60 * 24 * 365))
 			let beerID = Int(identifier)
 			let guid = UIDevice.currentDevice().identifierForVendor.UUIDString
 
@@ -174,7 +172,7 @@ extension Beer {
 			//				"lat": "Y",
 			//				"lon": "X",
 			//			}
-			let params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":ageInYears]
+			let params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":drinker.ageInYears]
 
 			Alamofire.request(.POST, "http://173.230.142.215:3000/favorite", parameters: params, encoding: .JSON).response { (request, response, responseObject, error) in
 				println(responseObject)

@@ -16,3 +16,11 @@ class Drinker: NSManagedObject {
     @NSManaged var beers: NSSet
 
 }
+
+extension Drinker {
+	var ageInYears: Int {
+		get {
+			return Int(age / (60 * 60 * 24 * 365))
+		}
+	}
+}
