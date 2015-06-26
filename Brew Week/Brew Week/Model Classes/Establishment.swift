@@ -37,12 +37,9 @@ extension Establishment {
 					establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: context) as? Establishment
 				}
 
-
 				for (index: String, statusJSON: JSON) in establishmentJSON["beer_statuses"] {
 					establishment?.updateOrCreateStatusFromJSON(statusJSON)
-
 				}
-
 
 				establishment?.identifier = establishmentJSON["id"].int32Value
 				establishment?.address = establishmentJSON["address"].stringValue
@@ -80,7 +77,6 @@ extension Establishment {
 						statusExists = true
 
 						beerStatus.status = statusJSON["status"].stringValue
-
 					}
 				}
 			}
@@ -91,7 +87,6 @@ extension Establishment {
 					newStatus.establishment = self
 					newStatus.status = statusJSON["status"].stringValue
 				}
-
 			}
 		}
 	}

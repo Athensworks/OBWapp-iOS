@@ -123,7 +123,9 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		let beerCell = cell as! BeerTableViewCell
 		beerCell.nameLabel!.text = 🍺.name
 		beerCell.favoritedSwitch.on = 🍺.favorited
+		beerCell.favoriteCountLabel.text = String(🍺.favoriteCount)
 		beerCell.tastedSwitch.on = 🍺.tasted
+		beerCell.tasteCountLabel.text = String(🍺.tasteCount)
 	}
 
 	// MARK: - Fetched results controller

@@ -11,6 +11,7 @@ import CoreData
 import CoreLocation
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
 	var window: UIWindow?

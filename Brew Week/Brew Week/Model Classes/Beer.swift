@@ -17,13 +17,14 @@ class Beer: NSManagedObject {
 	@NSManaged var identifier: Int32
 	@NSManaged var brewery: String
 	@NSManaged var limitedRelease: Bool
-	@NSManaged var rateBeerID: Int32
-	@NSManaged var notes: String
-	@NSManaged var abv: Double
-	@NSManaged var ibu: Int32
-	@NSManaged var favoriteCount: Int32
+	@NSManaged var rateBeerID: Int32 // detail
+	@NSManaged var notes: String // detail
+	@NSManaged var abv: Double //
+	@NSManaged var ibu: Int32 //
+	@NSManaged var favoriteCount: Int32 //
 	@NSManaged var tasteCount: Int32
-	@NSManaged var beerDescription: String
+	@NSManaged var beerDescription: String // detail
+	
 	@NSManaged var establishment: NSSet
 	@NSManaged var drinker: Drinker
 
@@ -138,7 +139,6 @@ extension Beer {
 			let guid = UIDevice.currentDevice().identifierForVendor.UUIDString
 			let location = appDelegate?.locationManager?.location
 
-
 			//			{
 			//				"beer_id": 123,
 			//				"device_guid": "GUID",
@@ -146,6 +146,7 @@ extension Beer {
 			//				"lat": "Y",
 			//				"lon": "X",
 			//			}
+
 			var params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":drinker.ageInYears]
 
 			if let location = location {
@@ -153,8 +154,8 @@ extension Beer {
 				params["lon"] = location.coordinate.longitude
 			}
 
-			Alamofire.request(.POST, Endpoint(path: "taste"), parameters: params, encoding: .JSON).response { (request, response, responseObject, error) in
-				println(responseObject)
+			Alamofire.request(.POST, Endpoint(path: "taste"), parameters: params, encoding: .JSON).responseJSON { (request, response, responseJSON, error) in
+				println("Tasted Response: \(responseJSON)")
 			}
 		}
 	}
@@ -174,8 +175,8 @@ extension Beer {
 			//			}
 			let params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":drinker.ageInYears]
 
-			Alamofire.request(.POST, Endpoint(path: "favorite"), parameters: params, encoding: .JSON).response { (request, response, responseObject, error) in
-				println(responseObject)
+			Alamofire.request(.POST, Endpoint(path: "favorite"), parameters: params, encoding: .JSON).responseJSON { (request, response, responseJSON, error) in
+				println("Favorite Response: \(responseJSON)")
 			}
 		}
 	}

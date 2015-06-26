@@ -13,7 +13,10 @@ class BeerTableViewCell: UITableViewCell {
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var tastedSwitch: UISwitch!
 	@IBOutlet weak var favoritedSwitch: UISwitch!
-    override func awakeFromNib() {
+	@IBOutlet weak var tasteCountLabel: UILabel!
+	@IBOutlet weak var favoriteCountLabel: UILabel!
+
+	override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }

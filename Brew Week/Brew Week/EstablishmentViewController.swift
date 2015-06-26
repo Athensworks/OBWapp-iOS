@@ -27,7 +27,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 				if data is NSData {
 					Beer.beersFromJSON(data as! NSData)
 
-					var params = [String: AnyObject]()
+					var params: [String: AnyObject] = ["device_guid": UIDevice.currentDevice().identifierForVendor.UUIDString];
 					let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
 
 					//			{
@@ -42,15 +42,13 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 						params["age"] = drinker.ageInYears
 					}
 
-					params["device_guid"] = UIDevice.currentDevice().identifierForVendor.UUIDString
-
 					if let location = appDelegate?.locationManager?.location {
 						params["lat"] = location.coordinate.latitude
 						params["lon"] = location.coordinate.longitude
 					}
 
-					Alamofire.request(.GET, Endpoint(path: "establishments"), parameters: params, encoding: .JSON).response { (request, response, establishmentData, error) in
-
+					//, parameters: params, encoding: .JSON
+					Alamofire.request(.GET, Endpoint(path: "establishments"), parameters: params, encoding: .URL).response { (request, response, establishmentData, error) in
 						if establishmentData is NSData {
 							Establishment.establishmentsFromJSON(establishmentData as! NSData)
 						}
