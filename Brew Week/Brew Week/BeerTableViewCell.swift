@@ -11,8 +11,8 @@ import UIKit
 class BeerTableViewCell: UITableViewCell {
 
 	@IBOutlet weak var nameLabel: UILabel!
-	@IBOutlet weak var tastedSwitch: UISwitch!
-	@IBOutlet weak var favoritedSwitch: UISwitch!
+	@IBOutlet weak var tastedButton: UIButton!
+	@IBOutlet weak var favoritedButton: UIButton!
 	@IBOutlet weak var tasteCountLabel: UILabel!
 	@IBOutlet weak var favoriteCountLabel: UILabel!
 

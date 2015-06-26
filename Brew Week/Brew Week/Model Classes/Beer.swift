@@ -176,7 +176,13 @@ extension Beer {
 			let params:[String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":drinker.ageInYears]
 
 			Alamofire.request(.POST, Endpoint(path: "favorite"), parameters: params, encoding: .JSON).responseJSON { (request, response, responseJSON, error) in
-				println("Favorite Response: \(responseJSON)")
+				println("/favorite Response: \(responseJSON)")
+
+				if let json = responseJSON as? [String: AnyObject] {
+					if let count = json["count"] as? Int {
+						self.favoriteCount = Int32(count)
+					}
+				}
 			}
 		}
 	}

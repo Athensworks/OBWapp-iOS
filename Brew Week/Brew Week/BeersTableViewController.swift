@@ -30,17 +30,26 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 
 	//MARK: insertNewObject
-	@IBAction func tastedChanged(sender: UISwitch) {
+	@IBAction func tastedChanged(sender: UIButton) {
+		sender.selected = !sender.selected
+
 		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
 			let 🍺 = (fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus).beer
-			🍺.tasted = sender.on
+			🍺.tasted = sender.selected
+
+			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? BeerTableViewCell  {
+				cell.favoritedButton.enabled = sender.selected
+				cell.favoriteCountLabel.enabled = sender.selected
+			}
 		}
 	}
 
-	@IBAction func favoritedChanged(sender: UISwitch) {
+	@IBAction func favoritedChanged(sender: UIButton) {
+		sender.selected = !sender.selected
+
 		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
 			let 🍺 = (fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus).beer
-			🍺.favorited = sender.on
+			🍺.favorited = sender.selected
 		}
 	}
 
@@ -122,10 +131,13 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 		let beerCell = cell as! BeerTableViewCell
 		beerCell.nameLabel!.text = 🍺.name
-		beerCell.favoritedSwitch.on = 🍺.favorited
+		beerCell.favoritedButton.selected = 🍺.favorited
 		beerCell.favoriteCountLabel.text = String(🍺.favoriteCount)
-		beerCell.tastedSwitch.on = 🍺.tasted
+		beerCell.tastedButton.selected = 🍺.tasted
 		beerCell.tasteCountLabel.text = String(🍺.tasteCount)
+
+		beerCell.favoritedButton.enabled = beerCell.tastedButton.selected
+		beerCell.favoriteCountLabel.enabled = beerCell.tastedButton.selected
 	}
 
 	// MARK: - Fetched results controller

@@ -77,7 +77,7 @@
                                 <rect key="frame" x="247" y="421" width="107" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" title="Let's Go!">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.83137254900000002" green="0.074509803920000006" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="disabled">
@@ -99,8 +99,8 @@
                                     <action selector="dateValueChangedAction:" destination="yVa-HG-LGX" eventType="valueChanged" id="DEe-mV-qJY"/>
                                 </connections>
                             </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please Drink Responsibly." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCF-UK-U7L">
-                                <rect key="frame" x="201" y="571" width="199" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Drink Responsibly." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCF-UK-U7L">
+                                <rect key="frame" x="203" y="571" width="196" height="21"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -205,72 +205,64 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nb4-7V-5oU">
-                                            <rect key="frame" x="48" y="8" width="46" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="48" y="8" width="55" height="26"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorite" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRh-os-DSH">
-                                            <rect key="frame" x="450" y="42" width="62" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tasted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Stm-Sk-nAX">
-                                            <rect key="frame" x="105" y="42" width="51" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1230" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfW-oU-sRH">
-                                            <rect key="frame" x="168" y="42" width="39" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="y3L-XI-1cM">
-                                            <rect key="frame" x="393" y="37" width="51" height="31"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jyx-iL-obT" userLabel="Favorited">
+                                            <rect key="frame" x="386" y="29" width="48" height="48"/>
+                                            <state key="normal" image="heart-empty-20">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" image="heart-13"/>
                                             <connections>
-                                                <action selector="favoritedChanged:" destination="6Cn-md-YlS" eventType="valueChanged" id="bVy-kx-nxE"/>
+                                                <action selector="favoritedChanged:" destination="pGg-6v-bdr" eventType="touchUpInside" id="KM8-oH-wK7"/>
                                             </connections>
-                                        </switch>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1230" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gg4-mm-Zts">
-                                            <rect key="frame" x="520" y="42" width="39" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzN-Kb-HWb" userLabel="Taste">
+                                            <rect key="frame" x="35" y="27" width="48" height="48"/>
+                                            <state key="normal" image="unchecked-154">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" image="check-153"/>
+                                            <connections>
+                                                <action selector="tastedChanged:" destination="pGg-6v-bdr" eventType="touchUpInside" id="2Jv-tK-YF8"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1230 Tasted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fzv-4R-9Wk">
+                                            <rect key="frame" x="88" y="43" width="95" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="33c-Yw-fjT">
-                                            <rect key="frame" x="48" y="37" width="51" height="31"/>
-                                            <connections>
-                                                <action selector="tastedChanged:" destination="6Cn-md-YlS" eventType="valueChanged" id="hxi-yb-51K"/>
-                                            </connections>
-                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1230 Favorited" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfW-oU-sRH">
+                                            <rect key="frame" x="432" y="43" width="117" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="gg4-mm-Zts" secondAttribute="trailing" id="31W-K2-nfx"/>
-                                        <constraint firstItem="gg4-mm-Zts" firstAttribute="centerY" secondItem="y3L-XI-1cM" secondAttribute="centerY" id="6eu-Eb-Iwl"/>
-                                        <constraint firstItem="gg4-mm-Zts" firstAttribute="leading" secondItem="eRh-os-DSH" secondAttribute="trailing" constant="8" id="Eo3-dZ-PFj"/>
+                                        <constraint firstItem="GfW-oU-sRH" firstAttribute="centerY" secondItem="Jyx-iL-obT" secondAttribute="centerY" constant="0.5" id="1SG-gx-kZX"/>
+                                        <constraint firstItem="HzN-Kb-HWb" firstAttribute="leading" secondItem="d3P-M7-ByW" secondAttribute="leadingMargin" constant="27" id="6Rg-Uy-CZn"/>
+                                        <constraint firstItem="GfW-oU-sRH" firstAttribute="leading" secondItem="Jyx-iL-obT" secondAttribute="trailing" constant="-2" id="E3v-fN-4sF"/>
+                                        <constraint firstItem="Fzv-4R-9Wk" firstAttribute="leading" secondItem="HzN-Kb-HWb" secondAttribute="trailing" constant="5" id="F1T-Uc-Fwz"/>
                                         <constraint firstItem="Nb4-7V-5oU" firstAttribute="top" secondItem="d3P-M7-ByW" secondAttribute="topMargin" id="HgO-hm-S9v"/>
                                         <constraint firstItem="Nb4-7V-5oU" firstAttribute="leading" secondItem="d3P-M7-ByW" secondAttribute="leadingMargin" constant="40" id="SL2-ih-ZJB"/>
-                                        <constraint firstItem="GfW-oU-sRH" firstAttribute="centerY" secondItem="Stm-Sk-nAX" secondAttribute="centerY" id="fK0-UT-kVk"/>
-                                        <constraint firstItem="33c-Yw-fjT" firstAttribute="leading" secondItem="d3P-M7-ByW" secondAttribute="leadingMargin" constant="40" id="kjt-zV-E7V"/>
-                                        <constraint firstItem="GfW-oU-sRH" firstAttribute="leading" secondItem="Stm-Sk-nAX" secondAttribute="trailing" constant="12" id="qRt-U0-xwr"/>
-                                        <constraint firstItem="Stm-Sk-nAX" firstAttribute="leading" secondItem="33c-Yw-fjT" secondAttribute="trailing" constant="8" id="vrO-79-u9R"/>
-                                        <constraint firstItem="33c-Yw-fjT" firstAttribute="top" secondItem="Nb4-7V-5oU" secondAttribute="bottom" constant="8" id="wXQ-qf-Jcd"/>
-                                        <constraint firstItem="eRh-os-DSH" firstAttribute="leading" secondItem="y3L-XI-1cM" secondAttribute="trailing" constant="8" id="xEf-8f-0GP"/>
-                                        <constraint firstItem="33c-Yw-fjT" firstAttribute="centerY" secondItem="Stm-Sk-nAX" secondAttribute="centerY" id="xMf-Dj-Mbw"/>
-                                        <constraint firstItem="eRh-os-DSH" firstAttribute="centerY" secondItem="y3L-XI-1cM" secondAttribute="centerY" id="yJs-4S-Lps"/>
-                                        <constraint firstItem="33c-Yw-fjT" firstAttribute="centerY" secondItem="y3L-XI-1cM" secondAttribute="centerY" id="ztZ-Yf-Zv5"/>
+                                        <constraint firstItem="Fzv-4R-9Wk" firstAttribute="centerY" secondItem="HzN-Kb-HWb" secondAttribute="centerY" constant="2.5" id="aR9-MM-peu"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="GfW-oU-sRH" secondAttribute="trailing" constant="10" id="buN-Ql-1FP"/>
+                                        <constraint firstItem="Jyx-iL-obT" firstAttribute="centerY" secondItem="HzN-Kb-HWb" secondAttribute="centerY" constant="2" id="cxw-2X-cv7"/>
+                                        <constraint firstItem="HzN-Kb-HWb" firstAttribute="top" secondItem="Nb4-7V-5oU" secondAttribute="bottom" constant="-7" id="f0s-NW-0uM"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="favoriteCountLabel" destination="gg4-mm-Zts" id="y9X-cW-Gbv"/>
-                                    <outlet property="favoritedSwitch" destination="y3L-XI-1cM" id="rVn-85-9ZE"/>
+                                    <outlet property="favoriteCountLabel" destination="GfW-oU-sRH" id="MVz-1g-7R2"/>
+                                    <outlet property="favoritedButton" destination="Jyx-iL-obT" id="oqE-8T-S40"/>
                                     <outlet property="nameLabel" destination="Nb4-7V-5oU" id="Wn1-FR-Hez"/>
-                                    <outlet property="tasteCountLabel" destination="GfW-oU-sRH" id="lAR-yb-icx"/>
-                                    <outlet property="tastedSwitch" destination="33c-Yw-fjT" id="PyW-9x-ME4"/>
+                                    <outlet property="tasteCountLabel" destination="Fzv-4R-9Wk" id="Y6H-yU-Ceb"/>
+                                    <outlet property="tastedButton" destination="HzN-Kb-HWb" id="mhE-gF-Gdt"/>
                                     <segue destination="AeO-Pp-t7M" kind="show" identifier="showDetail" id="PQo-hl-z2U"/>
                                 </connections>
                             </tableViewCell>
@@ -449,9 +441,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Beer Name" id="aNQ-fY-Vvi"/>
                     <connections>
-                        <outlet property="favoritedSwitch" destination="5ge-cF-42I" id="6lt-Ad-H2R"/>
+                        <outlet property="favoritedButton" destination="5ge-cF-42I" id="6lt-Ad-H2R"/>
                         <outlet property="nameLabel" destination="lQ3-oG-eNu" id="w5z-KS-prS"/>
-                        <outlet property="tastedSwitch" destination="ZWX-55-uMt" id="MTa-ec-ypa"/>
+                        <outlet property="tastedButton" destination="ZWX-55-uMt" id="MTa-ec-ypa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYz-Yh-XX1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -465,7 +457,9 @@
         <image name="check-153" width="48" height="48"/>
         <image name="clock-55" width="48" height="48"/>
         <image name="heart-13" width="48" height="48"/>
+        <image name="heart-empty-20" width="48" height="48"/>
         <image name="shop-453" width="48" height="48"/>
         <image name="unchecked-154" width="48" height="48"/>
     </resources>
+    <color key="tintColor" red="0.83137254900000002" green="0.074509803920000006" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
 </document>

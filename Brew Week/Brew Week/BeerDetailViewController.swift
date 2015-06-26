@@ -13,8 +13,8 @@ class BeerDetailViewController: UIViewController {
 	@IBOutlet weak var detailDescriptionLabel: UILabel!
 
 	@IBOutlet weak var nameLabel: UILabel!
-	@IBOutlet weak var tastedSwitch: UISwitch!
-	@IBOutlet weak var favoritedSwitch: UISwitch!
+	@IBOutlet weak var tastedButton: UISwitch!
+	@IBOutlet weak var favoritedButton: UISwitch!
 
 	var beer: Beer? {
 		didSet {
@@ -32,8 +32,8 @@ class BeerDetailViewController: UIViewController {
 
 		if let beer: Beer = self.beer {
 			nameLabel.text = beer.name
-			tastedSwitch.on = beer.tasted;
-			favoritedSwitch.on = beer.favorited;
+			tastedButton.selected = beer.tasted;
+			favoritedButton.selected = beer.favorited;
 		}
 	}
 

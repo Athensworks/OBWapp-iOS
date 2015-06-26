@@ -12,6 +12,7 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beer-bg" translatesAutoresizingMaskIntoConstraints="NO" id="bBI-PJ-900">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <color key="backgroundColor" red="0.83137254901960789" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="obw-logo" translatesAutoresizingMaskIntoConstraints="NO" id="PVM-hi-eQC">
                     <rect key="frame" x="90" y="149" width="300" height="300"/>
