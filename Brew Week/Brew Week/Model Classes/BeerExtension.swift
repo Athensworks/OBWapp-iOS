@@ -100,7 +100,7 @@ extension Beer {
 					🍺.tasteCount = beerJSON["taste_count"].int32Value
 					🍺.limitedRelease = beerJSON["limited_release"].boolValue
 					🍺.rateBeerID = beerJSON["rate_beer_id"].int32Value
-					🍺.beerDescription = beerJSON["beer_description"].stringValue
+					🍺.beerDescription = beerJSON["description"].stringValue
 				}
 			}
 

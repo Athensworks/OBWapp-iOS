@@ -135,17 +135,21 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		let status = self.fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus
 		let 🍺 = status.beer
 
-		let beerCell = cell as! BeerTableViewCell
-		beerCell.nameLabel!.text = 🍺.name
-		beerCell.favoritedButton.selected = 🍺.favorite != nil ? true : false
-		beerCell.favoriteCountLabel.text = String(🍺.favoriteCount)
-		beerCell.tastedCheckboxButton.selected = 🍺.taste != nil ? true : false
-		beerCell.tasteCountLabel.text = String(🍺.tasteCount)
+		if let beerCell = cell as? BeerTableViewCell {
+			beerCell.nameLabel.text = 🍺.name
+			beerCell.breweryNameLabel.text = 🍺.brewery
+			beerCell.favoritedButton.selected = 🍺.favorite != nil ? true : false
+			beerCell.favoriteCountLabel.text = String(🍺.favoriteCount)
+			beerCell.tastedCheckboxButton.selected = 🍺.taste != nil ? true : false
+			beerCell.tasteCountLabel.text = String(🍺.tasteCount)
 
-		beerCell.favoritedButton.enabled = beerCell.tastedCheckboxButton.selected
-		beerCell.favoriteCountLabel.enabled = beerCell.tastedCheckboxButton.selected
+			beerCell.favoritedButton.enabled = beerCell.tastedCheckboxButton.selected
+			beerCell.favoriteCountLabel.enabled = beerCell.tastedCheckboxButton.selected
 
-		beerCell.beerMetadataLabel.text = "ABV: \(🍺.abv)% / \(🍺.ibu) IBU"
+			beerCell.beerMetadataLabel.text = "ABV: \(🍺.abv)% / \(🍺.ibu) IBU"
+
+			beerCell.limitedReleaseImageView.hidden = (🍺.limitedRelease == false)
+		}
 	}
 
 	// MARK: - Fetched results controller

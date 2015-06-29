@@ -11,16 +11,20 @@ import UIKit
 class BeerTableViewCell: UITableViewCell {
 
 	@IBOutlet weak var nameLabel: UILabel!
+	@IBOutlet weak var breweryNameLabel: UILabel!
 	@IBOutlet weak var tastedCheckboxButton: UIButton!
 	@IBOutlet weak var tasteCountImageView: UIImageView!
 	@IBOutlet weak var favoritedButton: UIButton!
 	@IBOutlet weak var tasteCountLabel: UILabel!
 	@IBOutlet weak var favoriteCountLabel: UILabel!
 	@IBOutlet weak var beerMetadataLabel: UILabel!
+	@IBOutlet weak var limitedReleaseImageView: UIImageView!
 
 	override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+
+		limitedReleaseImageView.image = limitedReleaseImageView.image?.colorizedImage(UIColor.brewWeekGold())
 
 		tasteCountImageView.image = tasteCountImageView.image?.colorizedImage(UIColor.brewWeekGold())
 

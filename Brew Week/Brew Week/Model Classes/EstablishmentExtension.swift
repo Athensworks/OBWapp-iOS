@@ -27,7 +27,7 @@ extension Establishment {
 				if establishment == nil {
 					establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: context) as? Establishment
 
-					print("Adding new establishment: " + establishmentJSON["name"].stringValue)
+					print("Adding new establishment: " + establishmentJSON["name"].stringValue + "\n")
 				}
 
 				for (index: String, statusJSON: JSON) in establishmentJSON["beer_statuses"] {
@@ -53,6 +53,8 @@ extension Establishment {
 					for establishment in results {
 						context.deleteObject(establishment)
 					}
+
+					appDelegate.saveContext()
 				}
 			}
 		}
