@@ -1,9 +1,9 @@
 //
 //  Drinker.swift
-//  Brew Week
+//  
 //
-//  Created by Ben Lachman on 3/19/15.
-//  Copyright (c) 2015 Ohio Brew Week. All rights reserved.
+//  Created by Ben Lachman on 6/29/15.
+//
 //
 
 import Foundation
@@ -13,14 +13,7 @@ class Drinker: NSManagedObject {
 
     @NSManaged var age: NSTimeInterval
     @NSManaged var zip: String
-    @NSManaged var beers: NSSet
+    @NSManaged var tastedBeers: NSSet
+    @NSManaged var favoritedBeers: NSSet
 
-}
-
-extension Drinker {
-	var ageInYears: Int {
-		get {
-			return Int(age / (60 * 60 * 24 * 365))
-		}
-	}
 }

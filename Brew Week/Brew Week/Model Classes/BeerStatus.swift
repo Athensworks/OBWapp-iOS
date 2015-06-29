@@ -1,9 +1,9 @@
 //
 //  BeerStatus.swift
-//  Brew Week
+//  
 //
-//  Created by Ben Lachman on 4/16/15.
-//  Copyright (c) 2015 Ohio Brew Week. All rights reserved.
+//  Created by Ben Lachman on 6/29/15.
+//
 //
 
 import Foundation

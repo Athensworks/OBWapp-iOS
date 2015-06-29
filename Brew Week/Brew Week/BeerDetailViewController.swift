@@ -32,8 +32,7 @@ class BeerDetailViewController: UIViewController {
 
 		if let beer: Beer = self.beer {
 			nameLabel.text = beer.name
-			tastedButton.selected = beer.tasted;
-			favoritedButton.selected = beer.favorited;
+			favoritedButton.selected = beer.favorite != nil ? true : false;
 		}
 	}
 
@@ -51,11 +50,15 @@ class BeerDetailViewController: UIViewController {
 	// MARK: Actions
 
 	@IBAction func tastedChanged(sender: UISwitch) {
-		beer?.tasted = sender.on
+		if (sender.on) {
+			beer?.tasted()
+		}
 	}
 
 	@IBAction func favoritedChanged(sender: UISwitch) {
-		beer?.favorited = sender.on
+		if (sender.on) {
+			beer?.favorited()
+		}
 	}
 
 }

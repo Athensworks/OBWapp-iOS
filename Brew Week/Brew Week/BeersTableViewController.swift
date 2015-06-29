@@ -35,7 +35,10 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
 			let 🍺 = (fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus).beer
-			🍺.tasted = sender.selected
+
+			if (sender.selected) {
+				🍺.tasted()
+			}
 
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? BeerTableViewCell  {
 				cell.favoritedButton.enabled = sender.selected
@@ -49,7 +52,10 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
 			let 🍺 = (fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus).beer
-			🍺.favorited = sender.selected
+
+			if (sender.selected) {
+				🍺.favorited()
+			}
 		}
 	}
 
@@ -62,8 +68,8 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		// Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
 		🍺.name = "Test Beer that is Good?"
 		🍺.beerDescription = "Super hoppy so that hipsters will like it."
-		🍺.favorited = false
-		🍺.tasted = false
+//		🍺.favorited = false
+//		🍺.tasted = false
 
 
 		// Save the context.
@@ -131,13 +137,13 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 		let beerCell = cell as! BeerTableViewCell
 		beerCell.nameLabel!.text = 🍺.name
-		beerCell.favoritedButton.selected = 🍺.favorited
+		beerCell.favoritedButton.selected = 🍺.favorite != nil ? true : false
 		beerCell.favoriteCountLabel.text = String(🍺.favoriteCount)
-		beerCell.tastedButton.selected = 🍺.tasted
+		beerCell.tastedCheckboxButton.selected = 🍺.taste != nil ? true : false
 		beerCell.tasteCountLabel.text = String(🍺.tasteCount)
 
-		beerCell.favoritedButton.enabled = beerCell.tastedButton.selected
-		beerCell.favoriteCountLabel.enabled = beerCell.tastedButton.selected
+		beerCell.favoritedButton.enabled = beerCell.tastedCheckboxButton.selected
+		beerCell.favoriteCountLabel.enabled = beerCell.tastedCheckboxButton.selected
 	}
 
 	// MARK: - Fetched results controller
