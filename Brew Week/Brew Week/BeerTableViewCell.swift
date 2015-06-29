@@ -11,15 +11,25 @@ import UIKit
 class BeerTableViewCell: UITableViewCell {
 
 	@IBOutlet weak var nameLabel: UILabel!
-	@IBOutlet weak var tastedButton: UIButton!
+	@IBOutlet weak var tastedCheckboxButton: UIButton!
+	@IBOutlet weak var tasteCountImageView: UIImageView!
 	@IBOutlet weak var favoritedButton: UIButton!
 	@IBOutlet weak var tasteCountLabel: UILabel!
 	@IBOutlet weak var favoriteCountLabel: UILabel!
+	@IBOutlet weak var beerMetadataLabel: UILabel!
 
 	override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    }
+
+		tasteCountImageView.image = tasteCountImageView.image?.colorizedImage(UIColor.brewWeekGold())
+
+		tastedCheckboxButton.setImage(tastedCheckboxButton.imageForState(.Normal)?.colorizedImage(UIColor.brewWeekRed()), forState: .Normal)
+		tastedCheckboxButton.setImage(tastedCheckboxButton.imageForState(.Selected)?.colorizedImage(UIColor.brewWeekRed()), forState: .Selected)
+
+		favoritedButton.setImage(favoritedButton.imageForState(.Normal)?.colorizedImage(UIColor.brewWeekRed()), forState: .Normal)
+		favoritedButton.setImage(favoritedButton.imageForState(.Selected)?.colorizedImage(UIColor.brewWeekRed()), forState: .Selected)
+	}
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -28,3 +38,4 @@ class BeerTableViewCell: UITableViewCell {
     }
 
 }
+

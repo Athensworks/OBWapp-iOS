@@ -13,7 +13,7 @@ class BeerDetailViewController: UIViewController {
 	@IBOutlet weak var detailDescriptionLabel: UILabel!
 
 	@IBOutlet weak var nameLabel: UILabel!
-	@IBOutlet weak var tastedButton: UISwitch!
+	@IBOutlet weak var tastedCheckboxButton: UISwitch!
 	@IBOutlet weak var favoritedButton: UISwitch!
 
 	var beer: Beer? {
@@ -32,6 +32,7 @@ class BeerDetailViewController: UIViewController {
 
 		if let beer: Beer = self.beer {
 			nameLabel.text = beer.name
+			tastedCheckboxButton.selected = beer.taste != nil ? true : false;
 			favoritedButton.selected = beer.favorite != nil ? true : false;
 		}
 	}

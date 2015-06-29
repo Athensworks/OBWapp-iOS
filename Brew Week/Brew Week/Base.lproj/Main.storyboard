@@ -210,18 +210,14 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jyx-iL-obT" userLabel="Favorited">
-                                            <rect key="frame" x="386" y="29" width="48" height="48"/>
-                                            <state key="normal" image="heart-empty-20">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="selected" image="heart-13"/>
-                                            <connections>
-                                                <action selector="favoritedChanged:" destination="pGg-6v-bdr" eventType="touchUpInside" id="KM8-oH-wK7"/>
-                                            </connections>
-                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1230" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfW-oU-sRH">
+                                            <rect key="frame" x="521" y="28" width="38" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzN-Kb-HWb" userLabel="Taste">
-                                            <rect key="frame" x="35" y="27" width="48" height="48"/>
+                                            <rect key="frame" x="0.0" y="12" width="48" height="48"/>
                                             <state key="normal" image="unchecked-154">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -230,39 +226,62 @@
                                                 <action selector="tastedChanged:" destination="pGg-6v-bdr" eventType="touchUpInside" id="2Jv-tK-YF8"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1230 Tasted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fzv-4R-9Wk">
-                                            <rect key="frame" x="88" y="43" width="95" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1230" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fzv-4R-9Wk">
+                                            <rect key="frame" x="435" y="28" width="38" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1230 Favorited" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfW-oU-sRH">
-                                            <rect key="frame" x="432" y="43" width="117" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beer-275" translatesAutoresizingMaskIntoConstraints="NO" id="jPr-J9-kFD">
+                                            <rect key="frame" x="390" y="14" width="48" height="48"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ABV: 12.3 / 143 IBU" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J13-Uw-7qO">
+                                            <rect key="frame" x="48" y="39" width="153" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jyx-iL-obT" userLabel="Favorited">
+                                            <rect key="frame" x="476" y="15" width="48" height="48"/>
+                                            <state key="normal" image="heart-empty-20">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" image="heart-13"/>
+                                            <connections>
+                                                <action selector="favoritedChanged:" destination="pGg-6v-bdr" eventType="touchUpInside" id="KM8-oH-wK7"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="GfW-oU-sRH" firstAttribute="centerY" secondItem="Jyx-iL-obT" secondAttribute="centerY" constant="0.5" id="1SG-gx-kZX"/>
                                         <constraint firstItem="HzN-Kb-HWb" firstAttribute="leading" secondItem="d3P-M7-ByW" secondAttribute="leadingMargin" constant="27" id="6Rg-Uy-CZn"/>
-                                        <constraint firstItem="GfW-oU-sRH" firstAttribute="leading" secondItem="Jyx-iL-obT" secondAttribute="trailing" constant="-2" id="E3v-fN-4sF"/>
-                                        <constraint firstItem="Fzv-4R-9Wk" firstAttribute="leading" secondItem="HzN-Kb-HWb" secondAttribute="trailing" constant="5" id="F1T-Uc-Fwz"/>
+                                        <constraint firstItem="GfW-oU-sRH" firstAttribute="leading" secondItem="Jyx-iL-obT" secondAttribute="trailing" constant="-3" id="E3v-fN-4sF"/>
+                                        <constraint firstItem="HzN-Kb-HWb" firstAttribute="leading" secondItem="d3P-M7-ByW" secondAttribute="leading" id="FTj-X3-8wh"/>
                                         <constraint firstItem="Nb4-7V-5oU" firstAttribute="top" secondItem="d3P-M7-ByW" secondAttribute="topMargin" id="HgO-hm-S9v"/>
-                                        <constraint firstItem="Nb4-7V-5oU" firstAttribute="leading" secondItem="d3P-M7-ByW" secondAttribute="leadingMargin" constant="40" id="SL2-ih-ZJB"/>
-                                        <constraint firstItem="Fzv-4R-9Wk" firstAttribute="centerY" secondItem="HzN-Kb-HWb" secondAttribute="centerY" constant="2.5" id="aR9-MM-peu"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="GfW-oU-sRH" secondAttribute="trailing" constant="10" id="buN-Ql-1FP"/>
-                                        <constraint firstItem="Jyx-iL-obT" firstAttribute="centerY" secondItem="HzN-Kb-HWb" secondAttribute="centerY" constant="2" id="cxw-2X-cv7"/>
-                                        <constraint firstItem="HzN-Kb-HWb" firstAttribute="top" secondItem="Nb4-7V-5oU" secondAttribute="bottom" constant="-7" id="f0s-NW-0uM"/>
+                                        <constraint firstAttribute="centerY" secondItem="GfW-oU-sRH" secondAttribute="centerY" id="LZ6-GD-aiC"/>
+                                        <constraint firstAttribute="centerY" secondItem="Fzv-4R-9Wk" secondAttribute="centerY" id="OIl-4j-Fj6"/>
+                                        <constraint firstAttribute="centerY" secondItem="HzN-Kb-HWb" secondAttribute="centerY" constant="2.5" id="QKS-fr-4sP"/>
+                                        <constraint firstAttribute="centerY" secondItem="Jyx-iL-obT" secondAttribute="centerY" id="T5J-G6-JJ2"/>
+                                        <constraint firstAttribute="centerY" secondItem="jPr-J9-kFD" secondAttribute="centerY" id="UY0-Cx-JSi"/>
+                                        <constraint firstItem="Nb4-7V-5oU" firstAttribute="leading" secondItem="HzN-Kb-HWb" secondAttribute="trailing" id="WCV-rn-TOf"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="GfW-oU-sRH" secondAttribute="trailing" id="buN-Ql-1FP"/>
+                                        <constraint firstItem="Fzv-4R-9Wk" firstAttribute="leading" secondItem="jPr-J9-kFD" secondAttribute="trailing" constant="-3" id="lED-iA-rl2"/>
+                                        <constraint firstItem="Jyx-iL-obT" firstAttribute="leading" secondItem="Fzv-4R-9Wk" secondAttribute="trailing" constant="3" id="p50-MR-IfY"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="6Rg-Uy-CZn"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
+                                    <outlet property="beerMetadataLabel" destination="J13-Uw-7qO" id="38U-GM-YW8"/>
                                     <outlet property="favoriteCountLabel" destination="GfW-oU-sRH" id="MVz-1g-7R2"/>
                                     <outlet property="favoritedButton" destination="Jyx-iL-obT" id="oqE-8T-S40"/>
                                     <outlet property="nameLabel" destination="Nb4-7V-5oU" id="Wn1-FR-Hez"/>
+                                    <outlet property="tasteCountImageView" destination="jPr-J9-kFD" id="ig5-hU-idt"/>
                                     <outlet property="tasteCountLabel" destination="Fzv-4R-9Wk" id="Y6H-yU-Ceb"/>
-                                    <outlet property="tastedButton" destination="HzN-Kb-HWb" id="mhE-gF-Gdt"/>
+                                    <outlet property="tastedCheckboxButton" destination="HzN-Kb-HWb" id="mhE-gF-Gdt"/>
                                     <segue destination="AeO-Pp-t7M" kind="show" identifier="showDetail" id="PQo-hl-z2U"/>
                                 </connections>
                             </tableViewCell>
@@ -348,12 +367,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ak-Ra-25s">
-                                <rect key="frame" x="211" y="407" width="178" height="30"/>
-                                <state key="normal" title="This is beer is tapped out.">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart-13" translatesAutoresizingMaskIntoConstraints="NO" id="33u-Ha-Ihg">
                                 <rect key="frame" x="530" y="253" width="48" height="48"/>
                             </imageView>
@@ -391,6 +404,12 @@
                                     <constraint firstAttribute="height" constant="36" id="fqv-e0-4dg"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ak-Ra-25s">
+                                <rect key="frame" x="180" y="550" width="240" height="30"/>
+                                <state key="normal" title="Report that this beer is tapped out.">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -400,7 +419,6 @@
                             <constraint firstItem="lQ3-oG-eNu" firstAttribute="top" secondItem="9xx-Iq-ybo" secondAttribute="bottom" constant="28" id="89o-Xi-Kh1"/>
                             <constraint firstItem="33u-Ha-Ihg" firstAttribute="centerX" secondItem="eMg-GW-6cL" secondAttribute="centerX" id="8Pj-he-PER"/>
                             <constraint firstItem="eMg-GW-6cL" firstAttribute="leading" secondItem="nQc-Ol-kMp" secondAttribute="trailing" constant="-3" id="9mU-cJ-42N"/>
-                            <constraint firstItem="6Ak-Ra-25s" firstAttribute="top" secondItem="ZWX-55-uMt" secondAttribute="bottom" constant="37.5" id="DQo-S3-xjY"/>
                             <constraint firstAttribute="centerX" secondItem="lQ3-oG-eNu" secondAttribute="centerX" id="EJ2-Dd-vZ4"/>
                             <constraint firstItem="fSj-5E-xX9" firstAttribute="leading" secondItem="lQ3-oG-eNu" secondAttribute="trailing" constant="4" id="H4h-P1-7ev"/>
                             <constraint firstItem="33u-Ha-Ihg" firstAttribute="top" secondItem="eMg-GW-6cL" secondAttribute="bottom" id="JyM-CE-7sO"/>
@@ -420,6 +438,7 @@
                             <constraint firstItem="nQc-Ol-kMp" firstAttribute="centerY" secondItem="eMg-GW-6cL" secondAttribute="centerY" constant="4" id="jEt-Qp-mFj"/>
                             <constraint firstItem="33u-Ha-Ihg" firstAttribute="leading" secondItem="AIO-6P-lfn" secondAttribute="trailing" constant="-3" id="nHh-VP-Oh0"/>
                             <constraint firstItem="nQc-Ol-kMp" firstAttribute="trailing" secondItem="AIO-6P-lfn" secondAttribute="trailing" id="nOS-cG-ksI"/>
+                            <constraint firstItem="3fe-gx-1P8" firstAttribute="top" secondItem="6Ak-Ra-25s" secondAttribute="bottom" constant="20" id="psJ-n4-OJj"/>
                             <constraint firstItem="lQ3-oG-eNu" firstAttribute="leading" secondItem="L5t-PO-LqV" secondAttribute="leadingMargin" id="rJM-jv-KKr"/>
                             <constraint firstItem="pmz-GW-AAC" firstAttribute="leading" secondItem="L5t-PO-LqV" secondAttribute="leadingMargin" constant="20" id="rUe-qd-Gaf"/>
                             <constraint firstItem="33u-Ha-Ihg" firstAttribute="leading" secondItem="AIO-6P-lfn" secondAttribute="trailing" constant="-3" id="spK-hc-LY0"/>
@@ -443,7 +462,7 @@
                     <connections>
                         <outlet property="favoritedButton" destination="5ge-cF-42I" id="6lt-Ad-H2R"/>
                         <outlet property="nameLabel" destination="lQ3-oG-eNu" id="w5z-KS-prS"/>
-                        <outlet property="tastedButton" destination="ZWX-55-uMt" id="MTa-ec-ypa"/>
+                        <outlet property="tastedCheckboxButton" destination="ZWX-55-uMt" id="MTa-ec-ypa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYz-Yh-XX1" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -144,6 +144,8 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 		beerCell.favoritedButton.enabled = beerCell.tastedCheckboxButton.selected
 		beerCell.favoriteCountLabel.enabled = beerCell.tastedCheckboxButton.selected
+
+		beerCell.beerMetadataLabel.text = "ABV: \(🍺.abv)% / \(🍺.ibu) IBU"
 	}
 
 	// MARK: - Fetched results controller
