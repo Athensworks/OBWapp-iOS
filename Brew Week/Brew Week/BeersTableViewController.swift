@@ -22,6 +22,12 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		let control = UIRefreshControl()
+		control.addTarget(self, action: "refreshBeers:", forControlEvents: .ValueChanged)
+		control.tintColor = UIColor.brewWeekGold()
+
+		self.refreshControl = control
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -29,7 +35,27 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		// Dispose of any resources that can be recreated.
 	}
 
-	//MARK: insertNewObject
+	//MARK: - Actions
+
+	@IBAction func refreshBeers(sender: UIRefreshControl) {
+		// /establishment/:establishment_id/beer_statuses
+
+		Alamofire.request(.GET, Endpoint(path: "beers")).response { (_, _, data, error) in
+			if let data = data as? NSData {
+				Beer.beersFromJSON(data)
+
+				if let establishment = self.establishment {
+					Alamofire.request(.GET, Endpoint(path: "establishment/\(establishment.identifier)/beer_statuses")).responseJSON() { (_, _, responseJSON, _) in
+						self.tableView.reloadData()
+						self.refreshControl?.endRefreshing()
+					}
+				} else {
+					self.refreshControl?.endRefreshing()
+				}
+			}
+		}
+	}
+
 	@IBAction func tastedChanged(sender: UIButton) {
 		sender.selected = !sender.selected
 
@@ -153,7 +179,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 			beerCell.favoritedButton.enabled = beerCell.tastedCheckboxButton.selected
 			beerCell.favoriteCountLabel.enabled = beerCell.tastedCheckboxButton.selected
 
-			beerCell.beerMetadataLabel.text = "ABV: \(🍺.abv)% / \(🍺.ibu) IBU"
+			beerCell.beerMetadataLabel.text = "ABV \(🍺.abv)% / \(🍺.ibu) IBU"
 
 			beerCell.limitedReleaseImageView.hidden = (🍺.limitedRelease == false)
 		}
