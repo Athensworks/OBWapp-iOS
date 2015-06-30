@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SwiftyJSON
 import Alamofire
 
 
@@ -45,8 +46,15 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 				Beer.beersFromJSON(data)
 
 				if let establishment = self.establishment {
-					Alamofire.request(.GET, Endpoint(path: "establishment/\(establishment.identifier)/beer_statuses")).responseJSON() { (_, _, responseJSON, _) in
-						self.tableView.reloadData()
+					Alamofire.request(.GET, Endpoint(path: "establishment/\(establishment.identifier)/beer_statuses")).response() { (_, _, statusData, _) in
+						if let data = statusData as? NSData {
+							let responseJSON = JSON(data: data)
+
+							for (index: String, statusJSON: JSON) in responseJSON["beer_statuses"] {
+								establishment.updateOrCreateStatusFromJSON(statusJSON)
+							}
+						}
+
 						self.refreshControl?.endRefreshing()
 					}
 				} else {
@@ -229,7 +237,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	    return _fetchedResultsController!
 	}    
 	var _fetchedResultsController: NSFetchedResultsController? = nil
-
+/*
 	func controllerWillChangeContent(controller: NSFetchedResultsController) {
 	    self.tableView.beginUpdates()
 	}
@@ -265,14 +273,12 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	    self.tableView.endUpdates()
 	}
 
-	/*
+	*/
 	 // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
 	 
 	 func controllerDidChangeContent(controller: NSFetchedResultsController) {
 	     // In the simplest, most efficient, case, reload the table view.
 	     self.tableView.reloadData()
 	 }
-	 */
-
 }
 
