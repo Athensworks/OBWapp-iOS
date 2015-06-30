@@ -266,6 +266,7 @@
 				TargetAttributes = {
 					B5D1CC9B1ABBAC6900DEA7EE = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = GYV9U8338K;
 					};
 					B5D1CCB51ABBAC6900DEA7EE = {
 						CreatedOnToolsVersion = 6.2;
@@ -524,9 +525,12 @@
 			baseConfigurationReference = 58041273B0FA6F9B6A046F62 /* Pods-Brew Week.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Brew Week/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -535,9 +539,12 @@
 			baseConfigurationReference = 79C48FA7117593C67387B210 /* Pods-Brew Week.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Brew Week/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
