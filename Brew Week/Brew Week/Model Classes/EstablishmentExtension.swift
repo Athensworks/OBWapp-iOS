@@ -19,6 +19,10 @@ extension Establishment {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
 		if let context = appDelegate.managedObjectContext {
+			if jsonEstablishmentsArray.count == 0 {
+				return
+			}
+
 			var establishmentIDs = [Int]()
 
 			for (index: String, establishmentJSON: JSON) in jsonEstablishmentsArray {

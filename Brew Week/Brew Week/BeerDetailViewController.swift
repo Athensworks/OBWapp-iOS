@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Alamofire
+
 
 class BeerDetailViewController: UIViewController {
-
 
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var limitedReleaseView: UIView!
@@ -29,6 +30,9 @@ class BeerDetailViewController: UIViewController {
 	@IBOutlet weak var tastedButton: UIButton!
 	@IBOutlet weak var favoritedButton: UIButton!
 
+	@IBOutlet weak var reportButton: UIButton!
+
+	var status: BeerStatus?
 	var beer: Beer? {
 		didSet {
 		    // Update the view.
@@ -60,13 +64,24 @@ class BeerDetailViewController: UIViewController {
 
 			detailDescriptionLabel.text = beer.beerDescription
 
+			abvLabel.text = "\(beer.abv)%"
+			ibuLabel.text = String(beer.ibu)
+
 			tasteCount.text = String(beer.tasteCount)
 			favoriteCount.text = String(beer.favoriteCount)
 
 			tastedButton.selected = beer.taste != nil ? true : false;
 			favoritedButton.selected = beer.favorite != nil ? true : false;
+			favoritedButton.enabled = (tastedButton.selected == true)
 
-			rateBeerButton.hidden == (beer.rateBeerID <= 0)
+			rateBeerButton.hidden = (beer.rateBeerID <= 0)
+		}
+
+		if let status = self.status {
+			if status.status == "empty-reported" {
+				self.reportButton.setTitle("Reported Empty! Tap here to confirm it…", forState: .Normal)
+				self.reportButton.titleLabel?.font = UIFont.italicSystemFontOfSize(UIFont.systemFontSize())
+			}
 		}
 	}
 
@@ -86,28 +101,54 @@ class BeerDetailViewController: UIViewController {
 	@IBAction func tastedChanged(sender: UIButton) {
 		sender.selected = !sender.selected
 
-		if sender.selected == true {
-			beer?.tasted()
+		beer?.tasted() { (count) in
+			self.tasteCount.text = String(count)
 		}
+
+		self.favoritedButton.enabled = (sender.selected == true)
 	}
 
 	@IBAction func favoritedChanged(sender: UIButton) {
 		sender.selected = !sender.selected
 
-		if sender.selected == true {
-			beer?.favorited()
+		beer?.favorited() { (count) in
+			self.favoriteCount.text = String(count)
 		}
 	}
 
 	@IBAction func rateBeerAction(sender: UIButton) {
 		if let beer = self.beer {
-			if let url = NSURL(string: "http://www.ratebeer.com/beer/" + String(beer.rateBeerID)) {
+			if let url = beer.rateBeerURL {
 				UIApplication.sharedApplication().openURL(url)
 			}
 		}
 	}
 
 	@IBAction func reportAction(sender: UIButton) {
+//		{
+//			"beer_id": 123,
+//			"establishment_id": 345,
+//			"device_guid": "6b981317-1c2d-4219-ad79-7235013ad597"
+//		}
+
+		if let beer = self.beer {
+			if let status = self.status {
+				let guid = UIDevice.currentDevice().identifierForVendor.UUIDString
+
+				var params = [String: AnyObject]()
+
+				params["beer_id"] = Int(beer.identifier)
+				params["establishment_id"] = Int(status.establishment.identifier)
+				params["device_guid"] = guid
+
+//				NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions, error: <#NSErrorPointer#>)
+
+				Alamofire.request(.PUT, Endpoint(path: "report"), parameters: params, encoding: .JSON).responseJSON { (request, response, responseJSON, error) in
+					sender.setTitle("Reported. Thanks!", forState: .Normal)
+					sender.enabled = false
+				}
+			}
+		}
 	}
 }
 

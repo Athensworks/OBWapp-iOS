@@ -36,13 +36,15 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
 			let 🍺 = (fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus).beer
 
-			if (sender.selected) {
-				🍺.tasted()
+			🍺.tasted() { (count) in
+				if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? BeerTableViewCell  {
+					cell.tasteCountLabel.text = String(count)
+				}
 			}
 
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? BeerTableViewCell  {
-				cell.favoritedButton.enabled = sender.selected
-				cell.favoriteCountLabel.enabled = sender.selected
+				cell.favoritedButton.enabled = (sender.selected == true)
+				cell.favoriteCountLabel.enabled = (sender.selected == true)
 			}
 		}
 	}
@@ -53,8 +55,10 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
 			let 🍺 = (fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus).beer
 
-			if (sender.selected) {
-				🍺.favorited()
+			🍺.favorited() { (count) in
+				if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? BeerTableViewCell  {
+					cell.favoriteCountLabel.text = String(count)
+				}
 			}
 		}
 	}
@@ -89,7 +93,10 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		    if let indexPath = self.tableView.indexPathForSelectedRow() {
 				let status = self.fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus
 
-				(segue.destinationViewController as! BeerDetailViewController).beer = status.beer
+				if let detailController = (segue.destinationViewController as? BeerDetailViewController) {
+					detailController.status = status
+					detailController.beer = status.beer
+				}
 		    }
 		}
 	}
