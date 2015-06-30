@@ -19,6 +19,7 @@ class BeerDetailViewController: UIViewController {
 	@IBOutlet weak var detailDescriptionLabel: UILabel!
 	@IBOutlet weak var rateBeerButton: UIButton!
 
+	@IBOutlet weak var statusLabel: UILabel!
 	@IBOutlet weak var ibuLabel: UILabel!
 	@IBOutlet weak var abvLabel: UILabel!
 
@@ -50,7 +51,6 @@ class BeerDetailViewController: UIViewController {
 		tasteCountImageView.image = tasteCountImageView.image?.colorizedImage(UIColor.brewWeekGold())
 		favoriteCountImageView.image = favoriteCountImageView.image?.colorizedImage(UIColor.brewWeekRed())
 
-
 		tastedButton.setImage(tastedButton.imageForState(.Normal)?.colorizedImage(UIColor.whiteColor()), forState: .Normal)
 		tastedButton.setImage(tastedButton.imageForState(.Selected)?.colorizedImage(UIColor.whiteColor()), forState: .Selected)
 
@@ -78,10 +78,43 @@ class BeerDetailViewController: UIViewController {
 		}
 
 		if let status = self.status {
-			if status.status == "empty-reported" {
-				self.reportButton.setTitle("Reported Empty! Tap here to confirm it…", forState: .Normal)
-				self.reportButton.titleLabel?.font = UIFont.italicSystemFontOfSize(UIFont.systemFontSize())
+			var displayStatus: String = "Unknown"
+
+			switch status.status {
+				case "empty":
+					displayStatus = "Empty"
+					statusLabel.backgroundColor = UIColor.brewWeekRed()
+
+					self.reportButton.hidden = true
+				case "empty-reported":
+					displayStatus = "Reported Empty"
+					statusLabel.backgroundColor = UIColor.brewWeekRed()
+
+					self.reportButton.setTitle("Reported Empty! Tap here to confirm it…", forState: .Normal)
+					self.reportButton.titleLabel?.font = UIFont.italicSystemFontOfSize(UIFont.systemFontSize())
+
+					self.reportButton.hidden = false
+				case "untapped":
+					displayStatus = "Not Tapped Yet"
+					statusLabel.backgroundColor = UIColor.grayColor()
+
+					self.reportButton.hidden = true
+				case "tapped":
+					displayStatus = "Tapped"
+					statusLabel.backgroundColor = UIColor.brewWeekGold()
+
+					self.reportButton.hidden = false
+				case "cancelled":
+					displayStatus = "Cancelled"
+					statusLabel.backgroundColor = UIColor.grayColor()
+
+					self.reportButton.hidden = true
+				default:
+					statusLabel.backgroundColor = UIColor.grayColor()
+					self.reportButton.hidden = true
 			}
+
+			statusLabel.text = displayStatus
 		}
 	}
 
