@@ -34,15 +34,15 @@ extension Establishment {
 					print("Adding new establishment: " + establishmentJSON["name"].stringValue + "\n")
 				}
 
-				for (index: String, statusJSON: JSON) in establishmentJSON["beer_statuses"] {
-					establishment?.updateOrCreateStatusFromJSON(statusJSON)
-				}
-
 				establishment?.identifier = establishmentJSON["id"].int32Value
 				establishment?.address = establishmentJSON["address"].stringValue
 				establishment?.name = establishmentJSON["name"].stringValue
 				establishment?.lat = establishmentJSON["lat"].floatValue
 				establishment?.lon = establishmentJSON["lon"].floatValue
+
+				for (index: String, statusJSON: JSON) in establishmentJSON["beer_statuses"] {
+					establishment?.updateOrCreateStatusFromJSON(statusJSON)
+				}
 
 				establishmentIDs.append(establishmentJSON["id"].intValue)
 			}

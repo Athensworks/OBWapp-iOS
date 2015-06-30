@@ -23,9 +23,9 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 
-		Alamofire.request(.GET, Endpoint(path: "beers")).response { (request, response, data, error) in
-			if data is NSData {
-				Beer.beersFromJSON(data as! NSData)
+		Alamofire.request(.GET, Endpoint(path: "beers")).response { (request, response, beersData, error) in
+			if let data = beersData as? NSData {
+				Beer.beersFromJSON(data)
 
 				var params: [String: AnyObject] = ["device_guid": UIDevice.currentDevice().identifierForVendor.UUIDString];
 				let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
@@ -48,9 +48,9 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 				}
 
 				//, parameters: params, encoding: .JSON
-				Alamofire.request(.GET, Endpoint(path: "establishments"), parameters: params, encoding: .URL).response { (request, response, establishmentData, error) in
-					if establishmentData is NSData {
-						Establishment.establishmentsFromJSON(establishmentData as! NSData)
+				Alamofire.request(.GET, Endpoint(path: "establishments"), parameters: params, encoding: .URL).response { (request, response, establishmentsData, error) in
+					if let data = establishmentsData as? NSData {
+						Establishment.establishmentsFromJSON(data)
 					}
 				}
 			}
@@ -176,6 +176,8 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 		fetchRequest.fetchBatchSize = 50
 
 		// Edit the sort key as appropriate.
+
+		//TODO: we need to sort based on the order sent by the server. add index generated from the order received from the server.
 		let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
 		let sortDescriptors = [sortDescriptor]
 
@@ -200,7 +202,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 		return _fetchedResultsController!
 	}
 	var _fetchedResultsController: NSFetchedResultsController? = nil
-
+/*
 	func controllerWillChangeContent(controller: NSFetchedResultsController) {
 		self.tableView.beginUpdates()
 	}
@@ -235,14 +237,14 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 	func controllerDidChangeContent(controller: NSFetchedResultsController) {
 		self.tableView.endUpdates()
 	}
+*/
 
-	/*
 	// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
 
 	func controllerDidChangeContent(controller: NSFetchedResultsController) {
 	// In the simplest, most efficient, case, reload the table view.
-	self.tableView.reloadData()
+		self.tableView.reloadData()
 	}
-	*/
+
 
 }

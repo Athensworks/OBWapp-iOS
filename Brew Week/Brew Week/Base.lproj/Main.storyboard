@@ -244,9 +244,9 @@
                                                 <constraint firstAttribute="width" secondItem="jPr-J9-kFD" secondAttribute="height" multiplier="1:1" id="Ya1-xW-lK2"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Brewery Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1JF-85-MgY">
-                                            <rect key="frame" x="40" y="31" width="101" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="ABV 12.3% / 143 IBU" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J13-Uw-7qO">
+                                            <rect key="frame" x="40" y="53" width="147.5" height="18"/>
+                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -271,9 +271,9 @@
                                                 <action selector="tastedChanged:" destination="pGg-6v-bdr" eventType="touchUpInside" id="2Jv-tK-YF8"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="ABV 12.3% / 143 IBU" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J13-Uw-7qO">
-                                            <rect key="frame" x="40" y="53" width="148" height="18"/>
-                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Brewery Name a very long long long long name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1JF-85-MgY">
+                                            <rect key="frame" x="40" y="31" width="324" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -292,6 +292,7 @@
                                         <constraint firstItem="jPr-J9-kFD" firstAttribute="leading" secondItem="Fzv-4R-9Wk" secondAttribute="trailing" constant="-5" id="NOS-bc-Fb1"/>
                                         <constraint firstItem="Nb4-7V-5oU" firstAttribute="leading" secondItem="HzN-Kb-HWb" secondAttribute="trailing" constant="-8" id="OaI-y3-VMi"/>
                                         <constraint firstAttribute="centerY" secondItem="HzN-Kb-HWb" secondAttribute="centerY" constant="2.5" id="QKS-fr-4sP"/>
+                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="1JF-85-MgY" secondAttribute="trailing" id="V3T-vj-NB0"/>
                                         <constraint firstItem="Nb4-7V-5oU" firstAttribute="leading" secondItem="1JF-85-MgY" secondAttribute="leading" id="V8x-op-i9h"/>
                                         <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Nb4-7V-5oU" secondAttribute="trailing" constant="36" id="aZa-fi-MHt"/>
                                         <constraint firstAttribute="trailing" secondItem="Jyx-iL-obT" secondAttribute="trailing" id="cPK-MN-iPx"/>
