@@ -220,16 +220,24 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	    let fetchRequest = NSFetchRequest()
 	    // Edit the entity name as appropriate.
 		let entity: NSEntityDescription?
-		let sortDescriptor: NSSortDescriptor
+		let sortDescriptors: [NSSortDescriptor]
+		var sectionNameKeyPath: String? = nil
 
 		if let establishment = establishment {
 			fetchRequest.predicate = NSPredicate(format: "establishment == %@", establishment)
 
 			entity = NSEntityDescription.entityForName("BeerStatus", inManagedObjectContext: self.managedObjectContext!)
-			sortDescriptor = NSSortDescriptor(key: "beer.name", ascending: true)
+			let nameSortDescriptor = NSSortDescriptor(key: "beer.name", ascending: true)
+			let statusSortDescriptor = NSSortDescriptor(key: "status", ascending: true)
+
+			sortDescriptors = [statusSortDescriptor, nameSortDescriptor]
+
+			sectionNameKeyPath = "status"
 		} else {
 			entity = NSEntityDescription.entityForName("Beer", inManagedObjectContext: self.managedObjectContext!)
-			sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+			let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+
+			sortDescriptors = [sortDescriptor]
 		}
 
 		fetchRequest.entity = entity
@@ -238,13 +246,11 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	    fetchRequest.fetchBatchSize = 50
 	    
 	    // Edit the sort key as appropriate.
-	    let sortDescriptors = [sortDescriptor]
-	    
-	    fetchRequest.sortDescriptors = [sortDescriptor]
+	    fetchRequest.sortDescriptors = sortDescriptors
 	    
 	    // Edit the section name key path and cache name if appropriate.
 	    // nil for section name key path means "no sections".
-	    let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: "Beers")
+	    let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: sectionNameKeyPath, cacheName: "Beers")
 	    aFetchedResultsController.delegate = self
 	    _fetchedResultsController = aFetchedResultsController
 
