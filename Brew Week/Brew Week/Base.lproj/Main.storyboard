@@ -757,6 +757,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="YDa-7b-Zoe">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.83137254900000002" green="0.074509803920000006" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="rS3-R9-Ivy" kind="relationship" relationship="viewControllers" id="XIe-TX-gJD"/>
@@ -980,7 +981,7 @@
                                     <outlet property="tasteCountImageView" destination="ZZR-Em-93t" id="uj7-pl-KGg"/>
                                     <outlet property="tasteCountLabel" destination="Iuz-vA-aUb" id="1hZ-iI-95H"/>
                                     <outlet property="tastedCheckboxButton" destination="vpF-yo-2NQ" id="SoY-FM-dFf"/>
-                                    <segue destination="AeO-Pp-t7M" kind="showDetail" id="G91-4P-E1o"/>
+                                    <segue destination="AeO-Pp-t7M" kind="show" identifier="showDetail" id="G91-4P-E1o"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1025,8 +1026,8 @@
         <image name="unchecked-154" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="G91-4P-E1o"/>
         <segue reference="eOs-O8-DOI"/>
-        <segue reference="PQo-hl-z2U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.83137254900000002" green="0.074509803920000006" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
 </document>

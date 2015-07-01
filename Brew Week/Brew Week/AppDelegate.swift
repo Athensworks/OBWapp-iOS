@@ -53,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		let tabController = self.window!.rootViewController as! UITabBarController
+		tabController.tabBar.tintColor = UIColor.brewWeekGold()
 
 		// set the managed object context on all the different view controllers
 		if let viewControllers = tabController.viewControllers as? [UIViewController] {
