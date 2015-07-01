@@ -10,6 +10,12 @@ import UIKit
 import CoreData
 import CoreLocation
 
+
+protocol ManagedObjectViewController {
+	var managedObjectContext: NSManagedObjectContext? { get set }
+}
+
+
 @UIApplicationMain
 
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
@@ -46,9 +52,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
-		let navigationController = self.window!.rootViewController as! UINavigationController
-		let controller = navigationController.topViewController as! EstablishmentViewController
-		controller.managedObjectContext = self.managedObjectContext
+		let tabController = self.window!.rootViewController as! UITabBarController
+
+		// set the managed object context on all the different view controllers
+		if let viewControllers = tabController.viewControllers as? [UIViewController] {
+			for controller in viewControllers {
+				if let navigationController = controller as? UINavigationController {
+					if var rootController = navigationController.topViewController as? ManagedObjectViewController {
+						rootController.managedObjectContext = managedObjectContext
+					}
+				} else if var managedController = controller as? ManagedObjectViewController {
+					// view controller
+					managedController.managedObjectContext = managedObjectContext
+				}
+			}
+		}
 
 		let authorization = CLLocationManager.authorizationStatus()
 

@@ -10,10 +10,9 @@ import UIKit
 import CoreData
 import Alamofire
 
-class EstablishmentViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
+class EstablishmentViewController: UITableViewController, NSFetchedResultsControllerDelegate, ManagedObjectViewController {
 	var managedObjectContext: NSManagedObjectContext? = nil
-
 
 	override func awakeFromNib() {
 		super.awakeFromNib()

@@ -1,0 +1,19 @@
+{
+  "establishments": [{
+    "address": "24 W. Union St. Athens OH 45701",
+    "beer_statuses": [{
+      "id": 1,
+      "status": "tapped",
+    }, {
+      "id": 2,
+      "status": "untapped",
+    }, {
+      "id": 3,
+      "status": "empty",
+    }],
+    "id": 1,
+    "lat": "39.236",
+    "lon": "-82.015",
+    "name": "Jackie O's"
+  }]
+}

@@ -12,7 +12,7 @@ import SwiftyJSON
 import Alamofire
 
 
-class BeersTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class BeersTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, ManagedObjectViewController {
 
 	var managedObjectContext: NSManagedObjectContext? = nil
 	var establishment: Establishment? = nil
@@ -23,12 +23,6 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		let control = UIRefreshControl()
-		control.addTarget(self, action: "refreshBeers:", forControlEvents: .ValueChanged)
-		control.tintColor = UIColor.brewWeekGold()
-
-		self.refreshControl = control
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -68,7 +62,13 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		sender.selected = !sender.selected
 
 		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
-			let 🍺 = (fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus).beer
+			let 🍺: Beer
+
+			if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
+				🍺 = status.beer
+			} else {
+				🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
+			}
 
 			🍺.tasted() { (count) in
 				if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? BeerTableViewCell  {
@@ -87,7 +87,13 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		sender.selected = !sender.selected
 
 		if let indexPath = tableView.indexPathForRowAtPoint(tableView.convertPoint(sender.center, fromView: sender.superview)) {
-			let 🍺 = (fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus).beer
+			let 🍺: Beer
+
+			if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
+				🍺 = status.beer
+			} else {
+				🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
+			}
 
 			🍺.favorited() { (count) in
 				if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? BeerTableViewCell  {
@@ -125,11 +131,17 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showDetail" {
 		    if let indexPath = self.tableView.indexPathForSelectedRow() {
-				let status = self.fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus
-
 				if let detailController = (segue.destinationViewController as? BeerDetailViewController) {
-					detailController.status = status
-					detailController.beer = status.beer
+					let 🍺: Beer
+
+					if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
+						detailController.status = status
+						🍺 = status.beer
+					} else {
+						🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
+					}
+
+					detailController.beer = 🍺
 				}
 		    }
 		}
@@ -173,10 +185,15 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 
 	func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-		let status = self.fetchedResultsController.objectAtIndexPath(indexPath) as! BeerStatus
-		let 🍺 = status.beer
-
 		if let beerCell = cell as? BeerTableViewCell {
+			let 🍺: Beer
+
+			if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
+				🍺 = status.beer
+			} else {
+				🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
+			}
+			
 			beerCell.nameLabel.text = 🍺.name
 			beerCell.breweryNameLabel.text = 🍺.brewery
 			beerCell.favoritedButton.selected = 🍺.favorite != nil ? true : false
@@ -202,18 +219,25 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	    
 	    let fetchRequest = NSFetchRequest()
 	    // Edit the entity name as appropriate.
-	    let entity = NSEntityDescription.entityForName("BeerStatus", inManagedObjectContext: self.managedObjectContext!)
-	    fetchRequest.entity = entity
+		let entity: NSEntityDescription?
+		let sortDescriptor: NSSortDescriptor
 
 		if let establishment = establishment {
 			fetchRequest.predicate = NSPredicate(format: "establishment == %@", establishment)
+
+			entity = NSEntityDescription.entityForName("BeerStatus", inManagedObjectContext: self.managedObjectContext!)
+			sortDescriptor = NSSortDescriptor(key: "beer.name", ascending: true)
+		} else {
+			entity = NSEntityDescription.entityForName("Beer", inManagedObjectContext: self.managedObjectContext!)
+			sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
 		}
 
+		fetchRequest.entity = entity
+
 	    // Set the batch size to a suitable number.
-	    fetchRequest.fetchBatchSize = 20
+	    fetchRequest.fetchBatchSize = 50
 	    
 	    // Edit the sort key as appropriate.
-	    let sortDescriptor = NSSortDescriptor(key: "beer.name", ascending: true)
 	    let sortDescriptors = [sortDescriptor]
 	    
 	    fetchRequest.sortDescriptors = [sortDescriptor]

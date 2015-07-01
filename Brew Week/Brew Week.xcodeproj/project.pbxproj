@@ -11,6 +11,7 @@
 		B506A6111AE08E1A00EB0E59 /* test_beers.json in Resources */ = {isa = PBXBuildFile; fileRef = B506A6101AE08E1A00EB0E59 /* test_beers.json */; };
 		B506A6131AE0A3F100EB0E59 /* BeerStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B506A6121AE0A3F100EB0E59 /* BeerStatus.swift */; };
 		B506A6151AE0A7B400EB0E59 /* test_establishments.json in Resources */ = {isa = PBXBuildFile; fileRef = B506A6141AE0A7B400EB0E59 /* test_establishments.json */; };
+		B54737161B43933100FA5B02 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54737151B43933100FA5B02 /* MapKit.framework */; };
 		B596814A1B367C2000A516DC /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59681491B367C2000A516DC /* Endpoint.swift */; };
 		B59882CE1B17EB480062E407 /* UserVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59882CD1B17EB480062E407 /* UserVerificationViewController.swift */; };
 		B59882D01B1827600062E407 /* EstablishmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59882CF1B1827600062E407 /* EstablishmentViewController.swift */; };
@@ -53,6 +54,7 @@
 		B506A6101AE08E1A00EB0E59 /* test_beers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test_beers.json; path = ../test_beers.json; sourceTree = "<group>"; };
 		B506A6121AE0A3F100EB0E59 /* BeerStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeerStatus.swift; path = "Brew Week/Model Classes/BeerStatus.swift"; sourceTree = "<group>"; };
 		B506A6141AE0A7B400EB0E59 /* test_establishments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test_establishments.json; path = ../test_establishments.json; sourceTree = "<group>"; };
+		B54737151B43933100FA5B02 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B59681491B367C2000A516DC /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Endpoint.swift; path = "Brew Week/Endpoint.swift"; sourceTree = "<group>"; };
 		B59882CD1B17EB480062E407 /* UserVerificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserVerificationViewController.swift; sourceTree = "<group>"; };
 		B59882CF1B1827600062E407 /* EstablishmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstablishmentViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B54737161B43933100FA5B02 /* MapKit.framework in Frameworks */,
 				73FB8C7EC6DF1CB74F4CA79F /* Pods_Brew_Week.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,6 +111,15 @@
 				79C48FA7117593C67387B210 /* Pods-Brew Week.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B54737171B43944700FA5B02 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B5E59F081B41AD920007881D /* UIColor.swift */,
+				B5E59F0A1B41ADA10007881D /* UIImage.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		B5D1CC931ABBAC6900DEA7EE = {
@@ -139,12 +151,11 @@
 				B5D1CCA11ABBAC6900DEA7EE /* AppDelegate.swift */,
 				B59882CF1B1827600062E407 /* EstablishmentViewController.swift */,
 				B5D1CCA61ABBAC6900DEA7EE /* BeersTableViewController.swift */,
+				B5D1CCD71ABBCF3200DEA7EE /* BeerTableViewCell.swift */,
 				B5D1CCA81ABBAC6900DEA7EE /* BeerDetailViewController.swift */,
 				B59882CD1B17EB480062E407 /* UserVerificationViewController.swift */,
-				B5D1CCD71ABBCF3200DEA7EE /* BeerTableViewCell.swift */,
-				B5E59F081B41AD920007881D /* UIColor.swift */,
-				B5E59F0A1B41ADA10007881D /* UIImage.swift */,
 				B5D1CCCF1ABBBF0700DEA7EE /* Model */,
+				B54737171B43944700FA5B02 /* Extensions */,
 				B5D1CCAA1ABBAC6900DEA7EE /* Main.storyboard */,
 				B5D1CCAF1ABBAC6900DEA7EE /* LaunchScreen.xib */,
 				B5D1CCAD1ABBAC6900DEA7EE /* Images.xcassets */,
@@ -208,6 +219,7 @@
 		F5D7435C157053889A5134B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B54737151B43933100FA5B02 /* MapKit.framework */,
 				31423DDF02BEA4C1A367D90A /* Pods_Brew_Week.framework */,
 			);
 			name = Frameworks;
