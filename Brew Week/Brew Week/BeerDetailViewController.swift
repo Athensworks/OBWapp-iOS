@@ -163,13 +163,11 @@ class BeerDetailViewController: UIViewController {
 
 		if let beer = self.beer {
 			if let status = self.status {
-				let guid = UIDevice.currentDevice().identifierForVendor.UUIDString
-
 				var params = [String: AnyObject]()
 
 				params["beer_id"] = Int(beer.identifier)
 				params["establishment_id"] = Int(status.establishment.identifier)
-				params["device_guid"] = guid
+				params["device_guid"] = UIDevice.currentDevice().identifierForVendor.UUIDString
 
 				Alamofire.request(.PUT, Endpoint(path: "report"), parameters: params, encoding: .JSON).responseJSON { (request, response, responseJSON, error) in
 					sender.setTitle("Reported. Thanks!", forState: .Normal)
