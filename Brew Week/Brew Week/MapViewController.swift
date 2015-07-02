@@ -103,7 +103,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, ManagedObjectViewC
 			} else {
 				view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
 				view.canShowCallout = true
-				view.calloutOffset = CGPoint(x: 0, y: 5)
 
 				if let button = UIButton.buttonWithType(.DetailDisclosure) as? UIButton {
 					button.addTarget(self, action: "showEstablishment:", forControlEvents: .TouchUpInside)
