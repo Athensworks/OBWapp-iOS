@@ -30,6 +30,7 @@
 		B5D1CCD81ABBCF3200DEA7EE /* BeerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CCD71ABBCF3200DEA7EE /* BeerTableViewCell.swift */; };
 		B5E082681B449EC8008260D2 /* BeerStatusExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E082671B449EC8008260D2 /* BeerStatusExtension.swift */; };
 		B5E0826A1B458D17008260D2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E082691B458D17008260D2 /* MapViewController.swift */; };
+		B5E0826C1B45AA26008260D2 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E0826B1B45AA26008260D2 /* AboutViewController.swift */; };
 		B5E59F021B4189A10007881D /* Drinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E59EFD1B4189A10007881D /* Drinker.swift */; };
 		B5E59F031B4189A10007881D /* FavoritedBeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E59EFE1B4189A10007881D /* FavoritedBeer.swift */; };
 		B5E59F041B4189A10007881D /* TastedBeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E59EFF1B4189A10007881D /* TastedBeer.swift */; };
@@ -79,6 +80,7 @@
 		B5D1CCD71ABBCF3200DEA7EE /* BeerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerTableViewCell.swift; sourceTree = "<group>"; };
 		B5E082671B449EC8008260D2 /* BeerStatusExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerStatusExtension.swift; sourceTree = "<group>"; };
 		B5E082691B458D17008260D2 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		B5E0826B1B45AA26008260D2 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		B5E59EFD1B4189A10007881D /* Drinker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Drinker.swift; path = "Brew Week/Model Classes/Drinker.swift"; sourceTree = "<group>"; };
 		B5E59EFE1B4189A10007881D /* FavoritedBeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritedBeer.swift; path = "Brew Week/Model Classes/FavoritedBeer.swift"; sourceTree = "<group>"; };
 		B5E59EFF1B4189A10007881D /* TastedBeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TastedBeer.swift; path = "Brew Week/Model Classes/TastedBeer.swift"; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				B5D1CCD71ABBCF3200DEA7EE /* BeerTableViewCell.swift */,
 				B5D1CCA81ABBAC6900DEA7EE /* BeerDetailViewController.swift */,
 				B5E082691B458D17008260D2 /* MapViewController.swift */,
+				B5E0826B1B45AA26008260D2 /* AboutViewController.swift */,
 				B59882CD1B17EB480062E407 /* UserVerificationViewController.swift */,
 				B5D1CCCF1ABBBF0700DEA7EE /* Model */,
 				B54737171B43944700FA5B02 /* Extensions */,
@@ -403,6 +406,7 @@
 			files = (
 				B5E59F021B4189A10007881D /* Drinker.swift in Sources */,
 				B5E59F051B4189A10007881D /* Establishment.swift in Sources */,
+				B5E0826C1B45AA26008260D2 /* AboutViewController.swift in Sources */,
 				B5D1CCD11ABBC21200DEA7EE /* EstablishmentExtension.swift in Sources */,
 				B5D1CCD51ABBC21300DEA7EE /* DrinkerExtension.swift in Sources */,
 				B5D1CCA21ABBAC6900DEA7EE /* AppDelegate.swift in Sources */,

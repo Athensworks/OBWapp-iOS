@@ -190,10 +190,10 @@
             </objects>
             <point key="canvasLocation" x="1376" y="64"/>
         </scene>
-        <!--View Controller-->
+        <!--About View Controller-->
         <scene sceneID="gzw-F9-h93">
             <objects>
-                <viewController id="aCz-yT-i46" sceneMemberID="viewController">
+                <viewController id="aCz-yT-i46" customClass="AboutViewController" customModule="Brew_Week" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mdh-Cj-pPQ"/>
                         <viewControllerLayoutGuide type="bottom" id="o3B-AX-Ljk"/>
@@ -267,6 +267,9 @@
                                                 </fragment>
                                             </attributedString>
                                         </state>
+                                        <connections>
+                                            <action selector="openAthensworksAction:" destination="aCz-yT-i46" eventType="touchUpInside" id="Vgf-N7-jY7"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Open Source Acknowledgments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leh-ba-y8l">
                                         <rect key="frame" x="187" y="511" width="226" height="18"/>
@@ -319,6 +322,10 @@
                     <navigationItem key="navigationItem" id="x9r-QC-j3J"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="800"/>
+                    <connections>
+                        <outlet property="appNameAndVersionLabel" destination="5sZ-yk-TFU" id="jrW-yK-roq"/>
+                        <outlet property="athensworksButton" destination="PXr-BH-a6B" id="5Qq-Fh-H0A"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RIP-Fn-Rro" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
