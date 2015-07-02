@@ -1,7 +1,7 @@
 # OBWapp-iOS
-An app for Ohio Brew Week that runs on iOS devices.
+A Swift app for Ohio Brew Week (http://ohiobrewweek.com) that runs on iOS 8 devices.
 
-This app communicates with the OBW node.js app (https://github.com/AthensWorks/OBWapp-API).
+This app communicates with the OBW Express.js app (https://github.com/AthensWorks/OBWapp-API).
 
 To get started:
 
