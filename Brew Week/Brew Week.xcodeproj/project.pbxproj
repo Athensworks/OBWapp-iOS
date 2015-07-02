@@ -29,6 +29,7 @@
 		B5D1CCD61ABBC77100DEA7EE /* BeerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CCD21ABBC21300DEA7EE /* BeerExtension.swift */; };
 		B5D1CCD81ABBCF3200DEA7EE /* BeerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CCD71ABBCF3200DEA7EE /* BeerTableViewCell.swift */; };
 		B5E082681B449EC8008260D2 /* BeerStatusExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E082671B449EC8008260D2 /* BeerStatusExtension.swift */; };
+		B5E0826A1B458D17008260D2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E082691B458D17008260D2 /* MapViewController.swift */; };
 		B5E59F021B4189A10007881D /* Drinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E59EFD1B4189A10007881D /* Drinker.swift */; };
 		B5E59F031B4189A10007881D /* FavoritedBeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E59EFE1B4189A10007881D /* FavoritedBeer.swift */; };
 		B5E59F041B4189A10007881D /* TastedBeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E59EFF1B4189A10007881D /* TastedBeer.swift */; };
@@ -77,6 +78,7 @@
 		B5D1CCD41ABBC21300DEA7EE /* DrinkerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrinkerExtension.swift; path = "Brew Week/Model Classes/DrinkerExtension.swift"; sourceTree = "<group>"; };
 		B5D1CCD71ABBCF3200DEA7EE /* BeerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerTableViewCell.swift; sourceTree = "<group>"; };
 		B5E082671B449EC8008260D2 /* BeerStatusExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerStatusExtension.swift; sourceTree = "<group>"; };
+		B5E082691B458D17008260D2 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B5E59EFD1B4189A10007881D /* Drinker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Drinker.swift; path = "Brew Week/Model Classes/Drinker.swift"; sourceTree = "<group>"; };
 		B5E59EFE1B4189A10007881D /* FavoritedBeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritedBeer.swift; path = "Brew Week/Model Classes/FavoritedBeer.swift"; sourceTree = "<group>"; };
 		B5E59EFF1B4189A10007881D /* TastedBeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TastedBeer.swift; path = "Brew Week/Model Classes/TastedBeer.swift"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				B5D1CCA61ABBAC6900DEA7EE /* BeersTableViewController.swift */,
 				B5D1CCD71ABBCF3200DEA7EE /* BeerTableViewCell.swift */,
 				B5D1CCA81ABBAC6900DEA7EE /* BeerDetailViewController.swift */,
+				B5E082691B458D17008260D2 /* MapViewController.swift */,
 				B59882CD1B17EB480062E407 /* UserVerificationViewController.swift */,
 				B5D1CCCF1ABBBF0700DEA7EE /* Model */,
 				B54737171B43944700FA5B02 /* Extensions */,
@@ -411,6 +414,7 @@
 				B5D1CCA51ABBAC6900DEA7EE /* Brew_Week.xcdatamodeld in Sources */,
 				B506A6131AE0A3F100EB0E59 /* BeerStatus.swift in Sources */,
 				B5D1CCA71ABBAC6900DEA7EE /* BeersTableViewController.swift in Sources */,
+				B5E0826A1B458D17008260D2 /* MapViewController.swift in Sources */,
 				B5E59F091B41AD920007881D /* UIColor.swift in Sources */,
 				B5E59F041B4189A10007881D /* TastedBeer.swift in Sources */,
 				B5D1CCD61ABBC77100DEA7EE /* BeerExtension.swift in Sources */,

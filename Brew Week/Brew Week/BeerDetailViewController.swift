@@ -108,7 +108,7 @@ class BeerDetailViewController: UIViewController {
 			}
 
 			statusLabel.text = status.statusString()
-			
+
 			self.reportButton.hidden = false
 		} else {
 			self.reportButton.hidden = true
@@ -170,8 +170,6 @@ class BeerDetailViewController: UIViewController {
 				params["beer_id"] = Int(beer.identifier)
 				params["establishment_id"] = Int(status.establishment.identifier)
 				params["device_guid"] = guid
-
-//				NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions, error: <#NSErrorPointer#>)
 
 				Alamofire.request(.PUT, Endpoint(path: "report"), parameters: params, encoding: .JSON).responseJSON { (request, response, responseJSON, error) in
 					sender.setTitle("Reported. Thanks!", forState: .Normal)

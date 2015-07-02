@@ -821,7 +821,7 @@
         <!--Brew Week in Athens-->
         <scene sceneID="Wjn-S2-ZZQ">
             <objects>
-                <viewController title="Brew Week in Athens" id="vG3-45-iZR" sceneMemberID="viewController">
+                <viewController title="Brew Week in Athens" id="vG3-45-iZR" customClass="MapViewController" customModule="Brew_Week" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jjh-Pv-8bc"/>
                         <viewControllerLayoutGuide type="bottom" id="x9J-nv-Enf"/>
@@ -832,6 +832,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RkU-rO-nYp">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vG3-45-iZR" id="Nf9-BV-g5Y"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -844,6 +847,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="SiH-5t-Sva"/>
                     <connections>
+                        <outlet property="mapView" destination="RkU-rO-nYp" id="B5L-1O-Sgk"/>
                         <segue destination="pGg-6v-bdr" kind="show" identifier="showBeers" id="VhG-BT-94h"/>
                     </connections>
                 </viewController>
@@ -1026,7 +1030,7 @@
         <image name="unchecked-154" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eOs-O8-DOI"/>
+        <segue reference="VhG-BT-94h"/>
         <segue reference="PQo-hl-z2U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.83137254900000002" green="0.074509803920000006" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
