@@ -11,7 +11,25 @@ import CoreData
 
 class BeerStatus: NSManagedObject {
 
-    @NSManaged var status: String
+	var status: String {
+			set {
+				self.willChangeValueForKey("status")
+				self.setPrimitiveValue(newValue, forKey: "status")
+				self.didChangeValueForKey("status")
+
+				let index = find(BeerStatus.ordering, newValue)
+				self.section = Int32(index ?? Int.max)
+			}
+			get {
+				self.willAccessValueForKey("status")
+				let value = self.primitiveValueForKey("status") as? String
+				self.didAccessValueForKey("status")
+
+				return value ?? "unknown"
+			}
+	}
+
+	@NSManaged var section: Int32
     @NSManaged var beer: Beer
     @NSManaged var establishment: Establishment
 

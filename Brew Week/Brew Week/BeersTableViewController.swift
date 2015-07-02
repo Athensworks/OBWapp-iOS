@@ -158,6 +158,24 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		return sectionInfo.numberOfObjects
 	}
 
+	override func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject]! {
+		return self.fetchedResultsController.sectionIndexTitles
+	}
+
+	override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+		return self.fetchedResultsController.sectionForSectionIndexTitle(title, atIndex: index)
+	}
+
+	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		if let sections = self.fetchedResultsController.sections as? [NSFetchedResultsSectionInfo] {
+			if let index = sections[section].name?.toInt() {
+				return BeerStatus.statusString(forStatus: BeerStatus.ordering[index])
+			}
+		}
+
+		return nil
+	}
+
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath) as! UITableViewCell
 		self.configureCell(cell, atIndexPath: indexPath)
@@ -227,12 +245,14 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 			fetchRequest.predicate = NSPredicate(format: "establishment == %@", establishment)
 
 			entity = NSEntityDescription.entityForName("BeerStatus", inManagedObjectContext: self.managedObjectContext!)
+
+			sectionNameKeyPath = "section"
+			let statusSortDescriptor = NSSortDescriptor(key: sectionNameKeyPath!, ascending: true)
+			//NSSortDescriptor(key: sectionNameKeyPath!, ascending: true)
+
 			let nameSortDescriptor = NSSortDescriptor(key: "beer.name", ascending: true)
-			let statusSortDescriptor = NSSortDescriptor(key: "status", ascending: true)
 
 			sortDescriptors = [statusSortDescriptor, nameSortDescriptor]
-
-			sectionNameKeyPath = "status"
 		} else {
 			entity = NSEntityDescription.entityForName("Beer", inManagedObjectContext: self.managedObjectContext!)
 			let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
@@ -250,11 +270,11 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	    
 	    // Edit the section name key path and cache name if appropriate.
 	    // nil for section name key path means "no sections".
-	    let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: sectionNameKeyPath, cacheName: "Beers")
+	    let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: sectionNameKeyPath, cacheName: entity?.name)
 	    aFetchedResultsController.delegate = self
 	    _fetchedResultsController = aFetchedResultsController
 
-		NSFetchedResultsController.deleteCacheWithName("Beers")
+		NSFetchedResultsController.deleteCacheWithName(entity?.name)
 	    
 		var error: NSError? = nil
 		if !_fetchedResultsController!.performFetch(&error) {
@@ -310,5 +330,9 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	     // In the simplest, most efficient, case, reload the table view.
 	     self.tableView.reloadData()
 	 }
+
+	func controller(controller: NSFetchedResultsController, sectionIndexTitleForSectionName sectionName: String?) -> String? {
+		return nil
+	}
 }
 

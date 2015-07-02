@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E36b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Beer" representedClassName="Brew_Week.Beer" syncable="YES">
         <attribute name="abv" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="beerDescription" optional="YES" attributeType="String" syncable="YES"/>
@@ -17,6 +17,7 @@
         <relationship name="taste" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TastedBeer" inverseName="beer" inverseEntity="TastedBeer" syncable="YES"/>
     </entity>
     <entity name="BeerStatus" representedClassName="Brew_Week.BeerStatus" syncable="YES">
+        <attribute name="section" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="beer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Beer" inverseName="statuses" inverseEntity="Beer" syncable="YES"/>
         <relationship name="establishment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Establishment" inverseName="beerStatuses" inverseEntity="Establishment" syncable="YES"/>
@@ -50,10 +51,10 @@
     <fetchRequest name="tastedFetch" entity="Beer" predicateString="tasted == 1"/>
     <elements>
         <element name="Beer" positionX="477" positionY="279" width="128" height="253"/>
-        <element name="BeerStatus" positionX="295" positionY="423" width="128" height="88"/>
+        <element name="BeerStatus" positionX="295" positionY="423" width="128" height="103"/>
         <element name="Drinker" positionX="853" positionY="72" width="128" height="103"/>
         <element name="Establishment" positionX="288" positionY="198" width="128" height="133"/>
-        <element name="TastedBeer" positionX="671" positionY="198" width="128" height="88"/>
         <element name="FavoritedBeer" positionX="671" positionY="297" width="128" height="88"/>
+        <element name="TastedBeer" positionX="671" positionY="198" width="128" height="88"/>
     </elements>
 </model>

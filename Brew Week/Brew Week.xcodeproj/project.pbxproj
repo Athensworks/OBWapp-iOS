@@ -28,6 +28,7 @@
 		B5D1CCD51ABBC21300DEA7EE /* DrinkerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CCD41ABBC21300DEA7EE /* DrinkerExtension.swift */; };
 		B5D1CCD61ABBC77100DEA7EE /* BeerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CCD21ABBC21300DEA7EE /* BeerExtension.swift */; };
 		B5D1CCD81ABBCF3200DEA7EE /* BeerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CCD71ABBCF3200DEA7EE /* BeerTableViewCell.swift */; };
+		B5E082681B449EC8008260D2 /* BeerStatusExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E082671B449EC8008260D2 /* BeerStatusExtension.swift */; };
 		B5E59F021B4189A10007881D /* Drinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E59EFD1B4189A10007881D /* Drinker.swift */; };
 		B5E59F031B4189A10007881D /* FavoritedBeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E59EFE1B4189A10007881D /* FavoritedBeer.swift */; };
 		B5E59F041B4189A10007881D /* TastedBeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E59EFF1B4189A10007881D /* TastedBeer.swift */; };
@@ -75,6 +76,7 @@
 		B5D1CCD21ABBC21300DEA7EE /* BeerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeerExtension.swift; path = "Brew Week/Model Classes/BeerExtension.swift"; sourceTree = "<group>"; };
 		B5D1CCD41ABBC21300DEA7EE /* DrinkerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrinkerExtension.swift; path = "Brew Week/Model Classes/DrinkerExtension.swift"; sourceTree = "<group>"; };
 		B5D1CCD71ABBCF3200DEA7EE /* BeerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerTableViewCell.swift; sourceTree = "<group>"; };
+		B5E082671B449EC8008260D2 /* BeerStatusExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeerStatusExtension.swift; sourceTree = "<group>"; };
 		B5E59EFD1B4189A10007881D /* Drinker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Drinker.swift; path = "Brew Week/Model Classes/Drinker.swift"; sourceTree = "<group>"; };
 		B5E59EFE1B4189A10007881D /* FavoritedBeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritedBeer.swift; path = "Brew Week/Model Classes/FavoritedBeer.swift"; sourceTree = "<group>"; };
 		B5E59EFF1B4189A10007881D /* TastedBeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TastedBeer.swift; path = "Brew Week/Model Classes/TastedBeer.swift"; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				B5D1CCD41ABBC21300DEA7EE /* DrinkerExtension.swift */,
 				B5D1CCD21ABBC21300DEA7EE /* BeerExtension.swift */,
 				B5D1CCD01ABBC21200DEA7EE /* EstablishmentExtension.swift */,
+				B5E082671B449EC8008260D2 /* BeerStatusExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				B5E59F0B1B41ADA10007881D /* UIImage.swift in Sources */,
 				B5E59F031B4189A10007881D /* FavoritedBeer.swift in Sources */,
 				B5D1CCA91ABBAC6900DEA7EE /* BeerDetailViewController.swift in Sources */,
+				B5E082681B449EC8008260D2 /* BeerStatusExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -78,16 +78,12 @@ class BeerDetailViewController: UIViewController {
 		}
 
 		if let status = self.status {
-			var displayStatus: String = "Unknown"
-
 			switch status.status {
 				case "empty":
-					displayStatus = "Empty"
 					statusLabel.backgroundColor = UIColor.brewWeekRed()
 
 					self.reportButton.hidden = true
 				case "empty-reported":
-					displayStatus = "Reported Empty"
 					statusLabel.backgroundColor = UIColor.brewWeekRed()
 
 					self.reportButton.setTitle("Reported Empty! Tap here to confirm it…", forState: .Normal)
@@ -95,17 +91,14 @@ class BeerDetailViewController: UIViewController {
 
 					self.reportButton.hidden = false
 				case "untapped":
-					displayStatus = "Not Tapped Yet"
 					statusLabel.backgroundColor = UIColor.grayColor()
 
 					self.reportButton.hidden = true
 				case "tapped":
-					displayStatus = "Tapped"
 					statusLabel.backgroundColor = UIColor.brewWeekGold()
 
 					self.reportButton.hidden = false
 				case "cancelled":
-					displayStatus = "Cancelled"
 					statusLabel.backgroundColor = UIColor.grayColor()
 
 					self.reportButton.hidden = true
@@ -114,7 +107,11 @@ class BeerDetailViewController: UIViewController {
 					self.reportButton.hidden = true
 			}
 
-			statusLabel.text = displayStatus
+			statusLabel.text = status.statusString()
+			
+			self.reportButton.hidden = false
+		} else {
+			self.reportButton.hidden = true
 		}
 	}
 
