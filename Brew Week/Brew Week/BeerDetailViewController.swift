@@ -150,7 +150,7 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 					if count(establishmentNames) > 0 {
 						statusLabel.text = establishmentNames
 					} else {
-						statusLabel.text = "None"
+						statusLabel.text = "Not Available"
 					}
 					
 					statusLabel.backgroundColor = UIColor.clearColor()

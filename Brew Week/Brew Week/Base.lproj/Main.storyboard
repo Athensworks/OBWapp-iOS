@@ -703,7 +703,7 @@ Icons by Glyphicons.</string>
                                 <rect key="frame" x="94" y="102" width="76.5" height="20.5"/>
                                 <color key="backgroundColor" red="0.73333333329999995" green="0.46274509800000002" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="44" id="KSo-8b-U9l"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="88" id="KSo-8b-U9l"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -731,7 +731,6 @@ Icons by Glyphicons.</string>
                             <constraint firstItem="ZBg-5e-brF" firstAttribute="leading" secondItem="oCP-OJ-2tE" secondAttribute="trailing" constant="8" id="RDG-Ok-vGx"/>
                             <constraint firstItem="C8T-Eu-KNx" firstAttribute="leading" secondItem="11l-O2-cAj" secondAttribute="trailing" constant="8" symbolic="YES" id="RPE-Xu-QgD"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="lQ3-oG-eNu" secondAttribute="trailing" id="RjJ-zW-4J9"/>
-                            <constraint firstItem="FQi-N9-ujo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="11l-O2-cAj" secondAttribute="bottom" id="TeO-WC-qPi"/>
                             <constraint firstAttribute="centerX" secondItem="FgR-in-00N" secondAttribute="centerX" constant="4" id="Tmf-2c-T9P"/>
                             <constraint firstItem="11l-O2-cAj" firstAttribute="centerY" secondItem="u2p-Yv-0RX" secondAttribute="centerY" id="U7h-cP-mtb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="33u-Ha-Ihg" secondAttribute="trailing" constant="8" id="VEU-zh-zvO"/>
