@@ -5,10 +5,10 @@ This app communicates with the OBW Express.js app (https://github.com/AthensWork
 
 To get started:
 
-  1. Make sure you have the latest non-beta version of Xcode (v6.3.2 when last checked). 
+  1. Make sure you have the latest non-beta version of Xcode (v6.4 when last checked). 
   2. Clone this repo (I'd suggest the Mac GitHub client vs. using Xcode's built-in stuff)
-  3. Install cocoapods (go to http://cocoapods.org if you need instructions on how to do this)
-  4. Setup the necessary pods using the terminal by running `pod install` in the `Brew Week` directory inside the cloned repo (there should be a Podfile in that directory)
+  3. Install cocoapods gem (go to http://cocoapods.org if you need instructions on how to do this)
+  4. Setup the necessary pods using the terminal by running `pod install` in the `Brew Week` directory inside the cloned repo (there should be a Podfile in this directory)
   5. Open the newly created Xcode workspace file called `Brew Week.xcworkspace`
 
 Enjoy!
