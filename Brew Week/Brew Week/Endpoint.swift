@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 class Endpoint: URLStringConvertible {
-	static let baseURLString = "http://173.230.142.215:3000"
+	static let baseURLString = "http://obwapp.athensworks.com"
 
 	var relativePath: String
 
