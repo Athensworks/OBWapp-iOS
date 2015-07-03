@@ -22,6 +22,8 @@ class AboutViewController: UIViewController {
 	}
 
 	@IBAction func openAthensworksAction(sender: UIButton) {
-
+		if let url = NSURL(string: "http://athensworks.com/") {
+			UIApplication.sharedApplication().openURL(url)
+		}
 	}
 }
