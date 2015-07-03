@@ -16,6 +16,8 @@ class AboutViewController: UIViewController {
 	override func awakeFromNib() {
 		if let image = UIImage(named: "heart-13")?.colorizedImage(UIColor.brewWeekRed()) {
 			self.navigationController?.tabBarItem.selectedImage = image.imageWithRenderingMode(.AlwaysOriginal)
+
+			self.navigationController?.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.brewWeekRed()], forState: .Selected)
 		}
 	}
 
