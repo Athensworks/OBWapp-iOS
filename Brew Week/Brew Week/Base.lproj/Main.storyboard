@@ -203,8 +203,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beer-bg" translatesAutoresizingMaskIntoConstraints="NO" id="jiP-VQ-pVw">
-                                <rect key="frame" x="0.0" y="20" width="600" height="731"/>
+                            <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beer-bg" translatesAutoresizingMaskIntoConstraints="NO" id="jiP-VQ-pVw">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rym-Hz-AuG">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="751"/>
@@ -249,8 +249,8 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PXr-BH-a6B">
-                                        <rect key="frame" x="149.5" y="358.5" width="300" height="31"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PXr-BH-a6B">
+                                        <rect key="frame" x="149" y="358" width="300" height="31"/>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="created in collaboration with">
@@ -294,8 +294,8 @@
                                             <action selector="openAthensworksAction:" destination="aCz-yT-i46" eventType="touchUpInside" id="Vgf-N7-jY7"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" misplaced="YES" text="Open Source Acknowledgments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leh-ba-y8l">
-                                        <rect key="frame" x="187" y="585" width="226" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" misplaced="YES" text="Acknowledgments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leh-ba-y8l">
+                                        <rect key="frame" x="235" y="585" width="130" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -339,11 +339,11 @@
                             <constraint firstItem="jiP-VQ-pVw" firstAttribute="leading" secondItem="1qR-id-hSf" secondAttribute="leading" id="3rd-ui-TtK"/>
                             <constraint firstItem="Rym-Hz-AuG" firstAttribute="leading" secondItem="1qR-id-hSf" secondAttribute="leading" id="6r4-w9-hT6"/>
                             <constraint firstAttribute="trailing" secondItem="Rym-Hz-AuG" secondAttribute="trailing" id="A8m-tJ-Msa"/>
-                            <constraint firstItem="jiP-VQ-pVw" firstAttribute="top" secondItem="Mdh-Cj-pPQ" secondAttribute="bottom" id="Jjr-51-8cQ"/>
+                            <constraint firstItem="jiP-VQ-pVw" firstAttribute="top" secondItem="1qR-id-hSf" secondAttribute="topMargin" id="E8x-KT-0hr"/>
                             <constraint firstItem="Rym-Hz-AuG" firstAttribute="top" secondItem="1qR-id-hSf" secondAttribute="top" id="LKp-CB-7gW"/>
+                            <constraint firstAttribute="bottom" secondItem="jiP-VQ-pVw" secondAttribute="bottom" id="bMz-Lv-7AL"/>
                             <constraint firstItem="o3B-AX-Ljk" firstAttribute="top" secondItem="Rym-Hz-AuG" secondAttribute="bottom" id="gwn-oo-hLc"/>
                             <constraint firstAttribute="trailing" secondItem="jiP-VQ-pVw" secondAttribute="trailing" id="kEO-QF-TtG"/>
-                            <constraint firstItem="o3B-AX-Ljk" firstAttribute="top" secondItem="jiP-VQ-pVw" secondAttribute="bottom" id="tHo-Vf-LXZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="x9r-QC-j3J"/>
