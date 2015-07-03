@@ -47,6 +47,8 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 							for (index: String, statusJSON: JSON) in responseJSON["beer_statuses"] {
 								establishment.updateOrCreateStatusFromJSON(statusJSON)
 							}
+
+							self.fetchedResultsController.performFetch(nil)
 						}
 
 						self.refreshControl?.endRefreshing()
@@ -142,6 +144,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 					}
 
 					detailController.beer = 🍺
+					detailController.managedObjectContext = managedObjectContext
 				}
 		    }
 		}
