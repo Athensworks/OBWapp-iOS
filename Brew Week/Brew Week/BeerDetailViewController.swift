@@ -86,7 +86,7 @@ class BeerDetailViewController: UIViewController {
 				case "empty-reported":
 					statusLabel.backgroundColor = UIColor.brewWeekRed()
 
-					self.reportButton.setTitle("Reported Empty! Tap here to confirm it…", forState: .Normal)
+					self.reportButton.setTitle("Reported Out! Tap here to confirm it…", forState: .Normal)
 					self.reportButton.titleLabel?.font = UIFont.italicSystemFontOfSize(UIFont.systemFontSize())
 
 					self.reportButton.hidden = false

@@ -14,9 +14,9 @@ extension BeerStatus {
 		switch status {
 
 		case "empty":
-			return "Empty"
+			return "Out"
 		case "empty-reported":
-			return "Reported Empty"
+			return "Reported Out"
 		case "untapped":
 			return "Not Tapped Yet"
 		case "tapped":
@@ -36,9 +36,9 @@ extension BeerStatus {
 		get {
 			return [
 				"tapped",
-				"empty",
 				"empty-reported",
 				"untapped",
+				"empty",
 				"cancelled",
 				"unknown"
 			]
