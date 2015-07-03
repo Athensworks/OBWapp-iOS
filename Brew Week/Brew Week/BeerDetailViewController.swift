@@ -8,9 +8,11 @@
 
 import UIKit
 import Alamofire
+import CoreData
 
 
-class BeerDetailViewController: UIViewController {
+class BeerDetailViewController: UIViewController, ManagedObjectViewController {
+	var managedObjectContext: NSManagedObjectContext? = nil
 
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var limitedReleaseView: UIView!
@@ -19,6 +21,7 @@ class BeerDetailViewController: UIViewController {
 	@IBOutlet weak var detailDescriptionLabel: UILabel!
 	@IBOutlet weak var rateBeerButton: UIButton!
 
+	@IBOutlet weak var statusAvailabilityLabel: UILabel!
 	@IBOutlet weak var statusLabel: UILabel!
 	@IBOutlet weak var ibuLabel: UILabel!
 	@IBOutlet weak var abvLabel: UILabel!
@@ -30,6 +33,7 @@ class BeerDetailViewController: UIViewController {
 
 	@IBOutlet weak var tastedButton: UIButton!
 	@IBOutlet weak var favoritedButton: UIButton!
+	@IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
 
 	@IBOutlet weak var reportButton: UIButton!
 
@@ -109,9 +113,52 @@ class BeerDetailViewController: UIViewController {
 
 			statusLabel.text = status.statusString()
 
-			self.reportButton.hidden = false
+			statusLabel.textColor = UIColor.whiteColor()
+			statusAvailabilityLabel.text = "Status"
+
+			reportButton.hidden = false
+			bottomLayoutConstraint.constant = 54
 		} else {
-			self.reportButton.hidden = true
+			// no status set
+			reportButton.hidden = true
+			bottomLayoutConstraint.constant = 12
+
+			if let beer = self.beer {
+				let fetch = NSFetchRequest(entityName: "BeerStatus")
+
+				fetch.predicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates: [
+					NSPredicate(format: "beer.identifier == %d", beer.identifier),
+					NSPredicate(format: "status LIKE[cd] %@", "tapped")
+					])
+
+
+				var error: NSError? = nil
+				if let statuses = self.managedObjectContext?.executeFetchRequest(fetch, error: &error) as? [BeerStatus] {
+					let establishments = Set(statuses.map { (BeerStatus) -> Establishment  in
+						return BeerStatus.establishment
+					})
+
+					var establishmentNames: String = ""
+					for establishment in establishments {
+						if count(establishmentNames) > 0 {
+							establishmentNames += ", "
+						}
+						
+						establishmentNames += "\(establishment.name)"
+					}
+
+					if count(establishmentNames) > 0 {
+						statusLabel.text = establishmentNames
+					} else {
+						statusLabel.text = "None"
+					}
+					
+					statusLabel.backgroundColor = UIColor.clearColor()
+					statusLabel.textColor = UIColor.blackColor()
+
+					statusAvailabilityLabel.text = "Where"
+				}
+			}
 		}
 	}
 
