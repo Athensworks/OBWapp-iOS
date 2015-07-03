@@ -13,6 +13,12 @@ class AboutViewController: UIViewController {
 	@IBOutlet weak var appNameAndVersionLabel: UILabel!
 	@IBOutlet weak var athensworksButton: UIButton!
 
+	override func awakeFromNib() {
+		if let image = UIImage(named: "heart-13")?.colorizedImage(UIColor.brewWeekRed()) {
+			self.navigationController?.tabBarItem.selectedImage = image.imageWithRenderingMode(.AlwaysOriginal)
+		}
+	}
+
 	override func viewDidLoad() {
 		let appInfoDictionary = NSBundle.mainBundle().infoDictionary
 		let bundleVersion = appInfoDictionary![kCFBundleVersionKey] as! NSString
