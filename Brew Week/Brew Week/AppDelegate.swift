@@ -8,18 +8,83 @@
 
 import UIKit
 import CoreData
+import CoreLocation
+
+
+protocol ManagedObjectViewController {
+	var managedObjectContext: NSManagedObjectContext? { get set }
+}
+
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
 	var window: UIWindow?
+	lazy var drinker: Drinker? = {
+		let fetch = NSFetchRequest(entityName: "Drinker")
+		fetch.fetchLimit = 1
 
+		var fetchError: NSError? = nil
+
+		var resultArray = self.managedObjectContext?.executeFetchRequest(fetch, error: &fetchError)
+
+		if let fetchError = fetchError {
+			println(fetchError.localizedDescription)
+			return nil
+		}
+
+		if resultArray != nil && resultArray!.count > 0 {
+			return resultArray?[0] as? Drinker
+		}
+
+		return nil
+	}()
+
+	lazy var locationManager: CLLocationManager? = {
+		let manager = CLLocationManager()
+
+		manager.delegate = self
+		manager.desiredAccuracy = kCLLocationAccuracyBest
+
+		return manager
+	}()
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
-		let navigationController = self.window!.rootViewController as UINavigationController
-		let controller = navigationController.topViewController as MasterViewController
-		controller.managedObjectContext = self.managedObjectContext
+		let tabController = self.window!.rootViewController as! UITabBarController
+		tabController.tabBar.tintColor = UIColor.brewWeekGold()
+
+		// set the managed object context on all the different view controllers
+		if let viewControllers = tabController.viewControllers as? [UIViewController] {
+			for controller in viewControllers {
+				if let navigationController = controller as? UINavigationController {
+					if var rootController = navigationController.topViewController as? ManagedObjectViewController {
+						rootController.managedObjectContext = managedObjectContext
+					}
+				} else if var managedController = controller as? ManagedObjectViewController {
+					// view controller
+					managedController.managedObjectContext = managedObjectContext
+				}
+			}
+		}
+
+		let authorization = CLLocationManager.authorizationStatus()
+
+		if authorization == .Denied || authorization == .Restricted {
+			println("Unabled to access location")
+		} else {
+			if let locationManager = locationManager {
+				if authorization == .NotDetermined {
+					locationManager.requestWhenInUseAuthorization()
+				}
+
+				if CLLocationManager.locationServicesEnabled() == true {
+					locationManager.startUpdatingLocation()
+				}
+			}
+		}
+
 		return true
 	}
 
@@ -47,13 +112,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.saveContext()
 	}
 
+	// MARK: - CLLocationManagerDelegate
+
+//	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+//		manager.l
+//	}
+
+	func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+		if status == .AuthorizedWhenInUse {
+			manager.startUpdatingLocation()
+		}
+	}
+
+	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+		println(error.localizedDescription)
+	}
+
 	// MARK: - Core Data stack
 
 	lazy var applicationDocumentsDirectory: NSURL = {
-	    // The directory the application uses to store the Core Data store file. This code uses a directory named "com.ohiobrewweek.Brew_Week" in the application's documents Application Support directory.
-	    let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-	    return urls[urls.count-1] as NSURL
-	}()
+		// The directory the application uses to store the Core Data store file. This code uses a directory named "com.ohiobrewweek.test_swift" in the application's documents Application Support directory.
+		let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+		return urls[urls.count-1] as! NSURL
+		}()
 
 	lazy var managedObjectModel: NSManagedObjectModel = {
 	    // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
@@ -75,7 +156,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	        dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
 	        dict[NSLocalizedFailureReasonErrorKey] = failureReason
 	        dict[NSUnderlyingErrorKey] = error
-	        error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+	        error = NSError(domain: "com.brew-week.brew-week", code: 9999, userInfo: dict)
 	        // Replace this with code to handle the error appropriately.
 	        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 	        NSLog("Unresolved error \(error), \(error!.userInfo)")
