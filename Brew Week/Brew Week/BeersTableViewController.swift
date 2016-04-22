@@ -32,37 +32,35 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 	//MARK: - Actions
 
-	@IBAction func refreshBeers(sender: UIRefreshControl) {
-		// /establishment/:establishment_id/beer_statuses
-
-		Alamofire.request(.GET, Endpoint(path: "beers")).response { (_, _, data, error) in
-			if let data = data {
-				Beer.beersFromJSON(data)
-
-				if let establishment = self.establishment {
-					Alamofire.request(.GET, Endpoint(path: "establishment/\(establishment.identifier)/beer_statuses")).response() { (_, _, statusData, _) in
-						if let data = statusData {
-							let responseJSON = JSON(data: data)
-
-							for (_, statusJSON): (String, JSON) in responseJSON["beer_statuses"] {
-								establishment.updateOrCreateStatusFromJSON(statusJSON)
-							}
-
-                            do {
-                                try self.fetchedResultsController.performFetch()
-                            } catch error {
-                                print("Fetch Unsuccessful \(error)")
-                            }
-						}
-
-						self.refreshControl?.endRefreshing()
-					}
-				} else {
-					self.refreshControl?.endRefreshing()
-				}
-			}
-		}
-	}
+    @IBAction func refreshBeers(sender: UIRefreshControl) {
+        // /establishment/:establishment_id/beer_statuses
+        
+        Alamofire.request(.GET, Endpoint(path: "beers")).responseJSON { (response) in
+            switch response.result {
+            case .Success(let json):
+                Beer.beersFromJSON(json)
+                
+                if let establishment = self.establishment {
+                    Alamofire.request(.GET, Endpoint(path: "establishment/\(establishment.identifier)/beer_statuses")).responseJSON { response in
+                        for (_, statusJSON): (String, JSON) in json["beer_statuses"] {
+                            establishment.updateOrCreateStatusFromJSON(statusJSON)
+                        }
+                        
+                        do {
+                            try self.fetchedResultsController.performFetch()
+                        } catch let error {
+                            print("Fetch Unsuccessful \(error)")
+                        }
+                    }
+                    
+                    self.refreshControl?.endRefreshing()
+                }
+                
+            case .Failure(let error):
+                break
+            }
+        }
+    }
 
 	@IBAction func tastedChanged(sender: UIButton) {
 		sender.selected = !sender.selected

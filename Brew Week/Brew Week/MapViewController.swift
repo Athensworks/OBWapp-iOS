@@ -94,7 +94,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, ManagedObjectViewC
 		}
 	}
 
-	func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
+	func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
 		if let annotation = annotation as? Establishment {
 			let identifier = "establishment"
 			var view: MKPinAnnotationView
@@ -106,10 +106,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, ManagedObjectViewC
 				view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
 				view.canShowCallout = true
 
-				if let button = UIButton(type: .DetailDisclosure) as? UIButton {
-					button.addTarget(self, action: "showEstablishment:", forControlEvents: .TouchUpInside)
-					view.rightCalloutAccessoryView = button
-				}
+                let button = UIButton(type: .DetailDisclosure)
+                
+                button.addTarget(self, action: #selector(MapViewController.showEstablishment(_:)), forControlEvents: .TouchUpInside)
+                view.rightCalloutAccessoryView = button
 			}
 
 			return view

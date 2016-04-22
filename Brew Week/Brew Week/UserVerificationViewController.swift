@@ -43,8 +43,6 @@ class UserVerificationViewController : UIViewController, UITextFieldDelegate {
 	// MARK: - Actions
 
 	@IBAction func dateValueChangedAction(sender: UIDatePicker) {
-		let birthdate = sender.date
-
 		verifyFields()
 	}
 

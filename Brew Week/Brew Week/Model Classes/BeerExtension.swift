@@ -19,49 +19,47 @@ extension Beer {
 		}
 	}
 
-	class func beersFromJSON(jsonData: NSData) {
-		let json = JSON(data: jsonData)
-
-		let jsonBeersArray = json["beers"]
-
-		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		
-
-		if let context = appDelegate.managedObjectContext {
-			for (index, beerJSON): (String, JSON) in jsonBeersArray {
-
-				var beer = beerForIdentifier(beerJSON["id"].int32Value, inContext: context)
-
-				if beer == nil {
-					beer = NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: context) as? Beer
-				}
-
-				if let 🍺 = beer {
-					🍺.name = beerJSON["name"].stringValue
-					🍺.identifier = beerJSON["id"].int32Value
-					🍺.brewery = beerJSON["brewery"].stringValue
-					🍺.abv = beerJSON["abv"].doubleValue
-					🍺.ibu = beerJSON["ibu"].int32Value
-					🍺.favoriteCount = beerJSON["favorite_count"].int32Value
-					🍺.tasteCount = beerJSON["taste_count"].int32Value
-					🍺.limitedRelease = beerJSON["limited_release"].boolValue
-					🍺.rateBeerID = beerJSON["rate_beer_id"].int32Value
-					🍺.beerDescription = beerJSON["description"].stringValue
-				}
-			}
-
-
-			// Save the context.
-			do {
-				try context.save()
-			} catch {
-				// Replace this implementation with code to handle the error appropriately.
-				// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-				//println("Unresolved error \(error), \(error.userInfo)")
-				abort()
-			}
-		}
-	}
+    class func beersFromJSON(jsonData: NSData) {
+        let json = JSON(data: jsonData)
+        
+        let jsonBeersArray = json["beers"]
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        for (_, beerJSON): (String, JSON) in jsonBeersArray {
+            
+            var beer = beerForIdentifier(beerJSON["id"].int32Value, inContext: appDelegate.managedObjectContext)
+            
+            if beer == nil {
+                beer = NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: appDelegate.managedObjectContext) as? Beer
+            }
+            
+            if let 🍺 = beer {
+                🍺.name = beerJSON["name"].stringValue
+                🍺.identifier = beerJSON["id"].int32Value
+                🍺.brewery = beerJSON["brewery"].stringValue
+                🍺.abv = beerJSON["abv"].doubleValue
+                🍺.ibu = beerJSON["ibu"].int32Value
+                🍺.favoriteCount = beerJSON["favorite_count"].int32Value
+                🍺.tasteCount = beerJSON["taste_count"].int32Value
+                🍺.limitedRelease = beerJSON["limited_release"].boolValue
+                🍺.rateBeerID = beerJSON["rate_beer_id"].int32Value
+                🍺.beerDescription = beerJSON["description"].stringValue
+            }
+        }
+        
+        
+        // Save the context.
+        do {
+            try appDelegate.managedObjectContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            //println("Unresolved error \(error), \(error.userInfo)")
+            abort()
+        }
+        
+    }
 
 	class func beerForIdentifier(identifier: Int32, inContext context: NSManagedObjectContext) -> Beer? {
 		let request = NSFetchRequest(entityName: "Beer")
@@ -119,9 +117,10 @@ extension Beer {
 	private func reportTasted(completion: ((Int) -> Void) ) {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
-		if let drinker = appDelegate.drinker {
+		if let drinker = appDelegate.drinker,
+            let guid = UIDevice.currentDevice().identifierForVendor?.UUIDString {
 			let beerID = Int(identifier)
-			let guid = UIDevice.currentDevice().identifierForVendor.UUIDString
+			
 			let location = appDelegate.locationManager?.location
 
 			//			{

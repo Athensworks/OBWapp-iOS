@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 			resultArray = try self.managedObjectContext.executeFetchRequest(fetch)
 		} catch {
             print(error)
-            return nil
+            return nil  
 		}
 
 		if resultArray != nil && resultArray!.count > 0 {

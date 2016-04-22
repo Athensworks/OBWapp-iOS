@@ -11,58 +11,56 @@ import CoreData
 import SwiftyJSON
 
 extension Establishment {
-	class func establishmentsFromJSON(jsonData: NSData) {
-		let json = JSON(data: jsonData)
-
-		let jsonEstablishmentsArray = json["establishments"]
-
-		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
-		if let context = appDelegate.managedObjectContext {
-			if jsonEstablishmentsArray.count == 0 {
-				return
-			}
-
-			var establishmentIDs = [Int]()
-
-			for (_, establishmentJSON): (String, JSON) in jsonEstablishmentsArray {
-				var establishment = establishmentForIdentifier(establishmentJSON["id"].int32Value, inContext: context)
-
-				if establishment == nil {
-					establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: context) as? Establishment
-
-					print("Adding new establishment: " + establishmentJSON["name"].stringValue + "\n")
-				}
-
-				establishment?.identifier = establishmentJSON["id"].int32Value
-				establishment?.address = establishmentJSON["address"].stringValue
-				establishment?.name = establishmentJSON["name"].stringValue
-				establishment?.lat = establishmentJSON["lat"].floatValue
-				establishment?.lon = establishmentJSON["lon"].floatValue
-
-				for (_, statusJSON): (String, JSON) in establishmentJSON["beer_statuses"] {
-					establishment?.updateOrCreateStatusFromJSON(statusJSON)
-				}
-
-				establishmentIDs.append(establishmentJSON["id"].intValue)
-			}
-
-			let fetchRemovedEstablishments = NSFetchRequest(entityName: "Establishment")
-			fetchRemovedEstablishments.predicate = NSPredicate(format: "NOT (identifier IN %@)", establishmentIDs)
-
-			if let array = try? context.executeFetchRequest(fetchRemovedEstablishments), results = array as? [NSManagedObject] {
-				if results.count > 0 {
-					print("Removing \(results.count) establishments")
-
-					for establishment in results {
-						context.deleteObject(establishment)
-					}
-
-					appDelegate.saveContext()
-				}
-			}
-		}
-	}
+    class func establishmentsFromJSON(jsonData: NSData) {
+        let json = JSON(data: jsonData)
+        
+        let jsonEstablishmentsArray = json["establishments"]
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        if jsonEstablishmentsArray.count == 0 {
+            return
+        }
+        
+        var establishmentIDs = [Int]()
+        
+        for (_, establishmentJSON): (String, JSON) in jsonEstablishmentsArray {
+            var establishment = establishmentForIdentifier(establishmentJSON["id"].int32Value, inContext: appDelegate.managedObjectContext)
+            
+            if establishment == nil {
+                establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: appDelegate.managedObjectContext) as? Establishment
+                
+                print("Adding new establishment: " + establishmentJSON["name"].stringValue + "\n")
+            }
+            
+            establishment?.identifier = establishmentJSON["id"].int32Value
+            establishment?.address = establishmentJSON["address"].stringValue
+            establishment?.name = establishmentJSON["name"].stringValue
+            establishment?.lat = establishmentJSON["lat"].floatValue
+            establishment?.lon = establishmentJSON["lon"].floatValue
+            
+            for (_, statusJSON): (String, JSON) in establishmentJSON["beer_statuses"] {
+                establishment?.updateOrCreateStatusFromJSON(statusJSON)
+            }
+            
+            establishmentIDs.append(establishmentJSON["id"].intValue)
+        }
+        
+        let fetchRemovedEstablishments = NSFetchRequest(entityName: "Establishment")
+        fetchRemovedEstablishments.predicate = NSPredicate(format: "NOT (identifier IN %@)", establishmentIDs)
+        
+        if let array = try? appDelegate.managedObjectContext.executeFetchRequest(fetchRemovedEstablishments), results = array as? [NSManagedObject] {
+            if results.count > 0 {
+                print("Removing \(results.count) establishments")
+                
+                for establishment in results {
+                    appDelegate.managedObjectContext.deleteObject(establishment)
+                }
+                
+                appDelegate.saveContext()
+            }
+        }
+    }
 
 	class func establishmentForIdentifier(identifier: Int32, inContext context: NSManagedObjectContext) -> Establishment? {
 		let request = NSFetchRequest(entityName: "Establishment")

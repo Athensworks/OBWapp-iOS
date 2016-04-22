@@ -101,7 +101,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 			if let indexPath = self.tableView.indexPathForSelectedRow {
 				let selectedEstablishment = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Establishment
 
-				let beerStatuses = selectedEstablishment.beerStatuses
+				_ = selectedEstablishment.beerStatuses
 				let controller = segue.destinationViewController as! BeersTableViewController
 
 				controller.managedObjectContext = managedObjectContext
@@ -180,7 +180,6 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 
 		//TODO: we need to sort based on the order sent by the server. add index generated from the order received from the server.
 		let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
-		let sortDescriptors = [sortDescriptor]
 
 		fetchRequest.sortDescriptors = [sortDescriptor]
 
