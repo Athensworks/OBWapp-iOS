@@ -25,13 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 		let fetch = NSFetchRequest(entityName: "Drinker")
 		fetch.fetchLimit = 1
 
-		var fetchError: NSError? = nil
-
-		var resultArray = self.managedObjectContext?.executeFetchRequest(fetch, error: &fetchError)
-
-		if let fetchError = fetchError {
-			println(fetchError.localizedDescription)
-			return nil
+		var resultArray: [AnyObject]?
+		do {
+			resultArray = try self.managedObjectContext?.executeFetchRequest(fetch)
+		} catch {
+            print(error)
+            return nil
 		}
 
 		if resultArray != nil && resultArray!.count > 0 {
@@ -72,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 		let authorization = CLLocationManager.authorizationStatus()
 
 		if authorization == .Denied || authorization == .Restricted {
-			println("Unabled to access location")
+			print("Unabled to access location")
 		} else {
 			if let locationManager = locationManager {
 				if authorization == .NotDetermined {
@@ -118,14 +117,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 //		manager.l
 //	}
 
-	func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+	func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
 		if status == .AuthorizedWhenInUse {
 			manager.startUpdatingLocation()
 		}
 	}
 
-	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-		println(error.localizedDescription)
+	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+		print(error.localizedDescription)
 	}
 
 	// MARK: - Core Data stack
@@ -133,7 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 	lazy var applicationDocumentsDirectory: NSURL = {
 		// The directory the application uses to store the Core Data store file. This code uses a directory named "com.ohiobrewweek.test_swift" in the application's documents Application Support directory.
 		let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-		return urls[urls.count-1] as! NSURL
+		return urls[urls.count-1] 
 		}()
 
 	lazy var managedObjectModel: NSManagedObjectModel = {
@@ -147,9 +146,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 	    // Create the coordinator and store
 	    var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
 	    let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Brew_Week.sqlite")
-	    var error: NSError? = nil
 	    var failureReason = "There was an error creating or loading the application's saved data."
-	    if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+	    do {
+			try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+		} catch {
 	        coordinator = nil
 	        // Report any error we got.
 	        var dict = [String: AnyObject]()
@@ -161,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 	        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 	        NSLog("Unresolved error \(error), \(error!.userInfo)")
 	        abort()
-	    }
+		}
 	    
 	    return coordinator
 	}()
@@ -181,13 +181,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
 	func saveContext () {
 	    if let moc = self.managedObjectContext {
-	        var error: NSError? = nil
-	        if moc.hasChanges && !moc.save(&error) {
-	            // Replace this implementation with code to handle the error appropriately.
-	            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-	            NSLog("Unresolved error \(error), \(error!.userInfo)")
-	            abort()
-	        }
+	        if moc.hasChanges {
+				do {
+					try moc.save()
+				} catch {
+					// Replace this implementation with code to handle the error appropriately.
+					// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+					NSLog("Unresolved error \(error), \(error.userInfo)")
+					abort()
+				}
+			}
 	    }
 	}
 

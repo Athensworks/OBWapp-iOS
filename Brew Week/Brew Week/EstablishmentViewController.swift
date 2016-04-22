@@ -84,8 +84,9 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 
 
 		// Save the context.
-		var error: NSError? = nil
-		if !context.save(&error) {
+		do {
+			try context.save()
+		} catch {
 			// Replace this implementation with code to handle the error appropriately.
 			// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 			//println("Unresolved error \(error), \(error.userInfo)")
@@ -97,7 +98,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showBeers" {
-			if let indexPath = self.tableView.indexPathForSelectedRow() {
+			if let indexPath = self.tableView.indexPathForSelectedRow {
 				let selectedEstablishment = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Establishment
 
 				let beerStatuses = selectedEstablishment.beerStatuses
@@ -116,12 +117,12 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		let sectionInfo = self.fetchedResultsController.sections![section] as! NSFetchedResultsSectionInfo
+		let sectionInfo = self.fetchedResultsController.sections![section] 
 		return sectionInfo.numberOfObjects
 	}
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("EstablishmentCell", forIndexPath: indexPath) as! UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("EstablishmentCell", forIndexPath: indexPath) 
 		self.configureCell(cell, atIndexPath: indexPath)
 		return cell
 	}
@@ -136,8 +137,9 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 			let context = self.fetchedResultsController.managedObjectContext
 			context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject)
 
-			var error: NSError? = nil
-			if !context.save(&error) {
+			do {
+				try context.save()
+			} catch {
 				// Replace this implementation with code to handle the error appropriately.
 				// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 				//println("Unresolved error \(error), \(error.userInfo)")
@@ -190,8 +192,9 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 
 		NSFetchedResultsController.deleteCacheWithName("Establishments")
 
-		var error: NSError? = nil
-		if !_fetchedResultsController!.performFetch(&error) {
+		do {
+			try _fetchedResultsController!.performFetch()
+		} catch {
 			// Replace this implementation with code to handle the error appropriately.
 			// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 			//println("Unresolved error \(error), \(error.userInfo)")

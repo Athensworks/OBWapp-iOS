@@ -17,7 +17,7 @@ class BeerStatus: NSManagedObject {
 				self.setPrimitiveValue(newValue, forKey: "status")
 				self.didChangeValueForKey("status")
 
-				let index = find(BeerStatus.ordering, newValue)
+				let index = BeerStatus.ordering.indexOf(newValue)
 				self.section = Int32(index ?? Int.max)
 			}
 			get {

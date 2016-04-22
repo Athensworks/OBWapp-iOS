@@ -31,7 +31,7 @@ class UserVerificationViewController : UIViewController, UITextFieldDelegate {
 
 	func verifyFields() {
 		if let zipString = zipField.text {
-			if count(zipString) >= 5 && datePicker.date.isTwentyOne() {
+			if zipString.characters.count >= 5 && datePicker.date.isTwentyOne() {
 				doneButton.enabled = true
 				return
 			}
@@ -54,7 +54,7 @@ class UserVerificationViewController : UIViewController, UITextFieldDelegate {
 
 	@IBAction func doneAction(sender: UIButton) {
 		if let managedObjectContext = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext {
-			var drinker = NSEntityDescription.insertNewObjectForEntityForName("Drinker", inManagedObjectContext: managedObjectContext) as! Drinker
+			let drinker = NSEntityDescription.insertNewObjectForEntityForName("Drinker", inManagedObjectContext: managedObjectContext) as! Drinker
 
 
 			drinker.age = fabs(datePicker.date.timeIntervalSinceNow)
@@ -82,7 +82,7 @@ class UserVerificationViewController : UIViewController, UITextFieldDelegate {
 	// MARK: - UITextFieldDelegate
 
 	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-		if (range.location + count(string)) > 5 {
+		if (range.location + string.characters.count) > 5 {
 			return false
 		}
 

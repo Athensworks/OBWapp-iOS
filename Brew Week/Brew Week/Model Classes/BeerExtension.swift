@@ -28,7 +28,7 @@ extension Beer {
 		
 
 		if let context = appDelegate.managedObjectContext {
-			for (index: String, beerJSON: JSON) in jsonBeersArray {
+			for (index, beerJSON): (String, JSON) in jsonBeersArray {
 
 				var beer = beerForIdentifier(beerJSON["id"].int32Value, inContext: context)
 
@@ -52,8 +52,9 @@ extension Beer {
 
 
 			// Save the context.
-			var error: NSError? = nil
-			if !context.save(&error) {
+			do {
+				try context.save()
+			} catch {
 				// Replace this implementation with code to handle the error appropriately.
 				// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 				//println("Unresolved error \(error), \(error.userInfo)")
@@ -68,7 +69,7 @@ extension Beer {
 		request.predicate = NSPredicate(format: "identifier == %d", identifier)
 		request.fetchLimit = 1
 
-		if let result = context.executeFetchRequest(request, error: nil) {
+		if let result = try? context.executeFetchRequest(request) {
 			if result.count > 0 {
 				return result[0] as? Beer
 			}

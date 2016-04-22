@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		73FB8C7EC6DF1CB74F4CA79F /* Pods_Brew_Week.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31423DDF02BEA4C1A367D90A /* Pods_Brew_Week.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		73FB8C7EC6DF1CB74F4CA79F /* Pods_Brew_Week.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31423DDF02BEA4C1A367D90A /* Pods_Brew_Week.framework */; };
 		B506A6131AE0A3F100EB0E59 /* BeerStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B506A6121AE0A3F100EB0E59 /* BeerStatus.swift */; };
 		B54737161B43933100FA5B02 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54737151B43933100FA5B02 /* MapKit.framework */; };
 		B596814A1B367C2000A516DC /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59681491B367C2000A516DC /* Endpoint.swift */; };
@@ -276,7 +276,9 @@
 		B5D1CC941ABBAC6900DEA7EE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastSwiftMigration = 0730;
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Ohio Brew Week";
 				TargetAttributes = {
 					B5D1CC9B1ABBAC6900DEA7EE = {
@@ -479,6 +481,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -545,6 +548,7 @@
 				INFOPLIST_FILE = "Brew Week/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ohiobrewweek.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -559,6 +563,7 @@
 				INFOPLIST_FILE = "Brew Week/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ohiobrewweek.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -578,6 +583,7 @@
 				);
 				INFOPLIST_FILE = "Brew WeekTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ohiobrewweek.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brew Week.app/Brew Week";
 			};
@@ -593,6 +599,7 @@
 				);
 				INFOPLIST_FILE = "Brew WeekTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ohiobrewweek.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brew Week.app/Brew Week";
 			};

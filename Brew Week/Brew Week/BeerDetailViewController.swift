@@ -132,22 +132,27 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 					])
 
 
-				var error: NSError? = nil
-				if let statuses = self.managedObjectContext?.executeFetchRequest(fetch, error: &error) as? [BeerStatus] {
+                var fetchedStatuses: [BeerStatus]?
+                do {
+                    fetchedStatuses = try self.managedObjectContext?.executeFetchRequest(fetch)
+                } catch {
+                    fetchedStatuses = nil
+                }
+				if let statuses = fetchedStatuses {
 					let establishments = Set(statuses.map { (BeerStatus) -> Establishment  in
 						return BeerStatus.establishment
 					})
 
 					var establishmentNames: String = ""
 					for establishment in establishments {
-						if count(establishmentNames) > 0 {
+						if establishmentNames.characters.count > 0 {
 							establishmentNames += ", "
 						}
 						
 						establishmentNames += "\(establishment.name)"
 					}
 
-					if count(establishmentNames) > 0 {
+					if establishmentNames.characters.count > 0 {
 						statusLabel.text = establishmentNames
 					} else {
 						statusLabel.text = "Not Available"

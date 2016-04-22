@@ -44,7 +44,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 						if let data = statusData as? NSData {
 							let responseJSON = JSON(data: data)
 
-							for (index: String, statusJSON: JSON) in responseJSON["beer_statuses"] {
+							for (index, statusJSON): (String, JSON) in responseJSON["beer_statuses"] {
 								establishment.updateOrCreateStatusFromJSON(statusJSON)
 							}
 
@@ -119,8 +119,9 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 
 		// Save the context.
-		var error: NSError? = nil
-		if !context.save(&error) {
+		do {
+			try context.save()
+		} catch {
 		    // Replace this implementation with code to handle the error appropriately.
 		    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 		    //println("Unresolved error \(error), \(error.userInfo)")
@@ -132,7 +133,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showDetail" {
-		    if let indexPath = self.tableView.indexPathForSelectedRow() {
+		    if let indexPath = self.tableView.indexPathForSelectedRow {
 				if let detailController = (segue.destinationViewController as? BeerDetailViewController) {
 					let 🍺: Beer
 
@@ -157,11 +158,11 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		let sectionInfo = self.fetchedResultsController.sections![section] as! NSFetchedResultsSectionInfo
+		let sectionInfo = self.fetchedResultsController.sections![section] 
 		return sectionInfo.numberOfObjects
 	}
 
-	override func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject]! {
+	override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]! {
 		return self.fetchedResultsController.sectionIndexTitles
 	}
 
@@ -171,7 +172,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		if let sections = self.fetchedResultsController.sections as? [NSFetchedResultsSectionInfo] {
-			if let index = sections[section].name?.toInt() {
+			if let index = Int(sections[section].name?) {
 				return BeerStatus.statusString(forStatus: BeerStatus.ordering[index])
 			}
 		}
@@ -180,7 +181,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath) as! UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath) 
 		self.configureCell(cell, atIndexPath: indexPath)
 		return cell
 	}
@@ -195,8 +196,9 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		    let context = self.fetchedResultsController.managedObjectContext
 		    context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject)
 		        
-		    var error: NSError? = nil
-		    if !context.save(&error) {
+		    do {
+				try context.save()
+			} catch {
 		        // Replace this implementation with code to handle the error appropriately.
 		        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 		        //println("Unresolved error \(error), \(error.userInfo)")
@@ -279,8 +281,9 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 		NSFetchedResultsController.deleteCacheWithName(entity?.name)
 	    
-		var error: NSError? = nil
-		if !_fetchedResultsController!.performFetch(&error) {
+		do {
+			try _fetchedResultsController!.performFetch()
+		} catch {
 		     // Replace this implementation with code to handle the error appropriately.
 		     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
 	         //println("Unresolved error \(error), \(error.userInfo)")
@@ -334,7 +337,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	     self.tableView.reloadData()
 	 }
 
-	func controller(controller: NSFetchedResultsController, sectionIndexTitleForSectionName sectionName: String?) -> String? {
+	func controller(controller: NSFetchedResultsController, sectionIndexTitleForSectionName sectionName: String) -> String? {
 		return nil
 	}
 }

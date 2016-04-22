@@ -23,7 +23,7 @@ class AboutViewController: UIViewController {
 
 	override func viewDidLoad() {
 		let appInfoDictionary = NSBundle.mainBundle().infoDictionary
-		let bundleVersion = appInfoDictionary![kCFBundleVersionKey] as! NSString
+		let bundleVersion = appInfoDictionary![String(kCFBundleVersionKey)] as! NSString
 		let bundleShortVersion = appInfoDictionary!["CFBundleShortVersionString"] as! NSString
 
 		appNameAndVersionLabel.text = "Ohio Brew Week \(bundleShortVersion) (v\(bundleVersion))"

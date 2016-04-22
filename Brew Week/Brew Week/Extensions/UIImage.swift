@@ -18,7 +18,7 @@ extension UIImage {
 		drawInRect(frame)
 
 		CGContextSetFillColorWithColor(context, color.CGColor);
-		CGContextSetBlendMode(context, kCGBlendModeSourceAtop);
+		CGContextSetBlendMode(context, CGBlendMode.SourceAtop);
 		CGContextFillRect(context, frame);
 
 		let colorizedImage = UIGraphicsGetImageFromCurrentImageContext();

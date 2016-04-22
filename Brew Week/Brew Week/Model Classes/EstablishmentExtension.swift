@@ -25,7 +25,7 @@ extension Establishment {
 
 			var establishmentIDs = [Int]()
 
-			for (index: String, establishmentJSON: JSON) in jsonEstablishmentsArray {
+			for (index, establishmentJSON): (String, JSON) in jsonEstablishmentsArray {
 				var establishment = establishmentForIdentifier(establishmentJSON["id"].int32Value, inContext: context)
 
 				if establishment == nil {
@@ -40,7 +40,7 @@ extension Establishment {
 				establishment?.lat = establishmentJSON["lat"].floatValue
 				establishment?.lon = establishmentJSON["lon"].floatValue
 
-				for (index: String, statusJSON: JSON) in establishmentJSON["beer_statuses"] {
+				for (index, statusJSON): (String, JSON) in establishmentJSON["beer_statuses"] {
 					establishment?.updateOrCreateStatusFromJSON(statusJSON)
 				}
 
@@ -50,7 +50,7 @@ extension Establishment {
 			let fetchRemovedEstablishments = NSFetchRequest(entityName: "Establishment")
 			fetchRemovedEstablishments.predicate = NSPredicate(format: "NOT (identifier IN %@)", establishmentIDs)
 
-			if let results = (context.executeFetchRequest(fetchRemovedEstablishments, error: nil) as? [NSManagedObject]) {
+			if let array = try? context.executeFetchRequest(fetchRemovedEstablishments), results = array as? [NSManagedObject] {
 				if results.count > 0 {
 					print("Removing \(results.count) establishments")
 
@@ -70,7 +70,7 @@ extension Establishment {
 		request.predicate = NSPredicate(format: "identifier == %d", identifier)
 		request.fetchLimit = 1
 
-		if let result = context.executeFetchRequest(request, error: nil) as? [Establishment] {
+		if let result = (try? context.executeFetchRequest(request)) as? [Establishment] {
 			if result.count > 0 {
 				return result[0]
 			}

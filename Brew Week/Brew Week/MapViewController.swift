@@ -29,12 +29,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, ManagedObjectViewC
 		if managedObjectContext != nil {
 			let fetchEstablishments = NSFetchRequest(entityName: "Establishment")
 
-			var error: NSError? = nil
-
-			if let annotations = managedObjectContext?.executeFetchRequest(fetchEstablishments, error: &error) {
+			do {
+				let annotations = try managedObjectContext?.executeFetchRequest(fetchEstablishments)
 				mapView.addAnnotations(annotations)
-			} else {
-				print(error!)
+			} catch {
+				print(error, terminator: "")
 			}
 		}
 	}
@@ -76,7 +75,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, ManagedObjectViewC
 
 	static var lastDistanceFromAthens: CLLocationDistance = Double.infinity
 
-	func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+	func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
 		let distanceFromAthens = userLocation.location.distanceFromLocation(athens)
 
 		// 5 miles = 8046
@@ -92,7 +91,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, ManagedObjectViewC
 		}
 	}
 
-	func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+	func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
 		if let annotation = annotation as? Establishment {
 			let identifier = "establishment"
 			var view: MKPinAnnotationView
@@ -104,7 +103,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, ManagedObjectViewC
 				view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
 				view.canShowCallout = true
 
-				if let button = UIButton.buttonWithType(.DetailDisclosure) as? UIButton {
+				if let button = UIButton(type: .DetailDisclosure) as? UIButton {
 					button.addTarget(self, action: "showEstablishment:", forControlEvents: .TouchUpInside)
 					view.rightCalloutAccessoryView = button
 				}
@@ -127,7 +126,7 @@ extension Establishment: MKAnnotation {
 	}
 
 	// Title and subtitle for use by map call out UI.
-	var title: String! {
+	var title: String? {
 		get {
 			if beerStatuses.count == 1 {
 				return name + " (\(beerStatuses.count)🍺)"
@@ -137,7 +136,7 @@ extension Establishment: MKAnnotation {
 		}
 	}
 
-	var subtitle: String! {
+	var subtitle: String? {
 		get {
 			return address
 		}
