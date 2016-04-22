@@ -138,25 +138,29 @@ extension Beer {
 				params["lon"] = location.coordinate.longitude
 			}
 
-			Alamofire.request(.POST, Endpoint(path: "taste"), parameters: params, encoding: .JSON).responseJSON { (request, response, responseJSON, error) in
-				println("/taste Response: \(responseJSON)")
-
-				if let json = responseJSON as? [String: AnyObject] {
-					if let count = json["count"] as? Int {
-						self.tasteCount = Int32(count)
-						completion(count)
-					}
-				}
-			}
+            Alamofire.request(.POST, Endpoint(path: "taste"), parameters: params, encoding: .JSON).responseJSON { response in
+                switch response.result {
+                case .Success(let responseJSON):
+                    print("/taste Response: \(responseJSON)")
+                    
+                    if let json = responseJSON as? [String: AnyObject],
+                        let count = json["count"] as? Int {
+                        self.tasteCount = Int32(count)
+                        completion(count)
+                    }
+                case .Failure(let error):
+                    assert(false, "handle me asshole: \(error)")
+                }
+            }
 		}
 	}
 
 	private func reportFavorited(completion: ((Int) -> Void)) {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
-		if let drinker = appDelegate.drinker {
+		if let drinker = appDelegate.drinker,
+            let guid = UIDevice.currentDevice().identifierForVendor?.UUIDString {
 			let beerID = Int(identifier)
-			let guid = UIDevice.currentDevice().identifierForVendor.UUIDString
 			let location = appDelegate.locationManager?.location
 
 			//			{
@@ -173,15 +177,19 @@ extension Beer {
 				params["lon"] = location.coordinate.longitude
 			}
 
-			Alamofire.request(.POST, Endpoint(path: "favorite"), parameters: params, encoding: .JSON).responseJSON { (request, response, responseJSON, error) in
-				println("/favorite Response: \(responseJSON)")
+			Alamofire.request(.POST, Endpoint(path: "favorite"), parameters: params, encoding: .JSON).responseJSON { response in
+                switch response.result {
+                case .Success(let responseJSON):
+                    print("/favorite Response: \(responseJSON)")
 
-				if let json = responseJSON as? [String: AnyObject] {
-					if let count = json["count"] as? Int {
-						self.favoriteCount = Int32(count)
-						completion(count)
-					}
-				}
+                    if let json = responseJSON as? [String: AnyObject],
+                        let count = json["count"] as? Int {
+                            self.favoriteCount = Int32(count)
+                            completion(count)
+                    }
+                case .Failure(let error):
+                   assert(false, "handle me asshole: \(error)")
+                }
 			}
 		}
 	}

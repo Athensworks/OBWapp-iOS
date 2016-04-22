@@ -134,7 +134,7 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 
                 var fetchedStatuses: [BeerStatus]?
                 do {
-                    fetchedStatuses = try self.managedObjectContext?.executeFetchRequest(fetch)
+                    fetchedStatuses = try self.managedObjectContext?.executeFetchRequest(fetch) as? [BeerStatus]
                 } catch {
                     fetchedStatuses = nil
                 }

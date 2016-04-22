@@ -37,12 +37,12 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
         
         Alamofire.request(.GET, Endpoint(path: "beers")).responseJSON { (response) in
             switch response.result {
-            case .Success(let json):
-                Beer.beersFromJSON(json)
+            case .Success(let responseJSON):
+//                Beer.beersFromJSON(json as! NSData)
                 
                 if let establishment = self.establishment {
                     Alamofire.request(.GET, Endpoint(path: "establishment/\(establishment.identifier)/beer_statuses")).responseJSON { response in
-                        for (_, statusJSON): (String, JSON) in json["beer_statuses"] {
+                        for status in responseJSON["beer_statuses"] {
                             establishment.updateOrCreateStatusFromJSON(statusJSON)
                         }
                         
@@ -57,7 +57,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
                 }
                 
             case .Failure(let error):
-                break
+                assert(false, "handle me asshole: \(error)")
             }
         }
     }
