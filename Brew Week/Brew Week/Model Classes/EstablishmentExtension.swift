@@ -25,7 +25,7 @@ extension Establishment {
 
 			var establishmentIDs = [Int]()
 
-			for (index, establishmentJSON): (String, JSON) in jsonEstablishmentsArray {
+			for (_, establishmentJSON): (String, JSON) in jsonEstablishmentsArray {
 				var establishment = establishmentForIdentifier(establishmentJSON["id"].int32Value, inContext: context)
 
 				if establishment == nil {
@@ -40,7 +40,7 @@ extension Establishment {
 				establishment?.lat = establishmentJSON["lat"].floatValue
 				establishment?.lon = establishmentJSON["lon"].floatValue
 
-				for (index, statusJSON): (String, JSON) in establishmentJSON["beer_statuses"] {
+				for (_, statusJSON): (String, JSON) in establishmentJSON["beer_statuses"] {
 					establishment?.updateOrCreateStatusFromJSON(statusJSON)
 				}
 

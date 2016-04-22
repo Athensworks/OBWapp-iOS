@@ -19,19 +19,19 @@ class MapViewController: UIViewController, MKMapViewDelegate, ManagedObjectViewC
 	let athens = CLLocation(latitude: 39.329288, longitude: -82.100510)
 
 	override func viewDidLoad() {
-		if let center = athens {
-			// 2.17 miles = 3500 meters
-			let region = MKCoordinateRegionMakeWithDistance(center.coordinate, 3500.0, 3500.0)
+        // 2.17 miles = 3500 meters
+        let region = MKCoordinateRegionMakeWithDistance(athens.coordinate, 3500.0, 3500.0)
 
-			mapView.setRegion(region, animated: true)
-		}
+        mapView.setRegion(region, animated: true)
 
-		if managedObjectContext != nil {
+		if let context = managedObjectContext {
 			let fetchEstablishments = NSFetchRequest(entityName: "Establishment")
 
-			do {
-				let annotations = try managedObjectContext?.executeFetchRequest(fetchEstablishments)
-				mapView.addAnnotations(annotations)
+            do {
+                let fetchedAnnotations = try context.executeFetchRequest(fetchEstablishments)
+                if let annotations = fetchedAnnotations as? [MKAnnotation] {
+                    mapView.addAnnotations(annotations)
+                }
 			} catch {
 				print(error, terminator: "")
 			}
@@ -76,14 +76,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, ManagedObjectViewC
 	static var lastDistanceFromAthens: CLLocationDistance = Double.infinity
 
 	func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-		let distanceFromAthens = userLocation.location.distanceFromLocation(athens)
-
+        guard let location = userLocation.location else {
+            return
+        }
+        
+        let distanceFromAthens = location.distanceFromLocation(athens)
 		// 5 miles = 8046
 		if distanceFromAthens < 8046 {
 
 			// only update map region if the user has moved more than 500m
 			if abs(distanceFromAthens - MapViewController.lastDistanceFromAthens) > 500 {
-				mapView.setRegion(mapView.regionThatFits(MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, distanceFromAthens, distanceFromAthens)), animated: true)
+				mapView.setRegion(mapView.regionThatFits(MKCoordinateRegionMakeWithDistance(location.coordinate, distanceFromAthens, distanceFromAthens)), animated: true)
 				//			mapView.setCenterCoordinate(userLocation.location.coordinate, animated: true)
 
 				MapViewController.lastDistanceFromAthens = distanceFromAthens

@@ -58,7 +58,7 @@ class UserVerificationViewController : UIViewController, UITextFieldDelegate {
 
 
 			drinker.age = fabs(datePicker.date.timeIntervalSinceNow)
-			drinker.zip = zipField.text
+			drinker.zip = zipField.text ?? ""
 
 			let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
 			appDelegate?.drinker = drinker

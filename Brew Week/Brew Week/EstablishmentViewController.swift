@@ -23,10 +23,10 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 		// Do any additional setup after loading the view, typically from a nib.
 
 		Alamofire.request(.GET, Endpoint(path: "beers")).response { (request, response, beersData, error) in
-			if let data = beersData as? NSData {
+			if let data = beersData, let guid = UIDevice.currentDevice().identifierForVendor?.UUIDString {
 				Beer.beersFromJSON(data)
 
-				var params: [String: AnyObject] = ["device_guid": UIDevice.currentDevice().identifierForVendor.UUIDString];
+				var params: [String: AnyObject] = ["device_guid": guid];
 				let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
 
 				//			{
@@ -48,7 +48,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 
 				//, parameters: params, encoding: .JSON
 				Alamofire.request(.GET, Endpoint(path: "establishments"), parameters: params, encoding: .URL).response { (request, response, establishmentsData, error) in
-					if let data = establishmentsData as? NSData {
+					if let data = establishmentsData {
 						Establishment.establishmentsFromJSON(data)
 					}
 				}

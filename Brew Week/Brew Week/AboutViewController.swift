@@ -22,11 +22,12 @@ class AboutViewController: UIViewController {
 	}
 
 	override func viewDidLoad() {
-		let appInfoDictionary = NSBundle.mainBundle().infoDictionary
-		let bundleVersion = appInfoDictionary![String(kCFBundleVersionKey)] as! NSString
-		let bundleShortVersion = appInfoDictionary!["CFBundleShortVersionString"] as! NSString
+		if let appInfoDictionary = NSBundle.mainBundle().infoDictionary,
+            let bundleVersion = appInfoDictionary[String(kCFBundleVersionKey)] as? NSString,
+            let bundleShortVersion = appInfoDictionary["CFBundleShortVersionString"] as? NSString {
 
-		appNameAndVersionLabel.text = "Ohio Brew Week \(bundleShortVersion) (v\(bundleVersion))"
+            appNameAndVersionLabel.text = "Ohio Brew Week \(bundleShortVersion) (v\(bundleVersion))"
+        }
 	}
 
 	@IBAction func openAthensworksAction(sender: UIButton) {
