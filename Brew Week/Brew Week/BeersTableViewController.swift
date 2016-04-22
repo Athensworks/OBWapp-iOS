@@ -36,19 +36,23 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		// /establishment/:establishment_id/beer_statuses
 
 		Alamofire.request(.GET, Endpoint(path: "beers")).response { (_, _, data, error) in
-			if let data = data as? NSData {
+			if let data = data {
 				Beer.beersFromJSON(data)
 
 				if let establishment = self.establishment {
 					Alamofire.request(.GET, Endpoint(path: "establishment/\(establishment.identifier)/beer_statuses")).response() { (_, _, statusData, _) in
-						if let data = statusData as? NSData {
+						if let data = statusData {
 							let responseJSON = JSON(data: data)
 
-							for (index, statusJSON): (String, JSON) in responseJSON["beer_statuses"] {
+							for (_, statusJSON): (String, JSON) in responseJSON["beer_statuses"] {
 								establishment.updateOrCreateStatusFromJSON(statusJSON)
 							}
 
-							self.fetchedResultsController.performFetch(nil)
+                            do {
+                                try self.fetchedResultsController.performFetch()
+                            } catch error {
+                                print("Fetch Unsuccessful \(error)")
+                            }
 						}
 
 						self.refreshControl?.endRefreshing()
@@ -162,7 +166,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		return sectionInfo.numberOfObjects
 	}
 
-	override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]! {
+	override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
 		return self.fetchedResultsController.sectionIndexTitles
 	}
 
@@ -171,7 +175,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		if let sections = self.fetchedResultsController.sections as? [NSFetchedResultsSectionInfo] {
+		if let sections = self.fetchedResultsController.sections as [NSFetchedResultsSectionInfo] {
 			if let index = Int(sections[section].name?) {
 				return BeerStatus.statusString(forStatus: BeerStatus.ordering[index])
 			}
