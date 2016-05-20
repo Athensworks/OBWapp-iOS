@@ -222,10 +222,10 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 				params["establishment_id"] = Int(status.establishment.identifier)
                 params["device_guid"] = guid
                 
-                Alamofire.request(.PUT, Endpoint(path: "report"), parameters: params, encoding: .JSON).responseJSON(completionHandler: { (response) in
+                Alamofire.request(.PUT, Endpoint(path: "report"), parameters: params, encoding: .JSON).validate().responseJSON { response in
                     sender.setTitle("Reported. Thanks!", forState: .Normal)
                     sender.enabled = false
-                })
+                }
             }
         }
 	}

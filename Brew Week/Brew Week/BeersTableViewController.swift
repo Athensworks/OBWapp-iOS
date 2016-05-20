@@ -35,21 +35,30 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
     @IBAction func refreshBeers(sender: UIRefreshControl) {
         // /establishment/:establishment_id/beer_statuses
         
-        Alamofire.request(.GET, Endpoint(path: "beers")).responseJSON { (response) in
-            switch response.result {
-            case .Success(let responseJSON):
-//                Beer.beersFromJSON(json as! NSData)
+        Alamofire.request(.GET, Endpoint(path: "beers")).validate().responseJSON { beersResponse in
+            switch beersResponse.result {
+            case .Success(let beersJSON as [String: [AnyObject]]):
+                Beer.beersFromJSON(beersJSON)
                 
                 if let establishment = self.establishment {
-                    Alamofire.request(.GET, Endpoint(path: "establishment/\(establishment.identifier)/beer_statuses")).responseJSON { response in
-                        for status in responseJSON["beer_statuses"] {
-                            establishment.updateOrCreateStatusFromJSON(statusJSON)
-                        }
-                        
-                        do {
-                            try self.fetchedResultsController.performFetch()
-                        } catch let error {
-                            print("Fetch Unsuccessful \(error)")
+                    Alamofire.request(.GET, Endpoint(path: "establishment/\(establishment.identifier)/beer_statuses")).validate().responseJSON { statusesResponse in
+                        switch statusesResponse.result {
+                        case .Success(let statusesJSON as [String: [AnyObject]]):
+                            if let statuses = statusesJSON["beer_statuses"] as? [[String: AnyObject]] {
+                                for status in statuses {
+                                    establishment.updateOrCreateStatusFromJSON(status)
+                                }
+                            }
+                            
+                            do {
+                                try self.fetchedResultsController.performFetch()
+                            } catch let error {
+                                print("Fetch failed: \(error)")
+                            }
+                        case .Failure(let error):
+                            print("Beer statuses at establishment \(establishment.identifier) response is error: \(error)")
+                        default:
+                            print("Beer statuses at establishment \(establishment.identifier) response is incorrectly typed")
                         }
                     }
                     
@@ -57,7 +66,9 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
                 }
                 
             case .Failure(let error):
-                assert(false, "handle me asshole: \(error)")
+                print("Beers response is error: \(error)")
+            default:
+                print("Beers response is incorrectly typed")
             }
         }
     }
@@ -173,8 +184,8 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		if let sections = self.fetchedResultsController.sections as [NSFetchedResultsSectionInfo] {
-			if let index = Int(sections[section].name?) {
+		if let sections = self.fetchedResultsController.sections {
+			if let index = Int(sections[section].name) {
 				return BeerStatus.statusString(forStatus: BeerStatus.ordering[index])
 			}
 		}

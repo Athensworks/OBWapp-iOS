@@ -141,7 +141,7 @@ extension Beer {
 				params["lon"] = location.coordinate.longitude
 			}
 
-            Alamofire.request(.POST, Endpoint(path: "taste"), parameters: params, encoding: .JSON).responseJSON { response in
+            Alamofire.request(.POST, Endpoint(path: "taste"), parameters: params, encoding: .JSON).validate().responseJSON { response in
                 switch response.result {
                 case .Success(let responseJSON):
                     print("/taste Response: \(responseJSON)")
@@ -180,7 +180,7 @@ extension Beer {
 				params["lon"] = location.coordinate.longitude
 			}
 
-			Alamofire.request(.POST, Endpoint(path: "favorite"), parameters: params, encoding: .JSON).responseJSON { response in
+			Alamofire.request(.POST, Endpoint(path: "favorite"), parameters: params, encoding: .JSON).validate().responseJSON { response in
                 switch response.result {
                 case .Success(let responseJSON):
                     print("/favorite Response: \(responseJSON)")

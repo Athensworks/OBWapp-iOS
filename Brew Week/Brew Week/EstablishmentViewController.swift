@@ -22,43 +22,50 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 
-		Alamofire.request(.GET, Endpoint(path: "beers")).response { (request, response, beersData, error) in
-			if let data = beersData, let guid = UIDevice.currentDevice().identifierForVendor?.UUIDString {
-				Beer.beersFromJSON(data)
+		Alamofire.request(.GET, Endpoint(path: "beers")).validate().responseJSON { beersResponse in
+            switch beersResponse.result {
+            case .Success(let beersJSON as [String: AnyObject]):
+                Beer.beersFromJSON(beersJSON)
+                
+                if let guid = UIDevice.currentDevice().identifierForVendor?.UUIDString {
+                    var params: [String: AnyObject] = ["device_guid": guid];
+                    let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
 
-				var params: [String: AnyObject] = ["device_guid": guid];
-				let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+                    //			{
+                    //				"beer_id": 123,
+                    //				"device_guid": "GUID",
+                    //				"age":  35,
+                    //				"lat": "Y",
+                    //				"lon": "X",
+                    //			}
 
-				//			{
-				//				"beer_id": 123,
-				//				"device_guid": "GUID",
-				//				"age":  35,
-				//				"lat": "Y",
-				//				"lon": "X",
-				//			}
-
-				if let drinker = appDelegate?.drinker {
-					params["age"] = drinker.ageInYears
-				}
-
-				if let location = appDelegate?.locationManager?.location {
-					params["lat"] = location.coordinate.latitude
-					params["lon"] = location.coordinate.longitude
-				}
-
-				//, parameters: params, encoding: .JSON
-				Alamofire.request(.GET, Endpoint(path: "establishments"), parameters: params, encoding: .URL).validate().responseJSON(completionHandler: { response in
-                    switch response.result {
-                    case .Success(let value as [String: AnyObject]):
-                        Establishment.establishmentsFromJSON(value)
-                    case .Failure(let error):
-                        assert( false, "error getting establishments: \(error)")
-                    default:
-                        assert( false, "arrrg, handle me asshole")
+                    if let drinker = appDelegate?.drinker {
+                        params["age"] = drinker.ageInYears
                     }
-                })
-			}
-		}
+
+                    if let location = appDelegate?.locationManager?.location {
+                        params["lat"] = location.coordinate.latitude
+                        params["lon"] = location.coordinate.longitude
+                    }
+
+                    //, parameters: params, encoding: .JSON
+                    Alamofire.request(.GET, Endpoint(path: "establishments"), parameters: params, encoding: .URL).validate().responseJSON { establishmentsRepsonse in
+                        switch establishmentsRepsonse.result {
+                        case .Success(let establishmentsJSON as [String: AnyObject]):
+                            Establishment.establishmentsFromJSON(establishmentsJSON)
+                        case .Failure(let error):
+                            print("Establishments response is error: \(error)")
+                        default:
+                            print("Establishments response is incorrectly typed")
+                        }
+                    }
+                }
+            case .Failure(let error):
+                print("Beers response is error: \(error)")
+            default:
+                print("Beers response is incorrectly typed")
+            }
+        }
 	}
 
 	override func viewDidAppear(animated: Bool) {
