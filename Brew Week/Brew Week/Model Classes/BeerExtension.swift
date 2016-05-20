@@ -19,32 +19,35 @@ extension Beer {
 		}
 	}
 
-    class func beersFromJSON(jsonData: NSData) {
-        let json = JSON(data: jsonData)
-        
-        let jsonBeersArray = json["beers"]
+    class func beersFromJSON(jsonDict: [String: AnyObject]) {
+        guard let jsonBeersArray = jsonDict["beers"] as? [[String: AnyObject]] else {
+            return
+        }
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
-        for (_, beerJSON): (String, JSON) in jsonBeersArray {
+        for beerJSON in jsonBeersArray {
+            guard let identifier = beerJSON["id"] as? Int32 else {
+                break
+            }
             
-            var beer = beerForIdentifier(beerJSON["id"].int32Value, inContext: appDelegate.managedObjectContext)
+            var beer = beerForIdentifier(identifier, inContext: appDelegate.managedObjectContext)
             
             if beer == nil {
                 beer = NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: appDelegate.managedObjectContext) as? Beer
             }
             
             if let 🍺 = beer {
-                🍺.name = beerJSON["name"].stringValue
-                🍺.identifier = beerJSON["id"].int32Value
-                🍺.brewery = beerJSON["brewery"].stringValue
-                🍺.abv = beerJSON["abv"].doubleValue
-                🍺.ibu = beerJSON["ibu"].int32Value
-                🍺.favoriteCount = beerJSON["favorite_count"].int32Value
-                🍺.tasteCount = beerJSON["taste_count"].int32Value
-                🍺.limitedRelease = beerJSON["limited_release"].boolValue
-                🍺.rateBeerID = beerJSON["rate_beer_id"].int32Value
-                🍺.beerDescription = beerJSON["description"].stringValue
+                🍺.identifier = identifier
+                🍺.name = beerJSON["name"] as? String ?? "Unknown Beer"
+                🍺.brewery = beerJSON["brewery"] as? String ?? "Unknown Brewery"
+                🍺.abv = beerJSON["abv"] as? Double ?? 0
+                🍺.ibu = beerJSON["ibu"] as? Int32 ?? 0
+                🍺.favoriteCount = beerJSON["favorite_count"] as? Int32 ?? 0
+                🍺.tasteCount = beerJSON["taste_count"] as? Int32 ?? 0
+                🍺.limitedRelease = beerJSON["limited_release"] as? Bool ?? false
+                🍺.rateBeerID = beerJSON["rate_beer_id"] as? Int32 ?? 0
+                🍺.beerDescription = beerJSON["description"] as? String ?? ""
             }
         }
         
