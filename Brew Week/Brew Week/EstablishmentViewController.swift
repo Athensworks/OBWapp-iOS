@@ -47,11 +47,16 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 				}
 
 				//, parameters: params, encoding: .JSON
-				Alamofire.request(.GET, Endpoint(path: "establishments"), parameters: params, encoding: .URL).response { (request, response, establishmentsData, error) in
-					if let data = establishmentsData {
-						Establishment.establishmentsFromJSON(data)
-					}
-				}
+				Alamofire.request(.GET, Endpoint(path: "establishments"), parameters: params, encoding: .URL).validate().responseJSON(completionHandler: { response in
+                    switch response.result {
+                    case .Success(let value as [String: AnyObject]):
+                        Establishment.establishmentsFromJSON(value)
+                    case .Failure(let error):
+                        assert( false, "error getting establishments: \(error)")
+                    default:
+                        assert( false, "arrrg, handle me asshole")
+                    }
+                })
 			}
 		}
 	}

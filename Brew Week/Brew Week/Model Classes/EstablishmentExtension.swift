@@ -6,15 +6,14 @@
 //  Copyright (c) 2015 Ohio Brew Week. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CoreData
-import SwiftyJSON
 
 extension Establishment {
-    class func establishmentsFromJSON(jsonData: NSData) {
-        let json = JSON(data: jsonData)
-        
-        let jsonEstablishmentsArray = json["establishments"]
+    class func establishmentsFromJSON(jsonDict: [String: AnyObject]) {
+        guard let jsonEstablishmentsArray = jsonDict["establishments"] as? [[String: AnyObject]] else {
+            return
+        }
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
@@ -24,26 +23,29 @@ extension Establishment {
         
         var establishmentIDs = [Int]()
         
-        for (_, establishmentJSON): (String, JSON) in jsonEstablishmentsArray {
-            var establishment = establishmentForIdentifier(establishmentJSON["id"].int32Value, inContext: appDelegate.managedObjectContext)
-            
-            if establishment == nil {
-                establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: appDelegate.managedObjectContext) as? Establishment
+        for establishmentJSON in jsonEstablishmentsArray {
+            if let identifier = establishmentJSON["id"] as? Int32 {
+                var establishment = establishmentForIdentifier(identifier, inContext: appDelegate.managedObjectContext)
                 
-                print("Adding new establishment: " + establishmentJSON["name"].stringValue + "\n")
+                if establishment == nil {
+                    establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: appDelegate.managedObjectContext) as? Establishment
+                    
+                    print("Adding new establishment: " + (establishmentJSON["name"] as? String ?? "No name") + "\n")
+                }
+
+                establishment?.address = establishmentJSON["address"] as? String ?? "No Address"
+                establishment?.name = establishmentJSON["name"] as? String ?? "No Name"
+                establishment?.lat = establishmentJSON["lat"] as? Float ?? 0
+                establishment?.lon = establishmentJSON["lon"]as? Float ?? 0
+                
+                if let statuses = establishmentJSON["beer_statuses"] as? [[String: AnyObject]] {
+                    for statusJSON in statuses {
+                        establishment?.updateOrCreateStatusFromJSON(statusJSON)
+                    }
+                }
+                
+                establishmentIDs.append(Int(identifier))
             }
-            
-            establishment?.identifier = establishmentJSON["id"].int32Value
-            establishment?.address = establishmentJSON["address"].stringValue
-            establishment?.name = establishmentJSON["name"].stringValue
-            establishment?.lat = establishmentJSON["lat"].floatValue
-            establishment?.lon = establishmentJSON["lon"].floatValue
-            
-            for (_, statusJSON): (String, JSON) in establishmentJSON["beer_statuses"] {
-                establishment?.updateOrCreateStatusFromJSON(statusJSON)
-            }
-            
-            establishmentIDs.append(establishmentJSON["id"].intValue)
         }
         
         let fetchRemovedEstablishments = NSFetchRequest(entityName: "Establishment")
@@ -77,18 +79,23 @@ extension Establishment {
 		return nil
 	}
 
-	func updateOrCreateStatusFromJSON(statusJSON: JSON) {
-		let beerIdentifier = statusJSON["id"].int32Value
+    func updateOrCreateStatusFromJSON(statusJSON: [String: AnyObject]) {
+        guard let beerIdentifier = statusJSON["id"] as? Int32 else {
+            return
+        }
 
+        let status = statusJSON["status"] as? String ?? "No Status"
+        
 		if let 🍺 = Beer.beerForIdentifier(beerIdentifier, inContext: managedObjectContext!) {
 			var statusExists = false
 
+            
 			for item in beerStatuses {
 				if let beerStatus = item as? BeerStatus {
 					if beerStatus.beer == 🍺 {
 						statusExists = true
 
-						beerStatus.status = statusJSON["status"].stringValue
+						beerStatus.status = status
 					}
 				}
 			}
@@ -97,7 +104,7 @@ extension Establishment {
 				if let newStatus = NSEntityDescription.insertNewObjectForEntityForName("BeerStatus", inManagedObjectContext: managedObjectContext!) as? BeerStatus {
 					newStatus.beer = 🍺
 					newStatus.establishment = self
-					newStatus.status = statusJSON["status"].stringValue
+					newStatus.status = status
 				}
 			}
 		}
