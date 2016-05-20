@@ -26,9 +26,11 @@ extension Beer {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         for beerJSON in jsonBeersArray {
-            guard let identifier = beerJSON["id"] as? Int32 else {
-                break
+            guard let intIdentifier = beerJSON["id"] as? Int else {
+                continue
             }
+            
+            let identifier = Int32(intIdentifier)
             
             var beer = beerForIdentifier(identifier, inContext: appDelegate.managedObjectContext)
             
