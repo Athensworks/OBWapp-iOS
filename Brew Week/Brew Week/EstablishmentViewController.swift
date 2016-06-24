@@ -122,7 +122,12 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showBeers" {
 			if let indexPath = self.tableView.indexPathForSelectedRow {
-				let selectedEstablishment = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Establishment
+                let selectedEstablishment: Establishment
+                if filtering {
+                    selectedEstablishment = filteredEstablishments[indexPath.row]
+                } else {
+                    selectedEstablishment = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Establishment
+                }
 
 				_ = selectedEstablishment.beerStatuses
 				let controller = segue.destinationViewController as! BeersTableViewController
