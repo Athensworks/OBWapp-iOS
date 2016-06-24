@@ -291,9 +291,21 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
     }
 
     func filterContentForSearchText(searchText: String, scope: String = "All") {
+        let substrings = searchText.componentsSeparatedByString(" ")
+            .filter { $0.isEmpty == false }
+            .map { $0.lowercaseString }
+        
         filteredEstablishments = fetchedResultsController.fetchedObjects?
             .flatMap { $0 as? Establishment }
-            .filter { $0.name.lowercaseString.containsString(searchText.lowercaseString) }
+            .filter { establishment in
+                let lowercaseName = establishment.name.lowercaseString
+                for substring in substrings {
+                    if lowercaseName.containsString(substring) == false {
+                        return false
+                    }
+                }
+                return true
+            }
             ?? [Establishment]()
         
         tableView.reloadData()
