@@ -11,8 +11,12 @@ import CoreData
 import Alamofire
 
 
-class EstablishmentViewController: UITableViewController, NSFetchedResultsControllerDelegate, ManagedObjectViewController {
-	var managedObjectContext: NSManagedObjectContext? = nil
+class EstablishmentViewController: UITableViewController, NSFetchedResultsControllerDelegate, ManagedObjectViewController, UISearchResultsUpdating {
+	
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    var managedObjectContext: NSManagedObjectContext? = nil
+    var filteredEstablishments = [Establishment]()
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -22,6 +26,10 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
         
 		Alamofire.request(.GET, Endpoint(path: "beers")).validate().responseJSON { response in
             switch response.result {
@@ -132,7 +140,11 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		let sectionInfo = self.fetchedResultsController.sections![section] 
+        if filtering {
+            return filteredEstablishments.count
+        }
+        
+		let sectionInfo = self.fetchedResultsController.sections![section]
 		return sectionInfo.numberOfObjects
 	}
 
@@ -164,7 +176,12 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 	}
 
 	func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-		let 🏬 = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Establishment
+        let 🏬: Establishment
+        if filtering {
+            🏬 = filteredEstablishments[indexPath.row]
+        } else {
+            🏬 = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Establishment
+        }
 
 		cell.textLabel?.text = 🏬.name
 
@@ -262,5 +279,26 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 		self.tableView.reloadData()
 	}
 
+    // MARK: - Filtering
+    
+    var filtering: Bool {
+        return searchController.active && searchController.searchBar.text != ""
+    }
 
+    func filterContentForSearchText(searchText: String, scope: String = "All") {
+        filteredEstablishments = fetchedResultsController.fetchedObjects?
+            .flatMap { $0 as? Establishment }
+            .filter { $0.name.lowercaseString.containsString(searchText.lowercaseString) }
+            ?? [Establishment]()
+        
+        tableView.reloadData()
+    }
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
+        
+        filterContentForSearchText(searchText)
+    }
 }
