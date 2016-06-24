@@ -11,10 +11,13 @@ import CoreData
 import Alamofire
 
 
-class BeersTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, ManagedObjectViewController {
-
+class BeersTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, ManagedObjectViewController, UISearchResultsUpdating {
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
 	var managedObjectContext: NSManagedObjectContext? = nil
 	var establishment: Establishment? = nil
+    var filteredBeers = [Beer]()
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -22,6 +25,11 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -149,7 +157,9 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 				if let detailController = (segue.destinationViewController as? BeerDetailViewController) {
 					let 🍺: Beer
 
-					if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
+                    if filtering {
+                        🍺 = filteredBeers[indexPath.row]
+                    } else if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
 						detailController.status = status
 						🍺 = status.beer
 					} else {
@@ -170,7 +180,11 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		let sectionInfo = self.fetchedResultsController.sections![section] 
+        if filtering {
+            return filteredBeers.count
+        }
+        
+        let sectionInfo = self.fetchedResultsController.sections![section]
 		return sectionInfo.numberOfObjects
 	}
 
@@ -223,7 +237,9 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		if let beerCell = cell as? BeerTableViewCell {
 			let 🍺: Beer
 
-			if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
+            if filtering {
+                🍺 = filteredBeers[indexPath.row]
+            } else if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
 				🍺 = status.beer
 			} else {
 				🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
@@ -352,5 +368,40 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	func controller(controller: NSFetchedResultsController, sectionIndexTitleForSectionName sectionName: String) -> String? {
 		return nil
 	}
+    
+    // MARK: - Filtering
+    
+    var filtering: Bool {
+        return searchController.active && searchController.searchBar.text != ""
+    }
+    
+    func filterContentForSearchText(searchText: String) {
+        let substrings = searchText.componentsSeparatedByString(" ")
+            .filter { $0.isEmpty == false }
+            .map { $0.lowercaseString }
+        
+        filteredBeers = fetchedResultsController.fetchedObjects?
+            .flatMap { $0 as? Beer }
+            .filter { beer in
+                let lowercaseName = beer.name.lowercaseString
+                for substring in substrings {
+                    if lowercaseName.containsString(substring) == false {
+                        return false
+                    }
+                }
+                return true
+            }
+            ?? [Beer]()
+        
+        tableView.reloadData()
+    }
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
+        
+        filterContentForSearchText(searchText)
+    }
 }
 
