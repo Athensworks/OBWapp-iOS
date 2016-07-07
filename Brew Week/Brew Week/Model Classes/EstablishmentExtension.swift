@@ -24,28 +24,36 @@ extension Establishment {
         var establishmentIDs = [Int]()
         
         for establishmentJSON in jsonEstablishmentsArray {
-            if let identifier = establishmentJSON["id"] as? Int32 {
-                var establishment = establishmentForIdentifier(identifier, inContext: appDelegate.managedObjectContext)
-                
-                if establishment == nil {
-                    establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: appDelegate.managedObjectContext) as? Establishment
-                    
-                    print("Adding new establishment: " + (establishmentJSON["name"] as? String ?? "No name") + "\n")
-                }
+            guard let intIdentifier = establishmentJSON["id"] as? Int else {
+                continue
+            }
+            
+            let identifier = Int32(intIdentifier)
 
-                establishment?.address = establishmentJSON["address"] as? String ?? "No Address"
-                establishment?.name = establishmentJSON["name"] as? String ?? "No Name"
-                establishment?.lat = establishmentJSON["lat"] as? Float ?? 0
-                establishment?.lon = establishmentJSON["lon"]as? Float ?? 0
+            var establishment = establishmentForIdentifier(identifier, inContext: appDelegate.managedObjectContext)
+            
+            if establishment == nil {
+                establishment = NSEntityDescription.insertNewObjectForEntityForName("Establishment", inManagedObjectContext: appDelegate.managedObjectContext) as? Establishment
+                
+                print("Adding new establishment: " + (establishmentJSON["name"] as? String ?? "No name") + "\n")
+                
+            }
+
+            if let 🏬 = establishment {
+                🏬.identifier = identifier
+                🏬.address = establishmentJSON["address"] as? String ?? "No Address"
+                🏬.name = establishmentJSON["name"] as? String ?? "No Name"
+                🏬.lat = establishmentJSON["lat"] as? Float ?? 0
+                🏬.lon = establishmentJSON["lon"]as? Float ?? 0
                 
                 if let statuses = establishmentJSON["beer_statuses"] as? [[String: AnyObject]] {
                     for statusJSON in statuses {
-                        establishment?.updateOrCreateStatusFromJSON(statusJSON)
+                        🏬.updateOrCreateStatusFromJSON(statusJSON)
                     }
                 }
-                
-                establishmentIDs.append(Int(identifier))
             }
+            
+            establishmentIDs.append(Int(identifier))
         }
         
         let fetchRemovedEstablishments = NSFetchRequest(entityName: "Establishment")
@@ -80,9 +88,11 @@ extension Establishment {
 	}
 
     func updateOrCreateStatusFromJSON(statusJSON: [String: AnyObject]) {
-        guard let beerIdentifier = statusJSON["id"] as? Int32 else {
+        guard let intIdentifier = statusJSON["id"] as? Int else {
             return
         }
+        
+        let beerIdentifier = Int32(intIdentifier)
 
         let status = statusJSON["status"] as? String ?? "No Status"
         

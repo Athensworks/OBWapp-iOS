@@ -95,6 +95,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 	}
 
 	//MARK: insertNewObject
+    
 	@IBAction func insertNewObject(sender: AnyObject) {
 		let context = self.fetchedResultsController.managedObjectContext
 		let entity = self.fetchedResultsController.fetchRequest.entity!
@@ -116,6 +117,26 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 			abort()
 		}
 	}
+    
+    // MARK: - Actions
+    
+    @IBAction func refreshEstablishments(sender: UIRefreshControl) {
+        // /establishment/:establishment_id/beer_statuses
+        
+        Alamofire.request(.GET, Endpoint(path: "establishments")).validate().responseJSON { establishmentsResponse in
+            switch establishmentsResponse.result {
+            case .Success(let establishmentsJSON as [String: [AnyObject]]):
+                Establishment.establishmentsFromJSON(establishmentsJSON)
+                
+            case .Failure(let error):
+                print("Establishments response is error: \(error)")
+            default:
+                print("Establishments response is incorrectly typed")
+            }
+            
+            self.refreshControl?.endRefreshing()
+        }
+    }
 
 	// MARK: - Segues
 
@@ -161,23 +182,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 
 	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
 		// Return false if you do not want the specified item to be editable.
-		return true
-	}
-
-	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-		if editingStyle == .Delete {
-			let context = self.fetchedResultsController.managedObjectContext
-			context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject)
-
-			do {
-				try context.save()
-			} catch {
-				// Replace this implementation with code to handle the error appropriately.
-				// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-				//println("Unresolved error \(error), \(error.userInfo)")
-				abort()
-			}
-		}
+		return false
 	}
 
 	func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
