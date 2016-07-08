@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		73FB8C7EC6DF1CB74F4CA79F /* Pods_Brew_Week.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31423DDF02BEA4C1A367D90A /* Pods_Brew_Week.framework */; };
+		9437A9751D2CB1A4005CD92D /* Brewery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9437A9741D2CB1A4005CD92D /* Brewery.swift */; };
+		9456960D1D2E2CA20088EC7C /* BreweryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9456960C1D2E2CA20088EC7C /* BreweryExtension.swift */; };
+		949BF8C51D2DD527004F83B0 /* BreweryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949BF8C41D2DD527004F83B0 /* BreweryViewController.swift */; };
 		B506A6131AE0A3F100EB0E59 /* BeerStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B506A6121AE0A3F100EB0E59 /* BeerStatus.swift */; };
 		B54737161B43933100FA5B02 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54737151B43933100FA5B02 /* MapKit.framework */; };
 		B596814A1B367C2000A516DC /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59681491B367C2000A516DC /* Endpoint.swift */; };
@@ -52,6 +55,9 @@
 		31423DDF02BEA4C1A367D90A /* Pods_Brew_Week.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Brew_Week.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58041273B0FA6F9B6A046F62 /* Pods-Brew Week.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Brew Week.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Brew Week/Pods-Brew Week.debug.xcconfig"; sourceTree = "<group>"; };
 		79C48FA7117593C67387B210 /* Pods-Brew Week.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Brew Week.release.xcconfig"; path = "Pods/Target Support Files/Pods-Brew Week/Pods-Brew Week.release.xcconfig"; sourceTree = "<group>"; };
+		9437A9741D2CB1A4005CD92D /* Brewery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Brewery.swift; path = "Brew Week/Model Classes/Brewery.swift"; sourceTree = "<group>"; };
+		9456960C1D2E2CA20088EC7C /* BreweryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BreweryExtension.swift; path = "Brew Week/Model Classes/BreweryExtension.swift"; sourceTree = "<group>"; };
+		949BF8C41D2DD527004F83B0 /* BreweryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreweryViewController.swift; sourceTree = "<group>"; };
 		B506A6121AE0A3F100EB0E59 /* BeerStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeerStatus.swift; path = "Brew Week/Model Classes/BeerStatus.swift"; sourceTree = "<group>"; };
 		B54737151B43933100FA5B02 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B59681491B367C2000A516DC /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Endpoint.swift; path = "Brew Week/Endpoint.swift"; sourceTree = "<group>"; };
@@ -150,6 +156,7 @@
 			children = (
 				B5D1CCA11ABBAC6900DEA7EE /* AppDelegate.swift */,
 				B59882CF1B1827600062E407 /* EstablishmentViewController.swift */,
+				949BF8C41D2DD527004F83B0 /* BreweryViewController.swift */,
 				B5D1CCA61ABBAC6900DEA7EE /* BeersTableViewController.swift */,
 				B5D1CCD71ABBCF3200DEA7EE /* BeerTableViewCell.swift */,
 				B5D1CCA81ABBAC6900DEA7EE /* BeerDetailViewController.swift */,
@@ -200,6 +207,7 @@
 				B5E59EFE1B4189A10007881D /* FavoritedBeer.swift */,
 				B5E59EFF1B4189A10007881D /* TastedBeer.swift */,
 				B5E59F001B4189A10007881D /* Establishment.swift */,
+				9437A9741D2CB1A4005CD92D /* Brewery.swift */,
 				B5E59F011B4189A10007881D /* Beer.swift */,
 				B506A6121AE0A3F100EB0E59 /* BeerStatus.swift */,
 				B59681491B367C2000A516DC /* Endpoint.swift */,
@@ -214,6 +222,7 @@
 				B5D1CCD41ABBC21300DEA7EE /* DrinkerExtension.swift */,
 				B5D1CCD21ABBC21300DEA7EE /* BeerExtension.swift */,
 				B5D1CCD01ABBC21200DEA7EE /* EstablishmentExtension.swift */,
+				9456960C1D2E2CA20088EC7C /* BreweryExtension.swift */,
 				B5E082671B449EC8008260D2 /* BeerStatusExtension.swift */,
 			);
 			name = Extensions;
@@ -404,7 +413,9 @@
 				B5D1CCD11ABBC21200DEA7EE /* EstablishmentExtension.swift in Sources */,
 				B5D1CCD51ABBC21300DEA7EE /* DrinkerExtension.swift in Sources */,
 				B5D1CCA21ABBAC6900DEA7EE /* AppDelegate.swift in Sources */,
+				9437A9751D2CB1A4005CD92D /* Brewery.swift in Sources */,
 				B5E59F061B4189A10007881D /* Beer.swift in Sources */,
+				9456960D1D2E2CA20088EC7C /* BreweryExtension.swift in Sources */,
 				B5D1CCD81ABBCF3200DEA7EE /* BeerTableViewCell.swift in Sources */,
 				B596814A1B367C2000A516DC /* Endpoint.swift in Sources */,
 				B59882D01B1827600062E407 /* EstablishmentViewController.swift in Sources */,
@@ -418,6 +429,7 @@
 				B5D1CCD61ABBC77100DEA7EE /* BeerExtension.swift in Sources */,
 				B5E59F0B1B41ADA10007881D /* UIImage.swift in Sources */,
 				B5E59F031B4189A10007881D /* FavoritedBeer.swift in Sources */,
+				949BF8C51D2DD527004F83B0 /* BreweryViewController.swift in Sources */,
 				B5D1CCA91ABBAC6900DEA7EE /* BeerDetailViewController.swift in Sources */,
 				B5E082681B449EC8008260D2 /* BeerStatusExtension.swift in Sources */,
 			);

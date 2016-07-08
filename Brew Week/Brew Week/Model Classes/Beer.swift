@@ -13,7 +13,7 @@ class Beer: NSManagedObject {
 
     @NSManaged var abv: Double
     @NSManaged var beerDescription: String
-    @NSManaged var brewery: String
+    @NSManaged var brewery: Brewery
     @NSManaged var favoriteCount: Int32
     @NSManaged var ibu: Int32
     @NSManaged var identifier: Int32

@@ -17,6 +17,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
     
 	var managedObjectContext: NSManagedObjectContext? = nil
 	var establishment: Establishment? = nil
+    var brewery: Brewery? = nil
     var filteredBeers = [Beer]()
 
 	override func awakeFromNib() {
@@ -68,15 +69,16 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
                             print("Beer statuses at establishment \(establishment.identifier) response is incorrectly typed")
                         }
                     }
-                    
-                    self.refreshControl?.endRefreshing()
                 }
-                
+            
             case .Failure(let error):
                 print("Beers response is error: \(error)")
+            
             default:
                 print("Beers response is incorrectly typed")
             }
+            
+            sender.endRefreshing()
         }
     }
 
@@ -246,7 +248,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 			}
 			
 			beerCell.nameLabel.text = 🍺.name
-			beerCell.breweryNameLabel.text = 🍺.brewery
+			beerCell.breweryNameLabel.text = 🍺.brewery.name
 			beerCell.favoritedButton.selected = 🍺.favorite != nil ? true : false
 			beerCell.favoriteCountLabel.text = String(🍺.favoriteCount)
 			beerCell.tastedCheckboxButton.selected = 🍺.taste != nil ? true : false
@@ -286,11 +288,18 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 			let nameSortDescriptor = NSSortDescriptor(key: "beer.name", ascending: true)
 
 			sortDescriptors = [statusSortDescriptor, nameSortDescriptor]
-		} else {
-			entity = NSEntityDescription.entityForName("Beer", inManagedObjectContext: self.managedObjectContext!)
-			let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-
-			sortDescriptors = [sortDescriptor]
+        } else if let brewery = brewery {
+            fetchRequest.predicate = NSPredicate(format: "brewery == %@", brewery)
+            
+            entity = NSEntityDescription.entityForName("Beer", inManagedObjectContext: self.managedObjectContext!)
+            let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+            
+            sortDescriptors = [sortDescriptor]
+        } else {
+            entity = NSEntityDescription.entityForName("Beer", inManagedObjectContext: self.managedObjectContext!)
+            let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+            
+            sortDescriptors = [sortDescriptor]
 		}
 
 		fetchRequest.entity = entity

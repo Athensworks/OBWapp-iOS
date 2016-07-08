@@ -64,7 +64,7 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 		if let beer = self.beer {
 			nameLabel.text = beer.name
 			limitedReleaseView.hidden = (beer.limitedRelease == false)
-			breweryNameLabel.text = beer.brewery
+			breweryNameLabel.text = beer.brewery.name
 
 			detailDescriptionLabel.text = beer.beerDescription
 
