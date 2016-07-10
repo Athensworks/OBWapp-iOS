@@ -1082,7 +1082,18 @@ Icons by Glyphicons.</string>
                             <outlet property="delegate" destination="l27-D4-afo" id="BxK-nI-SqA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Brew Week Beers" id="wyZ-YE-4Dz"/>
+                    <navigationItem key="navigationItem" title="Brew Week Beers" id="wyZ-YE-4Dz">
+                        <barButtonItem key="leftBarButtonItem" title="Sort" id="2Cf-oW-zUD">
+                            <connections>
+                                <action selector="sortBeers:" destination="l27-D4-afo" id="oIn-vE-iTd"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="t5R-RK-gWr">
+                            <connections>
+                                <action selector="filterBeers:" destination="l27-D4-afo" id="eO8-Vg-ldJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="WL6-yD-Q1Z">
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle">

@@ -153,6 +153,120 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		    abort()
 		}
 	}
+    
+    @IBAction func sortBeers(sender: AnyObject)
+    {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { action in
+            
+        }
+        
+        alert.addAction(cancelAction)
+        
+        let sortNameAscendingAction = UIAlertAction(title: "Name\u{2003}A → Z", style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: "name", ascending: true)]
+        }
+        
+        alert.addAction(sortNameAscendingAction)
+        
+        let sortNameDescendingAction = UIAlertAction(title: "Name\u{2003}Z → A", style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: "name", ascending: false)]
+        }
+        
+        alert.addAction(sortNameDescendingAction)
+        
+        let sortABVAscendingAction = UIAlertAction(title: "ABV\u{2003}Session → Imperial", style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: "abv", ascending: true)]
+        }
+        
+        alert.addAction(sortABVAscendingAction)
+        
+        let sortABVDescendingAction = UIAlertAction(title: "ABV\u{2003}Imperial → Session", style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: "abv", ascending: false)]
+        }
+        
+        alert.addAction(sortABVDescendingAction)
+        
+        let sortIBUAscendingAction = UIAlertAction(title: "IBU\u{2003}Sweet → Bitter", style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: "ibu", ascending: true)]
+        }
+        
+        alert.addAction(sortIBUAscendingAction)
+        
+        let sortIBUDescendingAction = UIAlertAction(title: "IBU\u{2003}Bitter → Sweet", style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: "ibu", ascending: false)]
+        }
+        
+        alert.addAction(sortIBUDescendingAction)
+        
+        presentViewController(alert, animated: true) {
+            
+        }
+    }
+    
+    @IBAction func filterBeers(sender: AnyObject)
+    {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { action in
+            
+        }
+        
+        alert.addAction(cancelAction)
+        
+        let specialAction = UIAlertAction(title: "Insert Test Beers", style: .Destructive) { action in
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            
+            let beerData = [
+                (identifier: 10000, name: "A Beer By Any Other Name", abv: 5.5, ibu: 30, tasteCount: 3, favoriteCount: 1),
+                (identifier: 10001, name: "Viper Mist", abv: 11.0, ibu: 75, tasteCount: 40, favoriteCount: 0),
+                (identifier: 10002, name: "Koala Juice", abv: 7.5, ibu: 10, tasteCount: 27, favoriteCount: 7),
+                (identifier: 10003, name: "Tameless", abv: 9.5, ibu: 33, tasteCount: 15, favoriteCount: 5),
+                (identifier: 10004, name: "99 Beers But A Pils Ain’t One", abv: 0, ibu: 0, tasteCount: 0, favoriteCount: 0)
+            ]
+            
+            for data in beerData {
+                let beer = NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: appDelegate.managedObjectContext) as! Beer
+                beer.identifier = Int32(data.identifier)
+                beer.name = data.name
+                beer.abv = data.abv
+                beer.ibu = Int32(data.ibu)
+            }
+            
+            appDelegate.saveContext()
+        }
+        
+        alert.addAction(specialAction)
+        
+        let filterAllAction = UIAlertAction(title: "All", style: .Default) { action in
+            self.filter = nil
+        }
+        
+        alert.addAction(filterAllAction)
+        
+        let filterInterestedAction = UIAlertAction(title: "Interested", style: .Default) { action in
+            self.filter = NSPredicate(format: "drinkerReaction == 1")
+        }
+        
+        alert.addAction(filterInterestedAction)
+        
+        let filterLikedAction = UIAlertAction(title: "Liked", style: .Default) { action in
+            self.filter = NSPredicate(format: "drinkerReaction == 2")
+        }
+        
+        alert.addAction(filterLikedAction)
+        
+        let filterDislikedAction = UIAlertAction(title: "Disliked", style: .Default) { action in
+            self.filter = NSPredicate(format: "drinkerReaction == 3")
+        }
+        
+        alert.addAction(filterDislikedAction)
+        
+        presentViewController(alert, animated: true) {
+            
+        }
+    }
 
 	// MARK: - Segues
 
@@ -320,15 +434,15 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	    }
 	    
 	    let fetchRequest = NSFetchRequest()
-	    // Edit the entity name as appropriate.
-		let entity: NSEntityDescription?
-		let sortDescriptors: [NSSortDescriptor]
-		var sectionNameKeyPath: String? = nil
+        fetchRequest.entity = NSEntityDescription.entityForName(establishment != nil ? "BeerStatus" : "Beer", inManagedObjectContext: managedObjectContext!)
+        fetchRequest.predicate = filter
+		fetchRequest.sortDescriptors = sort
+        fetchRequest.fetchBatchSize = 50
+		
+        var sectionNameKeyPath: String? = nil
 
 		if let establishment = establishment {
 			fetchRequest.predicate = NSPredicate(format: "establishment == %@", establishment)
-
-			entity = NSEntityDescription.entityForName("BeerStatus", inManagedObjectContext: self.managedObjectContext!)
 
 			sectionNameKeyPath = "section"
 			let statusSortDescriptor = NSSortDescriptor(key: sectionNameKeyPath!, ascending: true)
@@ -336,49 +450,30 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 			let nameSortDescriptor = NSSortDescriptor(key: "beer.name", ascending: true)
 
-			sortDescriptors = [statusSortDescriptor, nameSortDescriptor]
+			fetchRequest.sortDescriptors = [statusSortDescriptor, nameSortDescriptor]
+            
         } else if let brewery = brewery {
             fetchRequest.predicate = NSPredicate(format: "brewery == %@", brewery)
-            
-            entity = NSEntityDescription.entityForName("Beer", inManagedObjectContext: self.managedObjectContext!)
-            let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-            
-            sortDescriptors = [sortDescriptor]
-        } else {
-            entity = NSEntityDescription.entityForName("Beer", inManagedObjectContext: self.managedObjectContext!)
-            let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-            
-            sortDescriptors = [sortDescriptor]
 		}
-
-		fetchRequest.entity = entity
-
-	    // Set the batch size to a suitable number.
-	    fetchRequest.fetchBatchSize = 50
-	    
-	    // Edit the sort key as appropriate.
-	    fetchRequest.sortDescriptors = sortDescriptors
-	    
+        
 	    // Edit the section name key path and cache name if appropriate.
 	    // nil for section name key path means "no sections".
-	    let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: sectionNameKeyPath, cacheName: entity?.name)
+	    let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: sectionNameKeyPath, cacheName: fetchRequest.entityName)
 	    aFetchedResultsController.delegate = self
 	    _fetchedResultsController = aFetchedResultsController
 
-		NSFetchedResultsController.deleteCacheWithName(entity?.name)
+		NSFetchedResultsController.deleteCacheWithName(fetchRequest.entityName)
 	    
 		do {
 			try _fetchedResultsController!.performFetch()
 		} catch {
-		     // Replace this implementation with code to handle the error appropriately.
-		     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-	         //println("Unresolved error \(error), \(error.userInfo)")
-		     abort()
+            print(exception)
 		}
 	    
 	    return _fetchedResultsController!
 	}    
 	var _fetchedResultsController: NSFetchedResultsController? = nil
+    
 /*
 	func controllerWillChangeContent(controller: NSFetchedResultsController) {
 	    self.tableView.beginUpdates()
@@ -431,6 +526,23 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
     
     var filtering: Bool {
         return searchController.active && searchController.searchBar.text != ""
+    }
+    
+    var sort = [NSSortDescriptor(key: "name", ascending: true)] {
+        didSet {
+            fetchAndReload()
+        }
+    }
+    
+    var filter: NSPredicate? {
+        didSet {
+            fetchAndReload()
+        }
+    }
+    
+    func fetchAndReload() {
+        _fetchedResultsController = nil
+        tableView.reloadData()
     }
     
     func filterContentForSearchText(searchText: String) {
