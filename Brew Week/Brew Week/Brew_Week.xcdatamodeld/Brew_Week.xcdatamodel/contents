@@ -3,6 +3,7 @@
     <entity name="Beer" representedClassName="Brew_Week.Beer" syncable="YES">
         <attribute name="abv" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="beerDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="drinkerReaction" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="favoriteCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="ibu" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -55,7 +56,7 @@
     <fetchRequest name="favoritesFetch" entity="Beer" predicateString="favorited == 1"/>
     <fetchRequest name="tastedFetch" entity="Beer" predicateString="tasted == 1"/>
     <elements>
-        <element name="Beer" positionX="477" positionY="279" width="128" height="255"/>
+        <element name="Beer" positionX="477" positionY="279" width="128" height="270"/>
         <element name="BeerStatus" positionX="295" positionY="423" width="128" height="103"/>
         <element name="Brewery" positionX="484" positionY="90" width="128" height="88"/>
         <element name="Drinker" positionX="853" positionY="72" width="128" height="103"/>

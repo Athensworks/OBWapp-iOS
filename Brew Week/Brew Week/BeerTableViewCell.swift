@@ -19,6 +19,7 @@ class BeerTableViewCell: UITableViewCell {
 	@IBOutlet weak var favoriteCountLabel: UILabel!
 	@IBOutlet weak var beerMetadataLabel: UILabel!
 	@IBOutlet weak var limitedReleaseImageView: UIImageView!
+    @IBOutlet weak var drinkerReactionLabel: UILabel!
 
 	override func awakeFromNib() {
         super.awakeFromNib()

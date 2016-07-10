@@ -219,8 +219,56 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
 	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
 		// Return false if you do not want the specified item to be editable.
-		return false
+		return true
 	}
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let beer: Beer
+        if filtering {
+            beer = filteredBeers[indexPath.row]
+        } else if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
+            beer = status.beer
+        } else {
+            beer = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
+        }
+        
+        let clearAction = UITableViewRowAction(style: .Normal, title: "Clear") { action, indexPath in
+            beer.drinkerReaction = 0
+            tableView.editing = false
+        }
+
+        let saveAction = UITableViewRowAction(style: .Normal, title: "Interested") { action, indexPath in
+            beer.drinkerReaction = 1
+            tableView.editing = false
+        }
+        saveAction.backgroundColor = UIColor(hue: 0.75, saturation: 0.45, brightness: 0.9, alpha: 1)
+        
+        let likeAction = UITableViewRowAction(style: .Normal, title: "Like") { action, indexPath in
+            beer.drinkerReaction = 2
+            tableView.editing = false
+        }
+        likeAction.backgroundColor = UIColor(hue: 0.325, saturation: 0.6, brightness: 0.9, alpha: 1)
+        
+        let dislikeAction = UITableViewRowAction(style: .Normal, title: "Dislike") { action, indexPath in
+            beer.drinkerReaction = 3
+            tableView.editing = false
+        }
+        dislikeAction.backgroundColor = UIColor(hue: 0, saturation: 0.7, brightness: 1, alpha: 1)
+
+        let actions: [UITableViewRowAction]
+        switch beer.drinkerReaction {
+        case 1: // Saved
+            actions = [dislikeAction, likeAction, clearAction]
+        case 2: // Liked
+            actions = [dislikeAction, saveAction, clearAction]
+        case 3: // Disliked
+            actions = [likeAction, saveAction, clearAction]
+        default:
+            actions = [dislikeAction, likeAction, saveAction]
+        }
+        
+        return actions
+    }
 
 	func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
 		if let beerCell = cell as? BeerTableViewCell {
@@ -240,6 +288,20 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 			beerCell.favoriteCountLabel.text = String(🍺.favoriteCount)
 			beerCell.tastedCheckboxButton.selected = 🍺.taste != nil ? true : false
 			beerCell.tasteCountLabel.text = String(🍺.tasteCount)
+            
+            let markEmoji: String
+            switch (🍺.drinkerReaction) {
+            case 1: // Saved
+                markEmoji = "🤔"
+            case 2: // Liked
+                markEmoji = "👍"
+            case 3: // Disliked
+                markEmoji = "👎"
+            default:
+                markEmoji = ""
+            }
+            
+            beerCell.drinkerReactionLabel.text = markEmoji
 
 			beerCell.favoritedButton.enabled = beerCell.tastedCheckboxButton.selected
 			beerCell.favoriteCountLabel.enabled = beerCell.tastedCheckboxButton.selected

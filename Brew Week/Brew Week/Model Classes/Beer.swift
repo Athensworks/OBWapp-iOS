@@ -25,5 +25,6 @@ class Beer: NSManagedObject {
     @NSManaged var statuses: NSSet
     @NSManaged var taste: TastedBeer?
     @NSManaged var favorite: FavoritedBeer?
+    @NSManaged var drinkerReaction: Int32
 
 }

@@ -997,7 +997,7 @@ Icons by Glyphicons.</string>
                                                 <constraint firstAttribute="width" constant="36" id="rJb-B4-79Q"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpF-yo-2NQ" userLabel="Taste">
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpF-yo-2NQ" userLabel="Taste">
                                             <rect key="frame" x="0.0" y="14" width="48" height="48"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="48" id="mOi-RP-YPN"/>
@@ -1017,11 +1017,22 @@ Icons by Glyphicons.</string>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🍺" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ikv-u5-77K" userLabel="Drinker Reaction">
+                                            <rect key="frame" x="0.0" y="20" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="DjY-xs-S6V"/>
+                                                <constraint firstAttribute="width" constant="40" id="nTC-L8-NAv"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="ZZR-Em-93t" firstAttribute="centerY" secondItem="QgE-77-bmd" secondAttribute="centerY" id="4Wh-qE-t3E"/>
                                         <constraint firstAttribute="centerY" secondItem="vpF-yo-2NQ" secondAttribute="centerY" constant="2.5" id="67y-Ji-HuW"/>
                                         <constraint firstItem="vpF-yo-2NQ" firstAttribute="leading" secondItem="qZk-P1-c4N" secondAttribute="leading" id="8RZ-Eb-zsk"/>
+                                        <constraint firstItem="Ikv-u5-77K" firstAttribute="leading" secondItem="qZk-P1-c4N" secondAttribute="leadingMargin" constant="-8" id="8b0-fP-3sr"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="NQ4-BV-gAQ" secondAttribute="bottom" id="9GB-xh-0K5"/>
                                         <constraint firstItem="gJ4-W1-1ZH" firstAttribute="centerY" secondItem="QgE-77-bmd" secondAttribute="centerY" id="BS3-Da-7GB"/>
                                         <constraint firstAttribute="trailing" secondItem="QgE-77-bmd" secondAttribute="trailing" id="CoU-ic-v5s"/>
@@ -1033,6 +1044,7 @@ Icons by Glyphicons.</string>
                                         <constraint firstItem="NQ4-BV-gAQ" firstAttribute="centerY" secondItem="QgE-77-bmd" secondAttribute="centerY" constant="0.5" id="VBf-De-YCC"/>
                                         <constraint firstItem="QBX-pc-yAB" firstAttribute="top" secondItem="hpv-cC-cq7" secondAttribute="bottom" id="Xyj-Ee-ZQV"/>
                                         <constraint firstItem="ZZR-Em-93t" firstAttribute="leading" secondItem="Iuz-vA-aUb" secondAttribute="trailing" constant="-5" id="c1d-EB-qMO"/>
+                                        <constraint firstItem="Ikv-u5-77K" firstAttribute="centerY" secondItem="qZk-P1-c4N" secondAttribute="centerY" id="cNS-tY-YpQ"/>
                                         <constraint firstItem="wJx-iq-AF5" firstAttribute="centerY" secondItem="hpv-cC-cq7" secondAttribute="centerY" id="dfe-Zh-BMb"/>
                                         <constraint firstItem="gJ4-W1-1ZH" firstAttribute="leading" secondItem="ZZR-Em-93t" secondAttribute="trailing" id="fyi-EA-mk7"/>
                                         <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="QBX-pc-yAB" secondAttribute="trailing" id="g81-LE-9zI"/>
@@ -1052,6 +1064,7 @@ Icons by Glyphicons.</string>
                                 <connections>
                                     <outlet property="beerMetadataLabel" destination="NQ4-BV-gAQ" id="KWg-xY-Req"/>
                                     <outlet property="breweryNameLabel" destination="QBX-pc-yAB" id="cGu-nH-cAS"/>
+                                    <outlet property="drinkerReactionLabel" destination="Ikv-u5-77K" id="Ruh-Sf-vRZ"/>
                                     <outlet property="favoriteCountLabel" destination="gJ4-W1-1ZH" id="fpw-2A-yLL"/>
                                     <outlet property="favoritedButton" destination="QgE-77-bmd" id="1Nw-WG-HsA"/>
                                     <outlet property="limitedReleaseImageView" destination="wJx-iq-AF5" id="5SW-Ct-b7s"/>
@@ -1164,8 +1177,8 @@ Icons by Glyphicons.</string>
         <image name="unchecked-154" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eOs-O8-DOI"/>
-        <segue reference="PQo-hl-z2U"/>
+        <segue reference="G91-4P-E1o"/>
+        <segue reference="aic-c9-OyY"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.83137254900000002" green="0.074509803920000006" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
 </document>
