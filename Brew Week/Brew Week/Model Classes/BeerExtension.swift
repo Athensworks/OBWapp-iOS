@@ -25,6 +25,12 @@ extension Beer {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
+        if jsonBeersArray.count == 0 {
+            return
+        }
+        
+        var beerIDs = [Int]()
+        
         for beerJSON in jsonBeersArray {
             guard let intIdentifier = beerJSON["id"] as? Int else {
                 continue
@@ -42,11 +48,11 @@ extension Beer {
                 🍺.identifier = identifier
                 🍺.name = beerJSON["name"] as? String ?? "Unknown Beer"
                 🍺.abv = beerJSON["abv"] as? Double ?? 0
-                🍺.ibu = beerJSON["ibu"] as? Int32 ?? 0
-                🍺.favoriteCount = beerJSON["favorite_count"] as? Int32 ?? 0
-                🍺.tasteCount = beerJSON["taste_count"] as? Int32 ?? 0
+                🍺.ibu = Int32(beerJSON["ibu"] as? Int ?? 0)
+                🍺.favoriteCount = Int32(beerJSON["favorite_count"] as? Int32 ?? 0)
+                🍺.tasteCount = Int32(beerJSON["taste_count"] as? Int32 ?? 0)
                 🍺.limitedRelease = beerJSON["limited_release"] as? Bool ?? false
-                🍺.rateBeerID = beerJSON["rate_beer_id"] as? Int32 ?? 0
+                🍺.rateBeerID = Int32(beerJSON["rate_beer_id"] as? Int32 ?? 0)
                 🍺.beerDescription = beerJSON["description"] as? String ?? ""
                 if let breweryJSON = beerJSON["brewery"] as? [String: AnyObject],
                     breweryIdentifier = breweryJSON["id"] as? Int32,
@@ -56,19 +62,24 @@ extension Beer {
                     print("Did not find brewery (\(beerJSON["brewery"])) for \(🍺.name)")
                 }
             }
+        
+            beerIDs.append(Int(identifier))
         }
         
+        let fetchRemovedBeers = NSFetchRequest(entityName: "Beer")
+        fetchRemovedBeers.predicate = NSPredicate(format: "NOT (identifier IN %@)", beerIDs)
         
-        // Save the context.
-        do {
-            try appDelegate.managedObjectContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            //println("Unresolved error \(error), \(error.userInfo)")
-            abort()
+        if let array = try? appDelegate.managedObjectContext.executeFetchRequest(fetchRemovedBeers), results = array as? [NSManagedObject] {
+            if results.count > 0 {
+                print("Removing \(results.count) beers")
+                
+                for beer in results {
+                    appDelegate.managedObjectContext.deleteObject(beer)
+                }
+                
+                appDelegate.saveContext()
+            }
         }
-        
     }
 
 	class func beerForIdentifier(identifier: Int32, inContext context: NSManagedObjectContext) -> Beer? {

@@ -192,6 +192,13 @@
                     <navigationItem key="navigationItem" title="Brew Week Establishments" id="Mmu-97-pUb">
                         <barButtonItem key="backBarButtonItem" title="Establishments" id="lXa-dS-tqH"/>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="4Km-sD-a4C">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.73333333329999995" green="0.46274509800000002" blue="0.050980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <action selector="refreshEstablishments:" destination="Ob4-Pn-QZv" eventType="valueChanged" id="JrG-5A-mMI"/>
+                        </connections>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KOC-yt-kgm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1157,8 +1164,8 @@ Icons by Glyphicons.</string>
         <image name="unchecked-154" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aic-c9-OyY"/>
-        <segue reference="G91-4P-E1o"/>
+        <segue reference="eOs-O8-DOI"/>
+        <segue reference="PQo-hl-z2U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.83137254900000002" green="0.074509803920000006" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
 </document>
