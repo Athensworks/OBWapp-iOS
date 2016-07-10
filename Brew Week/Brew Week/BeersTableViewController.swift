@@ -156,51 +156,73 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
     
     @IBAction func sortBeers(sender: AnyObject)
     {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        var sortKey: String?
+        
+        
+        // Action sheet for ascending versus descending
+        
+        let sortOrderAlert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let ascendingAction = UIAlertAction(title: "Ascending", style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: sortKey, ascending: true)]
+        }
+        
+        sortOrderAlert.addAction(ascendingAction)
+        
+        let descendingAction = UIAlertAction(title: "Descending", style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: sortKey, ascending: false)]
+        }
+        
+        sortOrderAlert.addAction(descendingAction)
+        
+        
+        // Action sheet for sort criteria
+        
+        let sortKeyAlert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { action in
             
         }
         
-        alert.addAction(cancelAction)
+        sortKeyAlert.addAction(cancelAction)
         
-        let sortNameAscendingAction = UIAlertAction(title: "Name\u{2003}A → Z", style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: "name", ascending: true)]
+        let sortNameAction = UIAlertAction(title: "Name", style: .Default) { action in
+            sortKey = "name"
+            self.presentViewController(sortOrderAlert, animated: true) {
+                
+            }
         }
         
-        alert.addAction(sortNameAscendingAction)
+        sortKeyAlert.addAction(sortNameAction)
         
-        let sortNameDescendingAction = UIAlertAction(title: "Name\u{2003}Z → A", style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: "name", ascending: false)]
+        let sortABVAction = UIAlertAction(title: "Alcohol Content", style: .Default) { action in
+            sortKey = "abv"
+            self.presentViewController(sortOrderAlert, animated: true) {
+                
+            }
         }
         
-        alert.addAction(sortNameDescendingAction)
+        sortKeyAlert.addAction(sortABVAction)
         
-        let sortABVAscendingAction = UIAlertAction(title: "ABV\u{2003}Session → Imperial", style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: "abv", ascending: true)]
+        let sortIBUAction = UIAlertAction(title: "Bitterness", style: .Default) { action in
+            sortKey = "ibu"
+            self.presentViewController(sortOrderAlert, animated: true) {
+                
+            }
         }
         
-        alert.addAction(sortABVAscendingAction)
+        sortKeyAlert.addAction(sortIBUAction)
         
-        let sortABVDescendingAction = UIAlertAction(title: "ABV\u{2003}Imperial → Session", style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: "abv", ascending: false)]
+        let sortPopularityAction = UIAlertAction(title: "Popularity", style: .Default) { action in
+            sortKey = "favoriteCount"
+            self.presentViewController(sortOrderAlert, animated: true) {
+                
+            }
         }
         
-        alert.addAction(sortABVDescendingAction)
+        sortKeyAlert.addAction(sortPopularityAction)
         
-        let sortIBUAscendingAction = UIAlertAction(title: "IBU\u{2003}Sweet → Bitter", style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: "ibu", ascending: true)]
-        }
-        
-        alert.addAction(sortIBUAscendingAction)
-        
-        let sortIBUDescendingAction = UIAlertAction(title: "IBU\u{2003}Bitter → Sweet", style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: "ibu", ascending: false)]
-        }
-        
-        alert.addAction(sortIBUDescendingAction)
-        
-        presentViewController(alert, animated: true) {
+        presentViewController(sortKeyAlert, animated: true) {
             
         }
     }
@@ -222,7 +244,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
                 (identifier: 10000, name: "A Beer By Any Other Name", abv: 5.5, ibu: 30, tasteCount: 3, favoriteCount: 1),
                 (identifier: 10001, name: "Viper Mist", abv: 11.0, ibu: 75, tasteCount: 40, favoriteCount: 0),
                 (identifier: 10002, name: "Koala Juice", abv: 7.5, ibu: 10, tasteCount: 27, favoriteCount: 7),
-                (identifier: 10003, name: "Tameless", abv: 9.5, ibu: 33, tasteCount: 15, favoriteCount: 5),
+                (identifier: 10003, name: "Tasteless", abv: 9.5, ibu: 33, tasteCount: 15, favoriteCount: 5),
                 (identifier: 10004, name: "99 Beers But A Pils Ain’t One", abv: 0, ibu: 0, tasteCount: 0, favoriteCount: 0)
             ]
             
@@ -232,6 +254,8 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
                 beer.name = data.name
                 beer.abv = data.abv
                 beer.ibu = Int32(data.ibu)
+                beer.tasteCount = Int32(data.tasteCount)
+                beer.favoriteCount = Int32(data.favoriteCount)
             }
             
             appDelegate.saveContext()
@@ -371,7 +395,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 
         let actions: [UITableViewRowAction]
         switch beer.drinkerReaction {
-        case 1: // Saved
+        case 1: // Interested
             actions = [dislikeAction, likeAction, clearAction]
         case 2: // Liked
             actions = [dislikeAction, saveAction, clearAction]
@@ -405,7 +429,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
             
             let markEmoji: String
             switch (🍺.drinkerReaction) {
-            case 1: // Saved
+            case 1: // Interested
                 markEmoji = "🤔"
             case 2: // Liked
                 markEmoji = "👍"
