@@ -170,7 +170,7 @@
                                             <rect key="frame" x="74" y="25.5" width="43" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="shop-453" id="edP-DT-Vcz">
@@ -833,15 +833,15 @@ Icons by Glyphicons.</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-cC-cq7">
-                                            <rect key="frame" x="40" y="8" width="50.5" height="23"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <rect key="frame" x="40" y="8" width="43" height="19.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QgE-77-bmd" userLabel="Favorited">
-                                            <rect key="frame" x="531" y="44" width="36" height="36"/>
+                                        <button opaque="NO" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="250" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QgE-77-bmd" userLabel="Favorited">
+                                            <rect key="frame" x="537" y="48" width="30" height="30"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="36" id="O3I-9q-tId"/>
+                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="30" id="O3I-9q-tId"/>
                                                 <constraint firstAttribute="width" secondItem="QgE-77-bmd" secondAttribute="height" multiplier="1:1" id="x4j-In-PKO"/>
                                             </constraints>
                                             <state key="normal" image="heart-empty-20">
@@ -852,36 +852,36 @@ Icons by Glyphicons.</string>
                                                 <action selector="favoritedChanged:" destination="l27-D4-afo" eventType="touchUpInside" id="sDI-Iu-6xj"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="gJ4-W1-1ZH">
-                                            <rect key="frame" x="519" y="53" width="17" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="gJ4-W1-1ZH">
+                                            <rect key="frame" x="528" y="56" width="13.5" height="14.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="Iuz-vA-aUb">
-                                            <rect key="frame" x="471" y="53" width="17" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="Iuz-vA-aUb">
+                                            <rect key="frame" x="490" y="56" width="13.5" height="14.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="beer-275" translatesAutoresizingMaskIntoConstraints="NO" id="ZZR-Em-93t">
-                                            <rect key="frame" x="483" y="44" width="36" height="36"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" misplaced="YES" image="beer-275" translatesAutoresizingMaskIntoConstraints="NO" id="ZZR-Em-93t">
+                                            <rect key="frame" x="498" y="48" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="ZZR-Em-93t" secondAttribute="height" multiplier="1:1" id="FIP-KX-vY5"/>
-                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="36" id="wfd-NK-4bg"/>
+                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="30" id="wfd-NK-4bg"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" misplaced="YES" text="ABV 12.3% / 143 IBU" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NQ4-BV-gAQ">
-                                            <rect key="frame" x="40" y="53" width="147.5" height="18"/>
-                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="ABV 12.3% / 143 IBU" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NQ4-BV-gAQ">
+                                            <rect key="frame" x="40" y="58" width="107.5" height="13.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" red="0.83137254900000002" green="0.074509803920000006" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock-55" translatesAutoresizingMaskIntoConstraints="NO" id="wJx-iq-AF5">
-                                            <rect key="frame" x="90" y="1" width="36" height="36"/>
+                                            <rect key="frame" x="83" y="2" width="30" height="30"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="36" id="6Ww-fA-n0s"/>
-                                                <constraint firstAttribute="width" constant="36" id="rJb-B4-79Q"/>
+                                                <constraint firstAttribute="height" constant="30" id="6Ww-fA-n0s"/>
+                                                <constraint firstAttribute="width" constant="30" id="rJb-B4-79Q"/>
                                             </constraints>
                                         </imageView>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpF-yo-2NQ" userLabel="Taste">
@@ -898,10 +898,10 @@ Icons by Glyphicons.</string>
                                                 <action selector="tastedChanged:" destination="l27-D4-afo" eventType="touchUpInside" id="dt1-RU-iuM"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" misplaced="YES" text="Brewery Name a very long long long long name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QBX-pc-yAB">
-                                            <rect key="frame" x="40" y="31" width="324" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Brewery Name a very long long long long name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QBX-pc-yAB">
+                                            <rect key="frame" x="40" y="29" width="246.5" height="13.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🍺" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ikv-u5-77K" userLabel="Drinker Reaction">
@@ -929,7 +929,7 @@ Icons by Glyphicons.</string>
                                         <constraint firstItem="QgE-77-bmd" firstAttribute="leading" secondItem="gJ4-W1-1ZH" secondAttribute="trailing" constant="-5" id="UM5-oK-b83"/>
                                         <constraint firstItem="wJx-iq-AF5" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qZk-P1-c4N" secondAttribute="trailing" id="UaI-BT-rog"/>
                                         <constraint firstItem="NQ4-BV-gAQ" firstAttribute="centerY" secondItem="QgE-77-bmd" secondAttribute="centerY" constant="0.5" id="VBf-De-YCC"/>
-                                        <constraint firstItem="QBX-pc-yAB" firstAttribute="top" secondItem="hpv-cC-cq7" secondAttribute="bottom" id="Xyj-Ee-ZQV"/>
+                                        <constraint firstItem="QBX-pc-yAB" firstAttribute="top" secondItem="hpv-cC-cq7" secondAttribute="bottom" constant="2" id="Xyj-Ee-ZQV"/>
                                         <constraint firstItem="ZZR-Em-93t" firstAttribute="leading" secondItem="Iuz-vA-aUb" secondAttribute="trailing" constant="-5" id="c1d-EB-qMO"/>
                                         <constraint firstItem="Ikv-u5-77K" firstAttribute="centerY" secondItem="qZk-P1-c4N" secondAttribute="centerY" id="cNS-tY-YpQ"/>
                                         <constraint firstItem="wJx-iq-AF5" firstAttribute="centerY" secondItem="hpv-cC-cq7" secondAttribute="centerY" id="dfe-Zh-BMb"/>
@@ -1076,7 +1076,7 @@ Icons by Glyphicons.</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ciS-WY-hTF"/>
-        <segue reference="AON-So-J4k"/>
+        <segue reference="EvZ-fR-hTE"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.83137254900000002" green="0.074509803920000006" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
 </document>
