@@ -35,6 +35,9 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 	@IBOutlet weak var favoritedButton: UIButton!
 	@IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var reactionEmojiLabel: UILabel!
+    @IBOutlet weak var reactionButton: UIButton!
+    
 	@IBOutlet weak var reportButton: UIButton!
 
 	var status: BeerStatus?
@@ -79,6 +82,8 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 			favoritedButton.enabled = (tastedButton.selected == true)
 
 			rateBeerButton.hidden = (beer.rateBeerID <= 0)
+            
+            configureReactionSubview()
 		}
 
 		if let status = self.status {
@@ -166,6 +171,27 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 			}
 		}
 	}
+    
+    func configureReactionSubview() {
+        guard let beer = beer else {
+            return
+        }
+        
+        switch beer.drinkerReaction {
+        case 1: // Interested
+            reactionEmojiLabel.text = "🤔"
+            reactionButton.setTitle("You are interested in this beer.", forState: .Normal)
+        case 2: // Liked
+            reactionEmojiLabel.text = "👍"
+            reactionButton.setTitle("You liked this beer!", forState: .Normal)
+        case 3: // Disliked
+            reactionEmojiLabel.text = "👎"
+            reactionButton.setTitle("You did not like this beer.", forState: .Normal)
+        default:
+            reactionEmojiLabel.text = "🍺"
+            reactionButton.setTitle("Interested in or tried this beer?", forState: .Normal)
+        }
+    }
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -205,6 +231,52 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 			}
 		}
 	}
+    
+    @IBAction func changeReaction(sender: UIButton) {
+        guard sender == reactionButton else {
+            return
+        }
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { action in
+            
+        }
+        
+        alert.addAction(cancelAction)
+        
+        let dislikeAction = UIAlertAction(title: "Dislike", style: .Default) { action in
+            self.beer?.drinkerReaction = 3
+            self.configureReactionSubview()
+        }
+        
+        alert.addAction(dislikeAction)
+        
+        let likeAction = UIAlertAction(title: "Like", style: .Default) { action in
+            self.beer?.drinkerReaction = 2
+            self.configureReactionSubview()
+        }
+        
+        alert.addAction(likeAction)
+        
+        let interestedAction = UIAlertAction(title: "Interested", style: .Default) { action in
+            self.beer?.drinkerReaction = 1
+            self.configureReactionSubview()
+        }
+        
+        alert.addAction(interestedAction)
+        
+        let clearAction = UIAlertAction(title: "Not Interested", style: .Default) { action in
+            self.beer?.drinkerReaction = 0
+            self.configureReactionSubview()
+        }
+        
+        alert.addAction(clearAction)
+        
+        presentViewController(alert, animated: true) {
+            
+        }
+    }
 
 	@IBAction func reportAction(sender: UIButton) {
 //		{

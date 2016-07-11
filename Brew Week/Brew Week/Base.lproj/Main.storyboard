@@ -637,7 +637,7 @@ Icons by Glyphicons.</string>
                                     <constraint firstItem="fSj-5E-xX9" firstAttribute="leading" secondItem="FgR-in-00N" secondAttribute="leading" id="tpX-rL-EDs"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FQi-N9-ujo">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FQi-N9-ujo">
                                 <rect key="frame" x="165" y="385" width="270" height="48"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JjT-Ez-oCV">
@@ -722,6 +722,38 @@ Icons by Glyphicons.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jdg-bb-8wf" userLabel="Reaction View">
+                                <rect key="frame" x="139" y="373" width="321" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" text="🍺" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Psg-Ns-p0T">
+                                        <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="VoR-Iw-1Tz"/>
+                                            <constraint firstAttribute="width" constant="48" id="geb-6w-B6l"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hfp-b5-iCo">
+                                        <rect key="frame" x="64" y="15.5" width="235" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Interested in or tried this beer?"/>
+                                        <connections>
+                                            <action selector="changeReaction:" destination="AeO-Pp-t7M" eventType="touchUpInside" id="HYj-z0-Off"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Psg-Ns-p0T" firstAttribute="leading" secondItem="Jdg-bb-8wf" secondAttribute="leading" constant="8" id="3J8-h9-re7"/>
+                                    <constraint firstAttribute="trailing" secondItem="hfp-b5-iCo" secondAttribute="trailing" constant="8" id="GgJ-Xu-18T"/>
+                                    <constraint firstItem="hfp-b5-iCo" firstAttribute="centerY" secondItem="Jdg-bb-8wf" secondAttribute="centerY" id="a56-nk-yp5"/>
+                                    <constraint firstItem="Psg-Ns-p0T" firstAttribute="centerY" secondItem="Jdg-bb-8wf" secondAttribute="centerY" id="iQj-73-PLS"/>
+                                    <constraint firstItem="hfp-b5-iCo" firstAttribute="leading" secondItem="Psg-Ns-p0T" secondAttribute="trailing" constant="8" id="yLf-6i-eKa"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="zDg-m3-Zeh"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -735,13 +767,16 @@ Icons by Glyphicons.</string>
                             <constraint firstItem="y8c-vI-XBm" firstAttribute="top" secondItem="lQ3-oG-eNu" secondAttribute="bottom" constant="6.5" id="ALY-Yu-vbz"/>
                             <constraint firstAttribute="centerX" secondItem="FQi-N9-ujo" secondAttribute="centerX" id="Aab-fo-ohP"/>
                             <constraint firstItem="11l-O2-cAj" firstAttribute="top" secondItem="ZBg-5e-brF" secondAttribute="bottom" constant="20.5" id="B2r-vT-Wr4"/>
+                            <constraint firstItem="Jdg-bb-8wf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L5t-PO-LqV" secondAttribute="leadingMargin" id="B4L-Ig-a3j"/>
                             <constraint firstItem="oCP-OJ-2tE" firstAttribute="top" secondItem="FgR-in-00N" secondAttribute="bottom" constant="10" id="Ct3-rR-GKj"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="y8c-vI-XBm" secondAttribute="trailing" id="DYC-7m-pye"/>
                             <constraint firstAttribute="centerX" secondItem="lQ3-oG-eNu" secondAttribute="centerX" id="EJ2-Dd-vZ4"/>
+                            <constraint firstItem="6Ak-Ra-25s" firstAttribute="top" secondItem="Jdg-bb-8wf" secondAttribute="bottom" constant="8" id="I1t-gj-4St"/>
                             <constraint firstItem="FgR-in-00N" firstAttribute="top" secondItem="y8c-vI-XBm" secondAttribute="bottom" constant="-3" id="Jqw-wX-aTU"/>
                             <constraint firstAttribute="bottom" secondItem="6Ak-Ra-25s" secondAttribute="bottom" constant="12" id="OIt-fe-sXB"/>
                             <constraint firstItem="AIO-6P-lfn" firstAttribute="centerY" secondItem="u2p-Yv-0RX" secondAttribute="centerY" constant="0.25" id="R4G-fg-i8t"/>
                             <constraint firstItem="ZBg-5e-brF" firstAttribute="leading" secondItem="oCP-OJ-2tE" secondAttribute="trailing" constant="8" id="RDG-Ok-vGx"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Jdg-bb-8wf" secondAttribute="trailing" id="RMZ-fa-odY"/>
                             <constraint firstItem="C8T-Eu-KNx" firstAttribute="leading" secondItem="11l-O2-cAj" secondAttribute="trailing" constant="8" symbolic="YES" id="RPE-Xu-QgD"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="lQ3-oG-eNu" secondAttribute="trailing" id="RjJ-zW-4J9"/>
                             <constraint firstAttribute="centerX" secondItem="FgR-in-00N" secondAttribute="centerX" constant="4" id="Tmf-2c-T9P"/>
@@ -768,6 +803,7 @@ Icons by Glyphicons.</string>
                             <constraint firstItem="11l-O2-cAj" firstAttribute="leading" secondItem="oCP-OJ-2tE" secondAttribute="leading" id="vWK-Rp-46u"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pmz-GW-AAC" secondAttribute="trailing" constant="20" id="wCp-zL-Jgt"/>
                             <constraint firstAttribute="bottom" secondItem="FQi-N9-ujo" secondAttribute="bottom" constant="54" id="wg2-gn-DNW"/>
+                            <constraint firstItem="Jdg-bb-8wf" firstAttribute="centerX" secondItem="L5t-PO-LqV" secondAttribute="centerX" id="yFe-4k-fnU"/>
                             <constraint firstItem="vLn-kk-5Jg" firstAttribute="trailing" secondItem="pmz-GW-AAC" secondAttribute="trailing" id="z6t-mX-t8Q"/>
                         </constraints>
                         <variation key="default">
@@ -792,6 +828,8 @@ Icons by Glyphicons.</string>
                         <outlet property="limitedReleaseView" destination="FgR-in-00N" id="V9F-Y5-FzN"/>
                         <outlet property="nameLabel" destination="lQ3-oG-eNu" id="w5z-KS-prS"/>
                         <outlet property="rateBeerButton" destination="vLn-kk-5Jg" id="q89-bJ-fYr"/>
+                        <outlet property="reactionButton" destination="hfp-b5-iCo" id="ni2-Uo-CKL"/>
+                        <outlet property="reactionEmojiLabel" destination="Psg-Ns-p0T" id="wTu-7y-Vse"/>
                         <outlet property="reportButton" destination="6Ak-Ra-25s" id="EKj-Ue-eOW"/>
                         <outlet property="statusAvailabilityLabel" destination="oCP-OJ-2tE" id="vr5-dc-tPx"/>
                         <outlet property="statusLabel" destination="ZBg-5e-brF" id="59I-Jf-BRy"/>
