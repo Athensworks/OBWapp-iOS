@@ -172,13 +172,7 @@ class BreweryViewController: UITableViewController, NSFetchedResultsControllerDe
         }
 
 		cell.textLabel?.text = 🏬.name
-
-//		var displayAddress = 🏬.address
-//		if let rangeOfAthens = displayAddress.rangeOfString("Athens", options: .CaseInsensitiveSearch) {
-//			displayAddress = displayAddress.substringWithRange(displayAddress.startIndex ..< rangeOfAthens.startIndex).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-//		}
-//
-//		cell.detailTextLabel?.text = displayAddress
+		cell.detailTextLabel?.text = nil
 	}
 
 	// MARK: - Fetched results controller
