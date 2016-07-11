@@ -156,7 +156,10 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 				controller.managedObjectContext = managedObjectContext
 				controller.establishment = selectedEstablishment
 			}
-		}
+        } else if segue.identifier == "showMap" {
+            let controller = segue.destinationViewController as! MapViewController
+            controller.managedObjectContext = managedObjectContext
+        }
 	}
 
 	// MARK: - Table View

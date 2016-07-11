@@ -38,18 +38,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, ManagedObjectViewC
 		}
 	}
 
-	override func viewWillAppear(animated: Bool) {
-		self.navigationController?.setNavigationBarHidden(true, animated: animated)
-
-		super.viewWillAppear(animated)
-	}
-
-	override func viewWillDisappear(animated: Bool) {
-		self.navigationController?.setNavigationBarHidden(false, animated: animated)
-
-		super.viewWillDisappear(animated)
-	}
-
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showBeers" {
 			if let selectedEstablishment = sender as? Establishment {
