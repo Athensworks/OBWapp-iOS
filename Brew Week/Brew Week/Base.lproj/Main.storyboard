@@ -180,7 +180,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="pGg-6v-bdr" kind="show" identifier="showBeers" id="eOs-O8-DOI"/>
+                                    <segue destination="l27-D4-afo" kind="show" identifier="showBeers" id="EvZ-fR-hTE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1200,7 +1200,7 @@ Icons by Glyphicons.</string>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="pGg-6v-bdr" kind="show" identifier="showBeers" id="aic-c9-OyY"/>
+                                    <segue destination="l27-D4-afo" kind="show" identifier="showBeers" id="iE0-h7-VJi"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1237,7 +1237,7 @@ Icons by Glyphicons.</string>
         <image name="unchecked-154" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aic-c9-OyY"/>
+        <segue reference="iE0-h7-VJi"/>
         <segue reference="G91-4P-E1o"/>
         <segue reference="ciS-WY-hTF"/>
     </inferredMetricsTieBreakers>

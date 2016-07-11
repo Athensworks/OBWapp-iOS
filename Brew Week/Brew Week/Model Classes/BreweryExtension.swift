@@ -10,6 +10,31 @@ import UIKit
 import CoreData
 
 extension Brewery {
+    class func breweryFromJSON(jsonDict: [String: AnyObject]) -> Brewery? {
+        guard let context = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext, id = jsonDict["id"] as? Int, name = jsonDict["name"] as? String else {
+            return nil
+        }
+        
+        let identifier = Int32(id)
+        let brewery: Brewery
+        if let existingBrewery = breweryForIdentifier(identifier, inContext: context) {
+            brewery = existingBrewery
+        } else if let newBrewery = NSEntityDescription.insertNewObjectForEntityForName("Brewery", inManagedObjectContext: context) as? Brewery {
+            newBrewery.identifier = identifier
+            newBrewery.name = name
+            brewery = newBrewery
+            do {
+                try context.save()
+            } catch {
+                print("Failed to save managed context after inserting new brewery: \(error)")
+            }
+        } else {
+            return nil
+        }
+        
+        return brewery
+    }
+    
     class func breweriesFromJSON(jsonDict: [String: AnyObject]) {
         guard let jsonBreweriesArray = jsonDict["breweries"] as? [[String: AnyObject]] else {
             return

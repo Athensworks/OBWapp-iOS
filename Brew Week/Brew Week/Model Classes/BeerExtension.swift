@@ -54,9 +54,7 @@ extension Beer {
                 🍺.limitedRelease = beerJSON["limited_release"] as? Bool ?? false
                 🍺.rateBeerID = Int32(beerJSON["rate_beer_id"] as? Int32 ?? 0)
                 🍺.beerDescription = beerJSON["description"] as? String ?? ""
-                if let breweryJSON = beerJSON["brewery"] as? [String: AnyObject],
-                    breweryIdentifier = breweryJSON["id"] as? Int32,
-                    brewery = Brewery.breweryForIdentifier(breweryIdentifier, inContext: appDelegate.managedObjectContext) {
+                if let breweryJSON = beerJSON["brewery"] as? [String: AnyObject], brewery = Brewery.breweryFromJSON(breweryJSON) {
                     🍺.brewery = brewery
                 } else {
                     print("Did not find brewery (\(beerJSON["brewery"])) for \(🍺.name)")

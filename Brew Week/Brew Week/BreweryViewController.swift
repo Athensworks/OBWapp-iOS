@@ -111,8 +111,6 @@ class BreweryViewController: UITableViewController, NSFetchedResultsControllerDe
                     return
                 }
                 
-                print(selectedBrewery)
-
 				let controller = segue.destinationViewController as! BeersTableViewController
 
 				controller.managedObjectContext = managedObjectContext

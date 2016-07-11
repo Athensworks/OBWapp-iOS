@@ -32,6 +32,12 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
 	}
+    
+    override func viewWillAppear(animated: Bool) {
+        if establishment != nil || brewery != nil {
+            navigationItem.leftBarButtonItems = []
+        }
+    }
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
