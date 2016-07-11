@@ -199,7 +199,7 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
 		cell.textLabel?.text = 🏬.name
 
 		var displayAddress = 🏬.address
-		if let rangeOfAthens = displayAddress.rangeOfString("Athens", options: .CaseInsensitiveSearch) {
+		if let rangeOfAthens = displayAddress.rangeOfString(", Athens", options: .CaseInsensitiveSearch) {
 			displayAddress = displayAddress.substringWithRange(displayAddress.startIndex ..< rangeOfAthens.startIndex).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		}
 
