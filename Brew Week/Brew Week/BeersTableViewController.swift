@@ -162,73 +162,42 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
     
     @IBAction func sortBeers(sender: AnyObject)
     {
-        var sortKey: String?
-        
-        
-        // Action sheet for ascending versus descending
-        
-        let sortOrderAlert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        
-        let ascendingAction = UIAlertAction(title: "Ascending", style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: sortKey, ascending: true)]
-        }
-        
-        sortOrderAlert.addAction(ascendingAction)
-        
-        let descendingAction = UIAlertAction(title: "Descending", style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: sortKey, ascending: false)]
-        }
-        
-        sortOrderAlert.addAction(descendingAction)
-        
-        
-        // Action sheet for sort criteria
-        
-        let sortKeyAlert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { action in
             
         }
         
-        sortKeyAlert.addAction(cancelAction)
+        alert.addAction(cancelAction)
         
-        let sortNameAction = UIAlertAction(title: "Name", style: .Default) { action in
-            sortKey = "name"
-            self.presentViewController(sortOrderAlert, animated: true) {
-                
-            }
+        let sortK = sort[0].key ?? ""
+        let sortAscending = sort[0].ascending
+        
+        let sortNameAction = UIAlertAction(title: "Name" + (sortK == "name" ? " Reversed" : ""), style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: "name", ascending: sortK == "name" ? !sortAscending : true)]
         }
         
-        sortKeyAlert.addAction(sortNameAction)
+        alert.addAction(sortNameAction)
         
-        let sortABVAction = UIAlertAction(title: "Alcohol Content", style: .Default) { action in
-            sortKey = "abv"
-            self.presentViewController(sortOrderAlert, animated: true) {
-                
-            }
+        let sortABVAction = UIAlertAction(title: "Alcohol Content" + (sortK == "abv" ? " Reversed" : ""), style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: "abv", ascending: sortK == "abv" ? !sortAscending : false)]
         }
         
-        sortKeyAlert.addAction(sortABVAction)
+        alert.addAction(sortABVAction)
         
-        let sortIBUAction = UIAlertAction(title: "Bitterness", style: .Default) { action in
-            sortKey = "ibu"
-            self.presentViewController(sortOrderAlert, animated: true) {
-                
-            }
+        let sortIBUAction = UIAlertAction(title: "Bitterness" + (sortK == "ibu" ? " Reversed" : ""), style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: "ibu", ascending: sortK == "ibu" ? !sortAscending : false)]
         }
         
-        sortKeyAlert.addAction(sortIBUAction)
+        alert.addAction(sortIBUAction)
         
-        let sortPopularityAction = UIAlertAction(title: "Popularity", style: .Default) { action in
-            sortKey = "favoriteCount"
-            self.presentViewController(sortOrderAlert, animated: true) {
-                
-            }
+        let sortPopularityAction = UIAlertAction(title: "Popularity" + (sortK == "favoriteCount" ? " Reversed" : ""), style: .Default) { action in
+            self.sort = [NSSortDescriptor(key: "favoriteCount", ascending: sortK == "favoriteCount" ? !sortAscending : false)]
         }
         
-        sortKeyAlert.addAction(sortPopularityAction)
+        alert.addAction(sortPopularityAction)
         
-        presentViewController(sortKeyAlert, animated: true) {
+        presentViewController(alert, animated: true) {
             
         }
     }
