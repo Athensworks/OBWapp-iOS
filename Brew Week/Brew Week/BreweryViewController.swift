@@ -191,7 +191,7 @@ class BreweryViewController: UITableViewController, NSFetchedResultsControllerDe
 		// Edit the sort key as appropriate.
 
 		//TODO: we need to sort based on the order sent by the server. add index generated from the order received from the server.
-		let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
+		let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
 
 		fetchRequest.sortDescriptors = [sortDescriptor]
 
