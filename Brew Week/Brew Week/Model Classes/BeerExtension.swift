@@ -168,7 +168,7 @@ extension Beer {
                         completion(count)
                     }
                 case .Failure(let error):
-                    assert(false, "handle me asshole: \(error)")
+                    print("Failed to report taste: \(error)")
                 }
             }
 		}
@@ -207,7 +207,7 @@ extension Beer {
                             completion(count)
                     }
                 case .Failure(let error):
-                   assert(false, "handle me asshole: \(error)")
+                   print("Failed to report favorite: \(error)")
                 }
 			}
 		}
