@@ -227,7 +227,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rym-Hz-AuG">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="751"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="obw-logo" translatesAutoresizingMaskIntoConstraints="NO" id="FKN-3f-9E9">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="obw-logo-2016" translatesAutoresizingMaskIntoConstraints="NO" id="FKN-3f-9E9">
                                         <rect key="frame" x="200" y="110" width="200" height="200"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="200" id="aH5-E3-ZwP"/>
@@ -1070,7 +1070,7 @@ Icons by Glyphicons.</string>
         <image name="heart-13" width="48" height="48"/>
         <image name="heart-empty-20" width="48" height="48"/>
         <image name="map-503" width="48" height="48"/>
-        <image name="obw-logo" width="300" height="300"/>
+        <image name="obw-logo-2016" width="300" height="300"/>
         <image name="shop-453" width="48" height="48"/>
         <image name="unchecked-154" width="48" height="48"/>
     </resources>
