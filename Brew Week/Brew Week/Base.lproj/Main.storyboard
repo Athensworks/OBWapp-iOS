@@ -7,11 +7,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Athens-->
+        <!--Establishments-->
         <scene sceneID="cUi-kZ-frf">
             <objects>
                 <navigationController id="rS3-R9-Ivy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Athens" image="map-503" id="qQm-Rl-7Cn"/>
+                    <tabBarItem key="tabBarItem" title="Establishments" image="shop-453" id="qQm-Rl-7Cn"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -191,7 +191,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Establishments" id="Mmu-97-pUb">
                         <barButtonItem key="backBarButtonItem" title="Establishments" id="lXa-dS-tqH"/>
-                        <barButtonItem key="rightBarButtonItem" title="Map" id="HUi-5B-9Tf">
+                        <barButtonItem key="rightBarButtonItem" image="map-503" id="HUi-5B-9Tf">
                             <connections>
                                 <segue destination="vG3-45-iZR" kind="show" identifier="showMap" id="ciS-WY-hTF"/>
                             </connections>
@@ -766,7 +766,7 @@ Icons by Glyphicons.</string>
         <scene sceneID="eiP-fJ-E1y">
             <objects>
                 <navigationController id="BnN-pF-ko4" userLabel="Breweries" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Breweries" image="shop-453" id="Ma6-yV-QhI"/>
+                    <tabBarItem key="tabBarItem" title="Breweries" image="commodities-510" id="Ma6-yV-QhI"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="G68-ms-ywZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -970,12 +970,12 @@ Icons by Glyphicons.</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Beers" id="wyZ-YE-4Dz">
-                        <barButtonItem key="leftBarButtonItem" title="Sort" id="2Cf-oW-zUD">
+                        <barButtonItem key="leftBarButtonItem" image="sort-by-attributes-409" id="2Cf-oW-zUD">
                             <connections>
                                 <action selector="sortBeers:" destination="l27-D4-afo" id="oIn-vE-iTd"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Filter" id="t5R-RK-gWr">
+                        <barButtonItem key="rightBarButtonItem" image="filter-321" id="t5R-RK-gWr">
                             <connections>
                                 <action selector="filterBeers:" destination="l27-D4-afo" id="eO8-Vg-ldJ"/>
                             </connections>
@@ -1067,11 +1067,14 @@ Icons by Glyphicons.</string>
         <image name="beer-bg" width="640" height="1136"/>
         <image name="check-153" width="48" height="48"/>
         <image name="clock-55" width="48" height="48"/>
+        <image name="commodities-510" width="48" height="48"/>
+        <image name="filter-321" width="48" height="48"/>
         <image name="heart-13" width="48" height="48"/>
         <image name="heart-empty-20" width="48" height="48"/>
         <image name="map-503" width="48" height="48"/>
         <image name="obw-logo-2016" width="300" height="300"/>
         <image name="shop-453" width="48" height="48"/>
+        <image name="sort-by-attributes-409" width="48" height="48"/>
         <image name="unchecked-154" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
