@@ -212,35 +212,6 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
         
         alert.addAction(cancelAction)
         
-        let specialAction = UIAlertAction(title: "Insert Test Beers", style: .Destructive) { action in
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            
-            let beerData = [
-                (identifier: 10000, name: "A Beer By Any Other Name", abv: 5.5, ibu: 30, tasteCount: 3, favoriteCount: 1, brewery: 39),
-                (identifier: 10001, name: "Viper Mist", abv: 11.0, ibu: 75, tasteCount: 40, favoriteCount: 0, brewery: 36),
-                (identifier: 10002, name: "Koala Juice", abv: 7.5, ibu: 10, tasteCount: 27, favoriteCount: 7, brewery: 39),
-                (identifier: 10003, name: "Tasteless", abv: 9.5, ibu: 33, tasteCount: 15, favoriteCount: 5, brewery: 39),
-                (identifier: 10004, name: "99 Beers But A Pils Ain’t One", abv: 0, ibu: 0, tasteCount: 0, favoriteCount: 0, brewery: 39)
-            ]
-            
-            for data in beerData {
-                let beer = NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: appDelegate.managedObjectContext) as! Beer
-                beer.identifier = Int32(data.identifier)
-                beer.name = data.name
-                beer.abv = data.abv
-                beer.ibu = Int32(data.ibu)
-                beer.tasteCount = Int32(data.tasteCount)
-                beer.favoriteCount = Int32(data.favoriteCount)
-                if let context = self.managedObjectContext, brewery = Brewery.breweryForIdentifier(Int32(data.brewery), inContext: context) {
-                    beer.brewery = brewery
-                }
-            }
-            
-            appDelegate.saveContext()
-        }
-        
-        alert.addAction(specialAction)
-        
         let filterAllAction = UIAlertAction(title: "All", style: .Default) { action in
             self.filter = nil
         }
