@@ -160,6 +160,18 @@ extension Beer {
             }
         }
         
+        let gainingOrChangingOpinion = reaction >= 2
+        let losingOpinion = drinkerReaction >= 2 && reaction < 2
+        
+        if gainingOrChangingOpinion {
+            reportRating(reaction == 2) { averageRating in
+                
+            }
+        } else if losingOpinion {
+            reportRating(nil) { averageRating in
+                
+            }
+        }
         
         drinkerReaction = reaction
         (UIApplication.sharedApplication().delegate as? AppDelegate)?.saveContext()
@@ -222,6 +234,7 @@ extension Beer {
 			//				"lat": "Y",
 			//				"lon": "X",
 			//			}
+            
 			var params: [String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "state":favorited, "age":drinker.ageInYears]
 
 			if let location = location {
@@ -244,5 +257,52 @@ extension Beer {
 			}
 		}
 	}
+    
+    private func reportRating(liked: Bool?, completion: Float -> Void) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        if let drinker = appDelegate.drinker,
+            let guid = UIDevice.currentDevice().identifierForVendor?.UUIDString {
+            let beerID = Int(identifier)
+            let location = appDelegate.locationManager?.location
+            
+            //			{
+            //				"beer_id": 123,
+            //				"device_guid": "GUID",
+            //				"age":  35,
+            //				"lat": "Y",
+            //				"lon": "X",
+            //			}
+            
+            let rating: Int
+            if let drinkerLikedBeer = liked {
+                rating = drinkerLikedBeer ? 1 : -1
+            } else {
+                rating = 0
+            }
+            
+            var params: [String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "value":rating, "age":drinker.ageInYears]
+            
+            if let location = location {
+                params["lat"] = location.coordinate.latitude
+                params["lon"] = location.coordinate.longitude
+            }
+            
+            Alamofire.request(.POST, Endpoint(path: "rate"), parameters: params, encoding: .JSON).validate().responseJSON { response in
+                switch response.result {
+                case .Success(let responseJSON):
+                    if let json = responseJSON as? [String: AnyObject] {
+                        if let averageRating = json["rating"] as? Float {
+                            completion(averageRating)
+                        } else if let ratingString = json["rating"] as? String, averageRating = Float(ratingString) {
+                            completion(averageRating)
+                        }
+                    }
+                case .Failure(let error):
+                    print("Failed to report rating: \(error)")
+                }
+            }
+        }
+    }
 }
 
