@@ -209,7 +209,7 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 	@IBAction func tastedChanged(sender: UIButton) {
 		sender.selected = !sender.selected
 
-		beer?.tasted() { (count) in
+		beer?.tasted(sender.selected) { count in
 			self.tasteCount.text = String(count)
 		}
 
@@ -219,7 +219,7 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 	@IBAction func favoritedChanged(sender: UIButton) {
 		sender.selected = !sender.selected
 
-		beer?.favorited() { (count) in
+		beer?.favorited(sender.selected) { count in
 			self.favoriteCount.text = String(count)
 		}
 	}
@@ -233,7 +233,7 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 	}
     
     @IBAction func changeReaction(sender: UIButton) {
-        guard sender == reactionButton else {
+        guard let beer = beer where sender == reactionButton else {
             return
         }
         
@@ -246,29 +246,37 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
         alert.addAction(cancelAction)
         
         let dislikeAction = UIAlertAction(title: "Dislike", style: .Default) { action in
-            self.beer?.drinkerReaction = 3
+            let expectations = beer.reacted(3)
             self.configureReactionSubview()
+            self.tasteCount.text = String(expectations.expectedTasteCount)
+            self.favoriteCount.text = String(expectations.expectedFavoriteCount)
         }
         
         alert.addAction(dislikeAction)
         
         let likeAction = UIAlertAction(title: "Like", style: .Default) { action in
-            self.beer?.drinkerReaction = 2
+            let expectations = beer.reacted(2)
             self.configureReactionSubview()
+            self.tasteCount.text = String(expectations.expectedTasteCount)
+            self.favoriteCount.text = String(expectations.expectedFavoriteCount)
         }
         
         alert.addAction(likeAction)
         
         let interestedAction = UIAlertAction(title: "Interested", style: .Default) { action in
-            self.beer?.drinkerReaction = 1
+            let expectations = beer.reacted(1)
             self.configureReactionSubview()
+            self.tasteCount.text = String(expectations.expectedTasteCount)
+            self.favoriteCount.text = String(expectations.expectedFavoriteCount)
         }
         
         alert.addAction(interestedAction)
         
         let clearAction = UIAlertAction(title: "Not Interested", style: .Default) { action in
-            self.beer?.drinkerReaction = 0
+            let expectations = beer.reacted(0)
             self.configureReactionSubview()
+            self.tasteCount.text = String(expectations.expectedTasteCount)
+            self.favoriteCount.text = String(expectations.expectedFavoriteCount)
         }
         
         alert.addAction(clearAction)

@@ -49,10 +49,10 @@ extension Beer {
                 🍺.name = beerJSON["name"] as? String ?? "Unknown Beer"
                 🍺.abv = beerJSON["abv"] as? Double ?? 0
                 🍺.ibu = Int32(beerJSON["ibu"] as? Int ?? 0)
-                🍺.favoriteCount = Int32(beerJSON["favorite_count"] as? Int32 ?? 0)
-                🍺.tasteCount = Int32(beerJSON["taste_count"] as? Int32 ?? 0)
+                🍺.favoriteCount = Int32(beerJSON["favorite_count"] as? Int ?? 0)
+                🍺.tasteCount = Int32(beerJSON["taste_count"] as? Int ?? 0)
                 🍺.limitedRelease = beerJSON["limited_release"] as? Bool ?? false
-                🍺.rateBeerID = Int32(beerJSON["rate_beer_id"] as? Int32 ?? 0)
+                🍺.rateBeerID = Int32(beerJSON["rate_beer_id"] as? Int ?? 0)
                 🍺.beerDescription = beerJSON["description"] as? String ?? ""
                 if let breweryJSON = beerJSON["brewery"] as? [String: AnyObject], brewery = Brewery.breweryFromJSON(breweryJSON) {
                     🍺.brewery = brewery
@@ -95,7 +95,7 @@ extension Beer {
 		return nil
 	}
 
-	func tasted(completion: ((Int) -> Void)) {
+    func tasted(tasted: Bool, completion: ((Int) -> Void)) {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
 		if let tasting = self.taste {
@@ -110,11 +110,11 @@ extension Beer {
 			tasting.beer = self
 		}
 
-		reportTasted(completion)
+		reportTasted(tasted, completion: completion)
 		appDelegate.saveContext()
 	}
 
-	func favorited(completion: ((Int) -> Void)) {
+    func favorited(favorited: Bool, completion: ((Int) -> Void)) {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
 		if let favorited = self.favorite {
@@ -129,11 +129,45 @@ extension Beer {
 			favorited.beer = self
 		}
 
-		reportFavorited(completion)
+		reportFavorited(favorited, completion: completion)
 		appDelegate.saveContext()
 	}
+    
+    func reacted(reaction: Int32) -> (expectedTasteCount: Int32, expectedFavoriteCount: Int32) {
+        let newlyTasted = drinkerReaction < 2 && reaction >= 2
+        let untasted = drinkerReaction >= 2 && reaction < 2
+        
+        if newlyTasted {
+            reportTasted(true) { _ in
+                
+            }
+        } else if untasted {
+            reportTasted(false) { _ in
+                
+            }
+        }
+        
+        let newlyFavorited = drinkerReaction != 2 && reaction == 2
+        let unfavorited = drinkerReaction == 2 && reaction != 2
+        
+        if newlyFavorited {
+            reportFavorited(true) { _ in
+                
+            }
+        } else if unfavorited {
+            reportFavorited(false) { _ in
+                
+            }
+        }
+        
+        
+        drinkerReaction = reaction
+        (UIApplication.sharedApplication().delegate as? AppDelegate)?.saveContext()
+        
+        return (tasteCount + (newlyTasted ? 1 : untasted ? -1 : 0), favoriteCount + (newlyFavorited ? 1 : unfavorited ? -1 : 0))
+    }
 
-	private func reportTasted(completion: ((Int) -> Void) ) {
+    private func reportTasted(tasted: Bool, completion: ((Int) -> Void) ) {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
 		if let drinker = appDelegate.drinker,
@@ -150,7 +184,7 @@ extension Beer {
 			//				"lon": "X",
 			//			}
 
-			var params: [String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":drinker.ageInYears]
+			var params: [String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "state":tasted, "age":drinker.ageInYears]
 
 			if let location = location {
 				params["lat"] = location.coordinate.latitude
@@ -160,7 +194,6 @@ extension Beer {
             Alamofire.request(.POST, Endpoint(path: "taste"), parameters: params, encoding: .JSON).validate().responseJSON { response in
                 switch response.result {
                 case .Success(let responseJSON):
-                    print("/taste Response: \(responseJSON)")
                     
                     if let json = responseJSON as? [String: AnyObject],
                         let count = json["count"] as? Int {
@@ -174,7 +207,7 @@ extension Beer {
 		}
 	}
 
-	private func reportFavorited(completion: ((Int) -> Void)) {
+    private func reportFavorited(favorited: Bool, completion: ((Int) -> Void)) {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
 		if let drinker = appDelegate.drinker,
@@ -189,7 +222,7 @@ extension Beer {
 			//				"lat": "Y",
 			//				"lon": "X",
 			//			}
-			var params: [String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "age":drinker.ageInYears]
+			var params: [String:AnyObject] = ["beer_id":beerID, "device_guid":guid, "state":favorited, "age":drinker.ageInYears]
 
 			if let location = location {
 				params["lat"] = location.coordinate.latitude
@@ -199,7 +232,6 @@ extension Beer {
 			Alamofire.request(.POST, Endpoint(path: "favorite"), parameters: params, encoding: .JSON).validate().responseJSON { response in
                 switch response.result {
                 case .Success(let responseJSON):
-                    print("/favorite Response: \(responseJSON)")
 
                     if let json = responseJSON as? [String: AnyObject],
                         let count = json["count"] as? Int {

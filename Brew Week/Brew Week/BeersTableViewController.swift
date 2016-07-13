@@ -103,7 +103,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 				🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
 			}
 
-			🍺.tasted() { (count) in
+			🍺.tasted(sender.selected) { count in
 				if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? BeerTableViewCell  {
 					cell.tasteCountLabel.text = String(count)
 				}
@@ -128,7 +128,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 				🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
 			}
 
-			🍺.favorited() { (count) in
+			🍺.favorited(sender.selected) { count in
 				if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? BeerTableViewCell  {
 					cell.favoriteCountLabel.text = String(count)
 				}
@@ -349,24 +349,24 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
         }
         
         let clearAction = UITableViewRowAction(style: .Normal, title: "Clear") { action, indexPath in
-            beer.drinkerReaction = 0
+            beer.reacted(0)
             tableView.editing = false
         }
 
         let saveAction = UITableViewRowAction(style: .Normal, title: "Interested") { action, indexPath in
-            beer.drinkerReaction = 1
+            beer.reacted(1)
             tableView.editing = false
         }
         saveAction.backgroundColor = UIColor(hue: 0.75, saturation: 0.45, brightness: 0.9, alpha: 1)
         
         let likeAction = UITableViewRowAction(style: .Normal, title: "Like") { action, indexPath in
-            beer.drinkerReaction = 2
+            beer.reacted(2)
             tableView.editing = false
         }
         likeAction.backgroundColor = UIColor(hue: 0.325, saturation: 0.6, brightness: 0.9, alpha: 1)
         
         let dislikeAction = UITableViewRowAction(style: .Normal, title: "Dislike") { action, indexPath in
-            beer.drinkerReaction = 3
+            beer.reacted(3)
             tableView.editing = false
         }
         dislikeAction.backgroundColor = UIColor(hue: 0, saturation: 0.7, brightness: 1, alpha: 1)
@@ -400,7 +400,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 			
 			beerCell.nameLabel.text = 🍺.name
 			beerCell.breweryNameLabel.text = 🍺.brewery.name
-			beerCell.favoritedButton.selected = 🍺.favorite != nil ? true : false
+			beerCell.favoritedButton.selected = false
 			beerCell.favoriteCountLabel.text = String(🍺.favoriteCount)
 			beerCell.tastedCheckboxButton.selected = 🍺.taste != nil ? true : false
 			beerCell.tasteCountLabel.text = String(🍺.tasteCount)
@@ -419,8 +419,8 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
             
             beerCell.drinkerReactionLabel.text = markEmoji
 
-			beerCell.favoritedButton.enabled = beerCell.tastedCheckboxButton.selected
-			beerCell.favoriteCountLabel.enabled = beerCell.tastedCheckboxButton.selected
+            beerCell.tastedCheckboxButton.userInteractionEnabled = false
+			beerCell.favoritedButton.userInteractionEnabled = false
 
             beerCell.beerMetadataLabel.text = "\(🍺.abv)% ABV\u{2003}\(🍺.ibu) IBU"
 
