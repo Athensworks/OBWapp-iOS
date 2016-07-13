@@ -66,10 +66,10 @@ extension Establishment {
                 for establishment in results {
                     appDelegate.managedObjectContext.deleteObject(establishment)
                 }
-                
-                appDelegate.saveContext()
             }
         }
+        
+        appDelegate.saveContext()
     }
 
 	class func establishmentForIdentifier(identifier: Int32, inContext context: NSManagedObjectContext) -> Establishment? {

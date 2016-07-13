@@ -74,10 +74,10 @@ extension Beer {
                 for beer in results {
                     appDelegate.managedObjectContext.deleteObject(beer)
                 }
-                
-                appDelegate.saveContext()
             }
         }
+        
+        appDelegate.saveContext()
     }
 
 	class func beerForIdentifier(identifier: Int32, inContext context: NSManagedObjectContext) -> Beer? {

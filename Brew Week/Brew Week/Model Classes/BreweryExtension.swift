@@ -68,18 +68,18 @@ extension Brewery {
             }
         }
         
-//        let fetchRemovedBreweries = NSFetchRequest(entityName: "Brewery")
-//        fetchRemovedBreweries.predicate = NSPredicate(format: "NOT (identifier IN %@)", breweryIDs)
-//        
-//        if let array = try? appDelegate.managedObjectContext.executeFetchRequest(fetchRemovedBreweries), results = array as? [NSManagedObject] {
-//            if results.count > 0 {
-//                print("Removing \(results.count) breweries")
-//                
-//                for brewery in results {
-//                    appDelegate.managedObjectContext.deleteObject(brewery)
-//                }
-//            }
-//        }
+        let fetchRemovedBreweries = NSFetchRequest(entityName: "Brewery")
+        fetchRemovedBreweries.predicate = NSPredicate(format: "NOT (identifier IN %@)", breweryIDs)
+        
+        if let array = try? appDelegate.managedObjectContext.executeFetchRequest(fetchRemovedBreweries), results = array as? [NSManagedObject] {
+            if results.count > 0 {
+                print("Removing \(results.count) breweries")
+                
+                for brewery in results {
+                    appDelegate.managedObjectContext.deleteObject(brewery)
+                }
+            }
+        }
         
         appDelegate.saveContext()
     }
