@@ -47,8 +47,8 @@ extension Beer {
             if let 🍺 = beer {
                 🍺.identifier = identifier
                 🍺.name = beerJSON["name"] as? String ?? "Unknown Beer"
-                🍺.abv = beerJSON["abv"] as? Double ?? 0
-                🍺.ibu = Int32(beerJSON["ibu"] as? Int ?? 0)
+                🍺.abv = beerJSON["abv"] as? Double ?? -1.0
+                🍺.ibu = Int32(beerJSON["ibu"] as? Int ?? -1)
                 🍺.favoriteCount = Int32(beerJSON["favorite_count"] as? Int ?? 0)
                 🍺.tasteCount = Int32(beerJSON["taste_count"] as? Int ?? 0)
                 🍺.limitedRelease = beerJSON["limited_release"] as? Bool ?? false

@@ -393,7 +393,15 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
             beerCell.tastedCheckboxButton.userInteractionEnabled = false
 			beerCell.favoritedButton.userInteractionEnabled = false
 
-            beerCell.beerMetadataLabel.text = "\(🍺.abv)% ABV\u{2003}\(🍺.ibu) IBU"
+            if 🍺.abv >= 0 && 🍺.ibu >= 0 {
+                beerCell.beerMetadataLabel.text = "\(🍺.abv)% ABV\u{2003}\(🍺.ibu) IBU"
+            } else if 🍺.abv >= 0 {
+                beerCell.beerMetadataLabel.text = "\(🍺.abv)% ABV"
+            } else if 🍺.ibu >= 0 {
+                beerCell.beerMetadataLabel.text = "\(🍺.ibu) IBU"
+            } else {
+                beerCell.beerMetadataLabel.text = ""
+            }
 
 			beerCell.limitedReleaseImageView.hidden = (🍺.limitedRelease == false)
 		}

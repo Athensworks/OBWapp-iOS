@@ -71,8 +71,8 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
 
 			detailDescriptionLabel.text = beer.beerDescription
 
-			abvLabel.text = "\(beer.abv)%"
-			ibuLabel.text = String(beer.ibu)
+            abvLabel.text = beer.abv >= 0 ? "\(beer.abv)%" : "Unknown"
+            ibuLabel.text = beer.ibu >= 0 ? String(beer.ibu) : "Unknown"
 
 			tasteCount.text = String(beer.tasteCount)
 			favoriteCount.text = String(beer.favoriteCount)
