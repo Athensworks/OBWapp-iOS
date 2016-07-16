@@ -141,8 +141,7 @@ class BreweryViewController: UITableViewController, NSFetchedResultsControllerDe
 	}
 
 	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-		// Return false if you do not want the specified item to be editable.
-		return true
+		return false
 	}
 
 	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
