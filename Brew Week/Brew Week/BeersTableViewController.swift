@@ -379,7 +379,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
             beer = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
         }
         
-        let clearAction = UITableViewRowAction(style: .Normal, title: "Clear") { action, indexPath in
+        let clearAction = UITableViewRowAction(style: .Normal, title: "Untried") { action, indexPath in
             beer.reacted(0)
             tableView.editing = false
         }
@@ -390,13 +390,13 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
         }
         saveAction.backgroundColor = UIColor(hue: 0.75, saturation: 0.45, brightness: 0.9, alpha: 1)
         
-        let likeAction = UITableViewRowAction(style: .Normal, title: "Like") { action, indexPath in
+        let likeAction = UITableViewRowAction(style: .Normal, title: "Liked") { action, indexPath in
             beer.reacted(2)
             tableView.editing = false
         }
         likeAction.backgroundColor = UIColor(hue: 0.325, saturation: 0.6, brightness: 0.9, alpha: 1)
         
-        let dislikeAction = UITableViewRowAction(style: .Normal, title: "Dislike") { action, indexPath in
+        let dislikeAction = UITableViewRowAction(style: .Normal, title: "Disliked") { action, indexPath in
             beer.reacted(3)
             tableView.editing = false
         }

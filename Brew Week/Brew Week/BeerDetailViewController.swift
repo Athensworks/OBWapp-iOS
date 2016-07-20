@@ -245,7 +245,7 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
         
         alert.addAction(cancelAction)
         
-        let dislikeAction = UIAlertAction(title: "Dislike", style: .Default) { action in
+        let dislikeAction = UIAlertAction(title: "Disliked", style: .Default) { action in
             let expectations = beer.reacted(3)
             self.configureReactionSubview()
             self.tasteCount.text = String(expectations.expectedTasteCount)
@@ -254,7 +254,7 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
         
         alert.addAction(dislikeAction)
         
-        let likeAction = UIAlertAction(title: "Like", style: .Default) { action in
+        let likeAction = UIAlertAction(title: "Liked", style: .Default) { action in
             let expectations = beer.reacted(2)
             self.configureReactionSubview()
             self.tasteCount.text = String(expectations.expectedTasteCount)
@@ -272,7 +272,7 @@ class BeerDetailViewController: UIViewController, ManagedObjectViewController {
         
         alert.addAction(interestedAction)
         
-        let clearAction = UIAlertAction(title: "Not Interested", style: .Default) { action in
+        let clearAction = UIAlertAction(title: "Untried", style: .Default) { action in
             let expectations = beer.reacted(0)
             self.configureReactionSubview()
             self.tasteCount.text = String(expectations.expectedTasteCount)
