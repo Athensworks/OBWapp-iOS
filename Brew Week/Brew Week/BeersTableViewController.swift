@@ -39,6 +39,8 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
         if establishment != nil || brewery != nil {
             navigationItem.leftBarButtonItems = []
         }
