@@ -390,19 +390,19 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
             beer.reacted(1)
             tableView.editing = false
         }
-        saveAction.backgroundColor = UIColor(hue: 0.75, saturation: 0.45, brightness: 0.9, alpha: 1)
+        saveAction.backgroundColor = UIColor(hue: 0.575, saturation: 0.525, brightness: 0.825, alpha: 1)
         
         let likeAction = UITableViewRowAction(style: .Normal, title: "Liked") { action, indexPath in
             beer.reacted(2)
             tableView.editing = false
         }
-        likeAction.backgroundColor = UIColor(hue: 0.325, saturation: 0.6, brightness: 0.9, alpha: 1)
+        likeAction.backgroundColor = UIColor(hue: 0.14, saturation: 0.75, brightness: 0.875, alpha: 1)
         
         let dislikeAction = UITableViewRowAction(style: .Normal, title: "Disliked") { action, indexPath in
             beer.reacted(3)
             tableView.editing = false
         }
-        dislikeAction.backgroundColor = UIColor(hue: 0, saturation: 0.7, brightness: 1, alpha: 1)
+        dislikeAction.backgroundColor = UIColor(hue: 0, saturation: 0.6, brightness: 0.75, alpha: 1)
 
         let actions: [UITableViewRowAction]
         switch beer.drinkerReaction {
