@@ -44,6 +44,10 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
         if establishment != nil || brewery != nil {
             navigationItem.leftBarButtonItems = []
         }
+        
+        if establishment != nil {
+            tableView.reloadData()
+        }
     }
 
 	override func didReceiveMemoryWarning() {
@@ -384,23 +388,35 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
         let clearAction = UITableViewRowAction(style: .Normal, title: "Untried") { action, indexPath in
             beer.reacted(0)
             tableView.editing = false
+            if self.establishment != nil {
+                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            }
         }
 
         let saveAction = UITableViewRowAction(style: .Normal, title: "Interested") { action, indexPath in
             beer.reacted(1)
             tableView.editing = false
+            if self.establishment != nil {
+                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            }
         }
         saveAction.backgroundColor = UIColor(hue: 0.575, saturation: 0.525, brightness: 0.825, alpha: 1)
         
         let likeAction = UITableViewRowAction(style: .Normal, title: "Liked") { action, indexPath in
             beer.reacted(2)
             tableView.editing = false
+            if self.establishment != nil {
+                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            }
         }
         likeAction.backgroundColor = UIColor(hue: 0.14, saturation: 0.75, brightness: 0.875, alpha: 1)
         
         let dislikeAction = UITableViewRowAction(style: .Normal, title: "Disliked") { action, indexPath in
             beer.reacted(3)
             tableView.editing = false
+            if self.establishment != nil {
+                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            }
         }
         dislikeAction.backgroundColor = UIColor(hue: 0, saturation: 0.6, brightness: 0.75, alpha: 1)
 
