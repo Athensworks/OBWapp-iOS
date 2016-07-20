@@ -31,6 +31,9 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         
+        
+        // Request beers
+        
 		Alamofire.request(.GET, Endpoint(path: "beers")).validate().responseJSON { response in
             switch response.result {
             case .Success(let beersJSON as [String: AnyObject]):
@@ -60,7 +63,10 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
                     params["lon"] = location.coordinate.longitude
                 }
                 
-                //, parameters: params, encoding: .JSON
+                
+                // Request establishmets after successful beers response,
+                // as establishments will omit any beers not already in the store
+                
                 Alamofire.request(.GET, Endpoint(path: "establishments"), parameters: params, encoding: .URL).validate().responseJSON { response in
                     switch response.result {
                     case .Success(let value as [String: AnyObject]):
@@ -77,6 +83,21 @@ class EstablishmentViewController: UITableViewController, NSFetchedResultsContro
                 print("Beers response is incorrectly typed")
             }
   		}
+        
+        
+        // Request breweries
+        
+        Alamofire.request(.GET, Endpoint(path: "breweries")).validate().responseJSON { response in
+            switch response.result {
+            case .Success(let breweriesJSON as [String: AnyObject]):
+                Brewery.breweriesFromJSON(breweriesJSON)
+            case .Failure(let error):
+                print("Breweries response is error: \(error)")
+            default:
+                print("Breweries response is incorrectly typed")
+            }
+        }
+
 	}
 
 	override func viewDidAppear(animated: Bool) {
