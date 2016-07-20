@@ -19,6 +19,11 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	var establishment: Establishment? = nil
     var brewery: Brewery? = nil
     var filteredBeers = [Beer]()
+    var sort = SortOrder.Name
+    var sortAscending = true
+    var filter = FilterMode.All
+    var searchText: String?
+    
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -44,6 +49,11 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		// Dispose of any resources that can be recreated.
 	}
 
+    func refreshResults() {
+        _fetchedResultsController = nil
+        tableView.reloadData()
+    }
+    
 	//MARK: - Actions
 
     @IBAction func refreshBeers(sender: UIRefreshControl) {
@@ -164,35 +174,66 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
     {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { action in
             
         }
         
         alert.addAction(cancelAction)
         
-        let sortK = sort[0].key ?? ""
-        let sortAscending = sort[0].ascending
         
-        let sortNameAction = UIAlertAction(title: "Name" + (sortK == "name" ? " Reversed" : ""), style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: "name", ascending: sortK == "name" ? !sortAscending : true)]
+        let sortTitle: (SortOrder, String, String, String) -> String = { order, totality, minimum, maximum in
+            let title: String
+            if self.sort != order {
+                title = totality
+            } else if self.sortAscending {
+                title = "\(maximum) ➙ \(minimum)"
+            } else {
+                title = "\(minimum) ➙ \(maximum)"
+            }
+            return title
+        }
+        
+        
+        // Name
+        
+        let sortNameAction = UIAlertAction(title: sortTitle(.Name, "Name", "A", "Z"), style: .Default) { action in
+            self.sortAscending = self.sort == .Name ? !self.sortAscending : true
+            self.sort = .Name
+            self.refreshResults()
         }
         
         alert.addAction(sortNameAction)
         
-        let sortABVAction = UIAlertAction(title: "Alcohol Content" + (sortK == "abv" ? " Reversed" : ""), style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: "abv", ascending: sortK == "abv" ? !sortAscending : false)]
+        
+        // Alcohol content
+        
+        let sortABVAction = UIAlertAction(title: sortTitle(.AlcoholContent, "Alcohol Content", "Session", "Imperial"), style: .Default) { action in
+            self.sortAscending = self.sort == .AlcoholContent ? !self.sortAscending : false
+            self.sort = .AlcoholContent
+            self.refreshResults()
         }
         
         alert.addAction(sortABVAction)
         
-        let sortIBUAction = UIAlertAction(title: "Bitterness" + (sortK == "ibu" ? " Reversed" : ""), style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: "ibu", ascending: sortK == "ibu" ? !sortAscending : false)]
+        
+        // Bitterness
+        
+        let sortIBUAction = UIAlertAction(title: sortTitle(.Bitterness, "Bitterness", "Malty", "Bitter"), style: .Default) { action in
+            self.sortAscending = self.sort == .Bitterness ? !self.sortAscending : false
+            self.sort = .Bitterness
+            self.refreshResults()
         }
         
         alert.addAction(sortIBUAction)
         
-        let sortPopularityAction = UIAlertAction(title: "Popularity" + (sortK == "favoriteCount" ? " Reversed" : ""), style: .Default) { action in
-            self.sort = [NSSortDescriptor(key: "favoriteCount", ascending: sortK == "favoriteCount" ? !sortAscending : false)]
+        
+        // Popularity
+        
+        let sortPopularityAction = UIAlertAction(title: sortTitle(.Popularity, "Popularity", "Unpopular", "Popular"), style: .Default) { action in
+            self.sortAscending = self.sort == .Popularity ? !self.sortAscending : false
+            self.sort = .Popularity
+            self.refreshResults()
         }
         
         alert.addAction(sortPopularityAction)
@@ -206,35 +247,63 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
     {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { action in
             
         }
         
         alert.addAction(cancelAction)
         
+        
+        // All
+        
         let filterAllAction = UIAlertAction(title: "All", style: .Default) { action in
-            self.filter = nil
+            self.filter = .All
+            self.refreshResults()
         }
         
         alert.addAction(filterAllAction)
         
+        
+        // Interested
+        
         let filterInterestedAction = UIAlertAction(title: "Interested", style: .Default) { action in
-            self.filter = NSPredicate(format: "drinkerReaction == 1")
+            self.filter = .Interested
+            self.refreshResults()
         }
         
         alert.addAction(filterInterestedAction)
         
+        
+        // Liked
+        
         let filterLikedAction = UIAlertAction(title: "Liked", style: .Default) { action in
-            self.filter = NSPredicate(format: "drinkerReaction == 2")
+            self.filter = .Liked
+            self.refreshResults()
         }
         
         alert.addAction(filterLikedAction)
         
+        
+        // Disliked
+        
         let filterDislikedAction = UIAlertAction(title: "Disliked", style: .Default) { action in
-            self.filter = NSPredicate(format: "drinkerReaction == 3")
+            self.filter = .Disliked
+            self.refreshResults()
         }
         
         alert.addAction(filterDislikedAction)
+        
+        
+        // Available
+        
+        let filterAvailableAction = UIAlertAction(title: "Available", style: .Default) { action in
+            self.filter = .Available
+            self.refreshResults()
+        }
+        
+        alert.addAction(filterAvailableAction)
+        
         
         presentViewController(alert, animated: true) {
             
@@ -249,9 +318,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 				if let detailController = (segue.destinationViewController as? BeerDetailViewController) {
 					let 🍺: Beer
 
-                    if filtering {
-                        🍺 = filteredBeers[indexPath.row]
-                    } else if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
+                    if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
 						detailController.status = status
 						🍺 = status.beer
 					} else {
@@ -272,10 +339,6 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if filtering {
-            return filteredBeers.count
-        }
-        
         let sectionInfo = self.fetchedResultsController.sections![section]
 		return sectionInfo.numberOfObjects
 	}
@@ -305,15 +368,12 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 
 	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-		// Return false if you do not want the specified item to be editable.
 		return true
 	}
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let beer: Beer
-        if filtering {
-            beer = filteredBeers[indexPath.row]
-        } else if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
+        if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
             beer = status.beer
         } else {
             beer = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
@@ -361,9 +421,7 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		if let beerCell = cell as? BeerTableViewCell {
 			let 🍺: Beer
 
-            if filtering {
-                🍺 = filteredBeers[indexPath.row]
-            } else if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
+            if let status = fetchedResultsController.objectAtIndexPath(indexPath) as? BeerStatus {
 				🍺 = status.beer
 			} else {
 				🍺 = fetchedResultsController.objectAtIndexPath(indexPath) as! Beer
@@ -415,31 +473,72 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 	    }
 	    
 	    let fetchRequest = NSFetchRequest()
-        fetchRequest.entity = NSEntityDescription.entityForName(establishment != nil ? "BeerStatus" : "Beer", inManagedObjectContext: managedObjectContext!)
-        fetchRequest.predicate = filter
-		fetchRequest.sortDescriptors = sort
+        fetchRequest.entity = NSEntityDescription.entityForName(establishment == nil ? "Beer" : "BeerStatus", inManagedObjectContext: managedObjectContext!)
+        
+        var predicates = [NSPredicate]()
+        
+        let attributePrefix: String
+        if let e = establishment {
+            predicates.append(NSPredicate(format: "establishment == %@", e))
+            attributePrefix = "beer."
+        } else {
+            attributePrefix = ""
+        }
+        
+        if let b = brewery {
+            predicates.append(NSPredicate(format: "brewery == %@", b))
+        }
+        
+        switch filter {
+        case .All:
+            break
+        case .Interested:
+            predicates.append(NSPredicate(format: "\(attributePrefix)drinkerReaction == 1"))
+        case .Liked:
+            predicates.append(NSPredicate(format: "\(attributePrefix)drinkerReaction == 2"))
+        case .Disliked:
+            predicates.append(NSPredicate(format: "\(attributePrefix)drinkerReaction == 3"))
+        case .Available:
+            if establishment != nil {
+                predicates.append(NSPredicate(format: "status LIKE[c] %@", "tapped"))
+            } else {
+                predicates.append(NSPredicate(format: "SUBQUERY(statuses, $status, $status.status LIKE[c] %@).@count > 0", "tapped"))
+            }
+        }
+        
+        if let s = searchText {
+            let searchPredicates = s.componentsSeparatedByString(" ")
+                .filter { $0.isEmpty == false }
+                .map { NSPredicate(format: "\(attributePrefix)name CONTAINS[cd] %@", $0) }
+            
+            if searchPredicates.isEmpty == false {
+                predicates.append(NSCompoundPredicate(andPredicateWithSubpredicates: searchPredicates))
+            }
+        }
+        
+        fetchRequest.predicate = predicates.isEmpty ? nil : NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        
+        var sortDescriptors = [NSSortDescriptor]()
+        
+        if establishment != nil {
+            sortDescriptors.append(NSSortDescriptor(key: "section", ascending: true))
+        }
+        
+        switch sort {
+        case .Name:
+            sortDescriptors.append(NSSortDescriptor(key: "\(attributePrefix)name", ascending: sortAscending))
+        case .AlcoholContent:
+            sortDescriptors.append(NSSortDescriptor(key: "\(attributePrefix)abv", ascending: sortAscending))
+        case .Bitterness:
+            sortDescriptors.append(NSSortDescriptor(key: "\(attributePrefix)ibu", ascending: sortAscending))
+        case .Popularity:
+            sortDescriptors.append(NSSortDescriptor(key: "\(attributePrefix)favoriteCount", ascending: sortAscending))
+        }
+        
+		fetchRequest.sortDescriptors = sortDescriptors
         fetchRequest.fetchBatchSize = 50
 		
-        var sectionNameKeyPath: String? = nil
-
-		if let establishment = establishment {
-			fetchRequest.predicate = NSPredicate(format: "establishment == %@", establishment)
-
-			sectionNameKeyPath = "section"
-			let statusSortDescriptor = NSSortDescriptor(key: sectionNameKeyPath!, ascending: true)
-			//NSSortDescriptor(key: sectionNameKeyPath!, ascending: true)
-
-			let nameSortDescriptor = NSSortDescriptor(key: "beer.name", ascending: true)
-
-			fetchRequest.sortDescriptors = [statusSortDescriptor, nameSortDescriptor]
-            
-        } else if let brewery = brewery {
-            fetchRequest.predicate = NSPredicate(format: "brewery == %@", brewery)
-		}
-        
-	    // Edit the section name key path and cache name if appropriate.
-	    // nil for section name key path means "no sections".
-	    let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: sectionNameKeyPath, cacheName: fetchRequest.entityName)
+	    let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: establishment != nil ? "section" : nil, cacheName: fetchRequest.entityName)
 	    aFetchedResultsController.delegate = self
 	    _fetchedResultsController = aFetchedResultsController
 
@@ -503,56 +602,23 @@ class BeersTableViewController: UITableViewController, NSFetchedResultsControlle
 		return nil
 	}
     
-    // MARK: - Filtering
-    
-    var filtering: Bool {
-        return searchController.active && searchController.searchBar.text != ""
-    }
-    
-    var sort = [NSSortDescriptor(key: "name", ascending: true)] {
-        didSet {
-            fetchAndReload()
-        }
-    }
-    
-    var filter: NSPredicate? {
-        didSet {
-            fetchAndReload()
-        }
-    }
-    
-    func fetchAndReload() {
-        _fetchedResultsController = nil
-        tableView.reloadData()
-    }
-    
-    func filterContentForSearchText(searchText: String) {
-        let substrings = searchText.componentsSeparatedByString(" ")
-            .filter { $0.isEmpty == false }
-            .map { $0.lowercaseString }
-        
-        filteredBeers = fetchedResultsController.fetchedObjects?
-            .flatMap { $0 as? Beer }
-            .filter { beer in
-                let lowercaseName = beer.name.lowercaseString
-                for substring in substrings {
-                    if lowercaseName.containsString(substring) == false {
-                        return false
-                    }
-                }
-                return true
-            }
-            ?? [Beer]()
-        
-        tableView.reloadData()
-    }
-    
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text else {
-            return
-        }
-        
-        filterContentForSearchText(searchText)
+        searchText = searchController.searchBar.text
+        refreshResults()
     }
 }
 
+enum SortOrder {
+    case Name
+    case Popularity
+    case AlcoholContent
+    case Bitterness
+}
+
+enum FilterMode {
+    case All
+    case Interested
+    case Liked
+    case Disliked
+    case Available
+}
